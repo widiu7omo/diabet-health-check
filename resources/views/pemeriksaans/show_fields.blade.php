@@ -9,7 +9,16 @@
     {!! Form::label('tgl_periksa', 'Tgl Periksa:') !!}
     <p>{{ $pemeriksaan->tgl_periksa }}</p>
 </div>
-
+<!-- Dokter Field -->
+<div class="col-sm-12">
+    {!! Form::label('dokter', 'Dokter:') !!}
+    <p>{{ $pemeriksaan->dokter->name }}</p>
+</div>
+<!-- Pasien Field -->
+<div class="col-sm-12">
+    {!! Form::label('pasien', 'Pasien:') !!}
+    <p>{{ $pemeriksaan->pasien->name }}</p>
+</div>
 <!-- Detail Pembahasan Field -->
 <div class="col-sm-12">
     {!! Form::label('detail_pembahasan', 'Detail Pembahasan:') !!}
