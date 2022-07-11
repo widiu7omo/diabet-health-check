@@ -44,11 +44,11 @@ use Spatie\Permission\Traits\HasRoles;
  *      )
  * )
  */
-
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
     use HasRoles;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -78,4 +78,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function pemeriksaans()
+    {
+        return $this->hasMany(Pemeriksaan::class);
+    }
+
+    public function jadwal_checkups()
+    {
+        return $this->hasMany(JadwalCheckup::class);
+    }
 }
