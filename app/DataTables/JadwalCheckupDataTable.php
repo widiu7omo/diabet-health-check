@@ -17,8 +17,13 @@ class JadwalCheckupDataTable extends DataTable
     public function dataTable($query)
     {
         $dataTable = new EloquentDataTable($query);
+        $columns = array_column($this->getColumns(), 'data');
+        return $dataTable->editColumn('dokter', function ($pemeriksaan) {
+            return $pemeriksaan->dokter->name;
+        })->editColumn('pasien', function ($pemeriksaan) {
+            return $pemeriksaan->pasien->name;
+        })->addColumn('action', 'jadwal_checkups.datatables_actions')->rawColumns(array_merge($columns, ['action']));
 
-        return $dataTable->addColumn('action', 'jadwal_checkups.datatables_actions');
     }
 
     /**
@@ -44,10 +49,10 @@ class JadwalCheckupDataTable extends DataTable
             ->minifiedAjax()
             ->addAction(['width' => '120px', 'printable' => false])
             ->parameters([
-                'dom'       => 'Bfrtip',
+                'dom' => 'Bfrtip',
                 'stateSave' => true,
-                'order'     => [[0, 'desc']],
-                'buttons'   => [
+                'order' => [[0, 'desc']],
+                'buttons' => [
                     ['extend' => 'create', 'className' => 'btn btn-default btn-sm no-corner',],
                     ['extend' => 'export', 'className' => 'btn btn-default btn-sm no-corner',],
                     ['extend' => 'print', 'className' => 'btn btn-default btn-sm no-corner',],
@@ -67,7 +72,19 @@ class JadwalCheckupDataTable extends DataTable
         return [
             'checkup',
             'tgl_checkup',
-            'catatan'
+            'catatan',
+            [
+                'data' => 'dokter',
+                'title' => 'Dokter',
+                'orderable' => true, 'searchable' => true,
+
+            ],
+            [
+                'data' => 'pasien',
+                'title' => 'Pasien',
+                'orderable' => true, 'searchable' => true,
+
+            ],
         ];
     }
 

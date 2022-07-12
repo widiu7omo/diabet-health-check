@@ -18,7 +18,7 @@ Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::group(['middleware:auth'], function () {
+Route::group(['middleware'=>'auth:web'], function () {
     Route::resource('roles', App\Http\Controllers\RoleController::class);
     Route::resource('users', App\Http\Controllers\UserController::class);
     Route::resource('jadwalCheckups', App\Http\Controllers\JadwalCheckupController::class);
