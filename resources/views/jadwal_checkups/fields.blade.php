@@ -14,11 +14,13 @@
     {!! Form::label('pasien_id', 'Nama Pasiens:') !!}
     {!! Form::select('pasien_id', $pasiens,$selectedPasiens, ['class' => 'select2 form-control','id'=>"pasien_id",'required'=>'true']) !!}
 </div>
-<!-- Pemeriksaan Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('pemeriksaan_id', 'Hasil Pemeriksaan:') !!}
-    {!! Form::select('pemeriksaan_id', $pemeriksaans,$selectedPemeriksaans, ['class' => 'select2 form-control','id'=>"pemeriksaan_id",'required'=>'true']) !!}
-</div>
+@if(!isset($pemeriksaan))
+    <!-- Pemeriksaan Field -->
+    <div class="form-group col-sm-6">
+        {!! Form::label('pemeriksaan_id', 'Hasil Pemeriksaan:') !!}
+        {!! Form::select('pemeriksaan_id', $pemeriksaans,$selectedPemeriksaans, ['class' => 'select2 form-control','id'=>"pemeriksaan_id",'required'=>'true']) !!}
+    </div>
+@endif
 @role('Admin')
 <!-- Pasiens Field -->
 <div class="form-group col-sm-6">

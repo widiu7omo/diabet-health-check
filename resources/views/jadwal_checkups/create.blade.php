@@ -10,7 +10,46 @@
             </div>
         </div>
     </section>
-
+    @if(isset($pemeriksaan))
+        <div class="content px-3">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Data Pemeriksaan</h4>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td style="width: 10%;">Pemeriksaan</td>
+                            <td style="width: 1%;">:</td>
+                            <td>{{$pemeriksaan->pemeriksaan}}</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 10%;">Tanggal Checkup</td>
+                            <td style="width: 1%;">:</td>
+                            <td>{{$pemeriksaan->tgl_periksa}}</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 10%;">Hasil Diagnosa</td>
+                            <td style="width: 1%;">:</td>
+                            <td>{{$pemeriksaan->hasil_diagnosa}}</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 10%;">Nama Pasien</td>
+                            <td style="width: 1%;">:</td>
+                            <td>{{$pemeriksaan->pasien->name}}</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 10%;">Nama Dokter</td>
+                            <td style="width: 1%;">:</td>
+                            <td>{{$pemeriksaan->dokter->name}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    @endif
     <div class="content px-3">
 
         @include('adminlte-templates::common.errors')

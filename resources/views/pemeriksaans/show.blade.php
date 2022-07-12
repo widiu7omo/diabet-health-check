@@ -23,6 +23,13 @@
                 <div class="row">
                     @include('pemeriksaans.show_fields')
                 </div>
+                <div class="row">
+                    <div class="col-12">
+                        <a class="btn btn-primary" href="{{route('pemeriksaan.jadwalkan',$pemeriksaan->id)}}"><i
+                                class="fa fa-calendar-alt mr-2"></i>Jadwalkan
+                            Checkup</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

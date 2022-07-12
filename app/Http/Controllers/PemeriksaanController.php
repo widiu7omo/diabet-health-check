@@ -177,4 +177,21 @@ class PemeriksaanController extends AppBaseController
 
         return redirect(route('pemeriksaans.index'));
     }
+
+    public function jadwalkan($id)
+    {
+        $pemeriksaan = $this->pemeriksaanRepository->find($id);
+        $pasiens = $this->userRepository->makeModel()->role('Pasien')->get()->pluck('name', 'id');
+        $selectedPasiens = [];
+        $dokters = $this->userRepository->makeModel()->role('Dokter')->get()->pluck('name', 'id');
+        $selectedDokters = [];
+        $selectedStatus = [];
+        return view("jadwal_checkups.create")
+            ->with("pemeriksaan", $pemeriksaan)
+            ->with('pasiens', $pasiens)
+            ->with('selectedPasiens', $selectedPasiens)
+            ->with('dokters', $dokters)
+            ->with('selectedDokters', $selectedDokters)
+            ->with('selectedStatus', $selectedStatus);
+    }
 }
