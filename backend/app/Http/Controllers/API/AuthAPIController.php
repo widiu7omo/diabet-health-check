@@ -53,8 +53,8 @@ class AuthAPIController extends AppBaseController
         return $this->sendResponse(['token' => $token], 'success');
     }
 
-    private function createToken()
+    public function user(Request $request)
     {
-
+        return $this->sendResponse($request->user(), 'success');
     }
 }
