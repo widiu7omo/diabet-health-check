@@ -23,6 +23,16 @@
                 <div class="row">
                     @include('jadwal_checkups.show_fields')
                 </div>
+                <div class="row">
+                    <div class="col-md-6 mt-2">
+                        <a href="{{ route('jadwalCheckups.obat',$jadwalCheckup->id) }}"
+                           class="btn btn-block btn-danger"><i class="fa fa-capsules"></i> Berikan Obat</a>
+                    </div>
+                    <div class="col-md-6 mt-2">
+                        <a href="{{ route('jadwalCheckups.makan',$jadwalCheckup->id) }}"
+                           class="btn btn-block btn-primary"><i class="fa fa-cookie-bite"></i> Anjuran Pola Makan</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

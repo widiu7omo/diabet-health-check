@@ -14,7 +14,11 @@
     {!! Form::label('pasien_id', 'Nama Pasiens:') !!}
     {!! Form::select('pasien_id', $pasiens,$selectedPasiens, ['class' => 'select2 form-control','id'=>"pasien_id",'required'=>'true']) !!}
 </div>
-
+<!-- Pemeriksaan Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('pemeriksaan_id', 'Hasil Pemeriksaan:') !!}
+    {!! Form::select('pemeriksaan_id', $pemeriksaans,$selectedPemeriksaans, ['class' => 'select2 form-control','id'=>"pemeriksaan_id",'required'=>'true']) !!}
+</div>
 @role('Admin')
 <!-- Pasiens Field -->
 <div class="form-group col-sm-6">
@@ -37,7 +41,11 @@
     {!! Form::label('lokasi', 'Lokasi:') !!}
     {!! Form::text('lokasi', null, ['class' => 'form-control']) !!}
 </div>
-
+<!-- Status Field -->
+<div class="form-group col-sm-12 col-lg-12">
+    {!! Form::label('status', 'Status Checkup:') !!}
+    {!! Form::select('status', ['dijadwalkan'=>'dijadwalkan', 'selesai'=>'selesai', 'terlewat'=>'terlewat'],$selectedStatus, ['class' => 'form-control','placeholder'=>'Pilih status Checkup']) !!}
+</div>
 <!-- Catatan Field -->
 <div class="form-group col-sm-12 col-lg-12">
     {!! Form::label('catatan', 'Catatan:') !!}

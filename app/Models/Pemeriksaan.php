@@ -130,6 +130,11 @@ class Pemeriksaan extends Model
         return $this->belongsTo(User::class, 'pasien_id');
     }
 
+    public function jadwal_checkups()
+    {
+        return $this->hasMany(JadwalCheckup::class);
+    }
+
     public function pola_makans()
     {
         return $this->hasMany(PolaMakan::class);

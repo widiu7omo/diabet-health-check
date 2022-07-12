@@ -10,7 +10,46 @@
             </div>
         </div>
     </section>
-
+    @if(isset($jadwalCheckup))
+        <div class="content px-3">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Data Checkup</h4>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td style="width: 10%;">Checkup</td>
+                            <td style="width: 1%;">:</td>
+                            <td>{{$jadwalCheckup->checkup}}</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 10%;">Tanggal Checkup</td>
+                            <td style="width: 1%;">:</td>
+                            <td>{{$jadwalCheckup->tgl_checkup}}</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 10%;">Lokasi</td>
+                            <td style="width: 1%;">:</td>
+                            <td>{{$jadwalCheckup->lokasi}}</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 10%;">Nama Pasien</td>
+                            <td style="width: 1%;">:</td>
+                            <td>{{$jadwalCheckup->pasien->name}}</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 10%;">Nama Dokter</td>
+                            <td style="width: 1%;">:</td>
+                            <td>{{$jadwalCheckup->dokter->name}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    @endif
     <div class="content px-3">
 
         @include('adminlte-templates::common.errors')
@@ -18,7 +57,9 @@
         <div class="card">
 
             {!! Form::open(['route' => 'polaObats.store']) !!}
-
+            <div class="card-header">
+                <h4>Pemberian Obat</h4>
+            </div>
             <div class="card-body">
 
                 <div class="row">

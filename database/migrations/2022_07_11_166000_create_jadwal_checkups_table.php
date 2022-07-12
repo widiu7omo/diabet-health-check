@@ -22,8 +22,10 @@ class CreateJadwalCheckupsTable extends Migration
             $table->longText('catatan');
             $table->unsignedBigInteger('dokter_id')->nullable();
             $table->unsignedBigInteger('pasien_id')->nullable();
+            $table->unsignedBigInteger('pemeriksaan_id')->nullable();
             $table->foreign('dokter_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('pasien_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('pemeriksaan_id')->references('id')->on('pemeriksaans')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

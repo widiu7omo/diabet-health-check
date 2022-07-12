@@ -7,6 +7,7 @@ use App\Http\Requests;
 use App\Http\Requests\CreateJadwalCheckupRequest;
 use App\Http\Requests\UpdateJadwalCheckupRequest;
 use App\Repositories\JadwalCheckupRepository;
+use App\Repositories\PemeriksaanRepository;
 use App\Repositories\UserRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
@@ -19,11 +20,14 @@ class JadwalCheckupController extends AppBaseController
 {
     /** @var JadwalCheckupRepository $jadwalCheckupRepository */
     private $jadwalCheckupRepository;
+    private $pemeriksaanRepository;
+    private $userRepository;
 
-    public function __construct(JadwalCheckupRepository $jadwalCheckupRepo, UserRepository $userRepository)
+    public function __construct(JadwalCheckupRepository $jadwalCheckupRepo, UserRepository $userRepository, PemeriksaanRepository $pemeriksaanRepository)
     {
         $this->jadwalCheckupRepository = $jadwalCheckupRepo;
         $this->userRepository = $userRepository;
+        $this->pemeriksaanRepository = $pemeriksaanRepository;
     }
 
     /**
@@ -50,10 +54,16 @@ class JadwalCheckupController extends AppBaseController
         $selectedPasiens = [];
         $dokters = $this->userRepository->makeModel()->role('Dokter')->get()->pluck('name', 'id');
         $selectedDokters = [];
-        return view('jadwal_checkups.create')->with('pasiens', $pasiens)
+        $pemeriksaans = $this->pemeriksaanRepository->all()->pluck('pemeriksaan', 'id');
+        $selectedPemeriksaans = [];
+        $selectedStatus = [];
+        return view('jadwal_checkups.create')
+            ->with('pasiens', $pasiens)
             ->with('selectedPasiens', $selectedPasiens)
+            ->with('pemeriksaans', $pemeriksaans)
+            ->with('selectedPemeriksaans', $selectedPemeriksaans)
             ->with('dokters', $dokters)
-            ->with('selectedDokters', $selectedDokters);
+            ->with('selectedDokters', $selectedDokters)->with('selectedStatus', $selectedStatus);
     }
 
     /**
@@ -110,6 +120,9 @@ class JadwalCheckupController extends AppBaseController
         $selectedPasiens = [];
         $dokters = $this->userRepository->makeModel()->role('Dokter')->get()->pluck('name', 'id');
         $selectedDokters = [];
+        $pemeriksaans = $this->pemeriksaanRepository->all()->pluck('pemeriksaan', 'id');
+        $selectedPemeriksaans = [];
+        $selectedStatus = [$jadwalCheckup->status];
         if (empty($jadwalCheckup)) {
             Flash::error('Jadwal Checkup not found');
 
@@ -120,8 +133,11 @@ class JadwalCheckupController extends AppBaseController
             ->with('jadwalCheckup', $jadwalCheckup)
             ->with('pasiens', $pasiens)
             ->with('selectedPasiens', $selectedPasiens)
+            ->with('pemeriksaans', $pemeriksaans)
+            ->with('selectedPemeriksaans', $selectedPemeriksaans)
             ->with('dokters', $dokters)
-            ->with('selectedDokters', $selectedDokters);
+            ->with('selectedDokters', $selectedDokters)
+            ->with('selectedStatus', $selectedStatus);
     }
 
     /**
@@ -174,5 +190,17 @@ class JadwalCheckupController extends AppBaseController
         Flash::success('Jadwal Checkup deleted successfully.');
 
         return redirect(route('jadwalCheckups.index'));
+    }
+
+    public function makan($id)
+    {
+        $jadwalCheckup = $this->jadwalCheckupRepository->find($id);
+        return view('pola_makans.create')->with('jadwalCheckup', $jadwalCheckup);
+    }
+
+    public function obat($id)
+    {
+        $jadwalCheckup = $this->jadwalCheckupRepository->find($id);
+        return view('pola_obats.create')->with('jadwalCheckup', $jadwalCheckup);
     }
 }

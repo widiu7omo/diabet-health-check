@@ -5,6 +5,8 @@ namespace App\DataTables;
 use App\Models\JadwalCheckup;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
+use function PHPUnit\Framework\isEmpty;
+use function PHPUnit\Framework\isNull;
 
 class JadwalCheckupDataTable extends DataTable
 {
@@ -18,11 +20,23 @@ class JadwalCheckupDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
         $columns = array_column($this->getColumns(), 'data');
-        return $dataTable->editColumn('dokter', function ($pemeriksaan) {
-            return $pemeriksaan->dokter->name;
-        })->editColumn('pasien', function ($pemeriksaan) {
-            return $pemeriksaan->pasien->name;
-        })->addColumn('action', 'jadwal_checkups.datatables_actions')->rawColumns(array_merge($columns, ['action']));
+        return $dataTable
+            ->editColumn('catatan', function ($jadwalCheckup) {
+                return $jadwalCheckup->catatan == null ? "Belum ada catatan" : $jadwalCheckup->catatan;
+            })->editColumn('dokter', function ($jadwalCheckup) {
+                return $jadwalCheckup->dokter->name;
+            })->editColumn('pasien', function ($jadwalCheckup) {
+                return $jadwalCheckup->pasien->name;
+            })->editColumn('status', function ($jadwalCheckup) {
+                if ($jadwalCheckup->status == "dijadwalkan") {
+                    $classStatus = "warning";
+                } else if ($jadwalCheckup->status == "terlewat") {
+                    $classStatus = "danger";
+                } else {
+                    $classStatus = "success";
+                }
+                return "<span class='badge badge-$classStatus'>$jadwalCheckup->status</span>";
+            })->addColumn('action', 'jadwal_checkups.datatables_actions')->rawColumns(array_merge($columns, ['action']))->escapeColumns('status');
 
     }
 
@@ -72,19 +86,20 @@ class JadwalCheckupDataTable extends DataTable
         return [
             'checkup',
             'tgl_checkup',
-            'catatan',
+            'status',
             [
                 'data' => 'dokter',
                 'title' => 'Dokter',
-                'orderable' => true, 'searchable' => true,
+                'orderable' => false, 'searchable' => false,
 
             ],
             [
                 'data' => 'pasien',
                 'title' => 'Pasien',
-                'orderable' => true, 'searchable' => true,
+                'orderable' => false, 'searchable' => false,
 
             ],
+            'catatan',
         ];
     }
 

@@ -92,6 +92,8 @@ class JadwalCheckup extends Model
         'catatan',
         'dokter_id',
         'pasien_id',
+        'pemeriksaan_id',
+        'status'
     ];
 
     /**
@@ -105,7 +107,9 @@ class JadwalCheckup extends Model
         'tgl_checkup' => 'datetime',
         'lokasi' => 'string',
         'dokter_id' => 'integer',
-        'pasien_id' => 'integer'
+        'pasien_id' => 'integer',
+        'pemeriksaan_id' => 'integer',
+        'status' => 'string'
     ];
 
     /**
@@ -117,8 +121,12 @@ class JadwalCheckup extends Model
         'checkup' => 'required',
         'tgl_checkup' => 'required',
         'lokasi' => 'required',
-        'catatan' => 'required'
     ];
+
+    public function pemeriksaan()
+    {
+        return $this->belongsTo(Pemeriksaan::class, 'pemeriksaan_id');
+    }
 
     public function dokter()
     {

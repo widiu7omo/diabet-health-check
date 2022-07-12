@@ -76,13 +76,13 @@ class PemeriksaanDataTable extends DataTable
             [
                 'data' => 'dokter',
                 'title' => 'Dokter',
-                'orderable' => true, 'searchable' => true,
+                'orderable' => false, 'searchable' => false,
 
             ],
             [
                 'data' => 'pasien',
                 'title' => 'Pasien',
-                'orderable' => true, 'searchable' => true,
+                'orderable' => false, 'searchable' => false,
 
             ],
         ];
