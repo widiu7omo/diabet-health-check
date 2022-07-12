@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Response;
  * Class PolaMakanController
  * @package App\Http\Controllers\API
  */
-
 class PolaMakanAPIController extends AppBaseController
 {
     /** @var  PolaMakanRepository */

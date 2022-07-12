@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Carbon;
 use OpenApi\Annotations as OA;
 
 /**
@@ -86,6 +87,12 @@ class JadwalCheckup extends Model
      *
      * @var array
      */
+    public function getTglCheckupAttribute($value)
+    {
+        return Carbon::createFromFormat('Y-m-d H:i:s', $value)->translatedFormat('l, d-m-Y H:i');
+
+    }
+
     protected $casts = [
         'id' => 'integer',
         'checkup' => 'string',

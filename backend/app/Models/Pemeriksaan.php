@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Carbon;
 use OpenApi\Annotations as OA;
 
 /**
@@ -78,6 +79,12 @@ class Pemeriksaan extends Model
         'dokter_id',
         'pasien_id',
     ];
+
+    public function getTglPeriksaAttribute($value)
+    {
+        return Carbon::createFromFormat('Y-m-d H:i:s', $value)->translatedFormat('l, d-m-Y H:i');
+
+    }
 
     /**
      * The attributes that should be casted to native types.

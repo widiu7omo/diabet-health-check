@@ -9,8 +9,7 @@ use App\Repositories\BaseRepository;
  * Class PolaMakanRepository
  * @package App\Repositories
  * @version July 11, 2022, 5:00 pm UTC
-*/
-
+ */
 class PolaMakanRepository extends BaseRepository
 {
     /**
@@ -18,7 +17,10 @@ class PolaMakanRepository extends BaseRepository
      */
     protected $fieldSearchable = [
         'category',
-        'dilarang'
+        'dilarang',
+        'dianjurkan',
+        'jadwal_id',
+        'pemeriksaan_id'
     ];
 
     /**

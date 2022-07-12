@@ -9,8 +9,7 @@ use App\Repositories\BaseRepository;
  * Class PemeriksaanRepository
  * @package App\Repositories
  * @version July 11, 2022, 4:59 pm UTC
-*/
-
+ */
 class PemeriksaanRepository extends BaseRepository
 {
     /**
@@ -19,7 +18,11 @@ class PemeriksaanRepository extends BaseRepository
     protected $fieldSearchable = [
         'pemeriksaan',
         'tgl_periksa',
-        'hasil_diagnosa'
+        'hasil_diagnosa',
+        'detail_pembahasan',
+        'hasil_diagnosa',
+        'pasien_id',
+        'dokter_id'
     ];
 
     /**

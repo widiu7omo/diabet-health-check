@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Response;
  * Class PolaObatController
  * @package App\Http\Controllers\API
  */
-
 class PolaObatAPIController extends AppBaseController
 {
     /** @var  PolaObatRepository */
@@ -28,7 +27,7 @@ class PolaObatAPIController extends AppBaseController
 
     /**
      * @param Request $request
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      *
      * @OA\Get(
      *      path="/polaObats",

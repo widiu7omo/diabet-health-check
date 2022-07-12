@@ -47,7 +47,9 @@ class AuthAPIController extends AppBaseController
             'password' => 'required',
             'device_name' => 'required',
         ]);
-        $user = $this->userRepository->create($request->all());
+        $input = $request->all();
+        $input['password'] = bcrypt($input['password']);
+        $user = $this->userRepository->create($input);
         $user->syncRoles('Pasien');
         $token = $user->createToken($request->device_name)->plainTextToken;
         return $this->sendResponse(['token' => $token], 'success');

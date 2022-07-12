@@ -6,6 +6,7 @@ use App\Http\Requests\API\CreateJadwalCheckupAPIRequest;
 use App\Http\Requests\API\UpdateJadwalCheckupAPIRequest;
 use App\Models\JadwalCheckup;
 use App\Repositories\JadwalCheckupRepository;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use OpenApi\Annotations as OA;
@@ -15,7 +16,6 @@ use Illuminate\Support\Facades\Response;
  * Class JadwalCheckupController
  * @package App\Http\Controllers\API
  */
-
 class JadwalCheckupAPIController extends AppBaseController
 {
     /** @var  JadwalCheckupRepository */
@@ -28,7 +28,7 @@ class JadwalCheckupAPIController extends AppBaseController
 
     /**
      * @param Request $request
-     * @return Response
+     * @return JsonResponse
      *
      * @OA\Get(
      *      path="/jadwalCheckups",
@@ -60,7 +60,7 @@ class JadwalCheckupAPIController extends AppBaseController
     public function index(Request $request)
     {
         $jadwalCheckups = $this->jadwalCheckupRepository->all(
-            $request->except(['skip', 'limit']),
+            array_merge($request->except(['skip', 'limit']), ['pasien_id' => $request->user()->id]),
             $request->get('skip'),
             $request->get('limit')
         );
@@ -69,8 +69,8 @@ class JadwalCheckupAPIController extends AppBaseController
     }
 
     /**
-     * @param Request $request
-     * @return Response
+     * @param CreateJadwalCheckupAPIRequest $request
+     * @return JsonResponse
      *
      * @OA\Post(
      *      path="/jadwalCheckups",
@@ -124,7 +124,7 @@ class JadwalCheckupAPIController extends AppBaseController
 
     /**
      * @param int $id
-     * @return Response
+     * @return JsonResponse
      *
      * @OA\Get(
      *      path="/jadwalCheckups/{id}",
@@ -176,7 +176,7 @@ class JadwalCheckupAPIController extends AppBaseController
     /**
      * @param int $id
      * @param Request $request
-     * @return Response
+     * @return JsonResponse
      *
      * @OA\Put(
      *      path="/jadwalCheckups/{id}",
@@ -246,7 +246,7 @@ class JadwalCheckupAPIController extends AppBaseController
 
     /**
      * @param int $id
-     * @return Response
+     * @return JsonResponse
      *
      * @OA\Delete(
      *      path="/jadwalCheckups/{id}",

@@ -28,7 +28,7 @@ class PemeriksaanAPIController extends AppBaseController
 
     /**
      * @param Request $request
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      *
      * @OA\Get(
      *      path="/pemeriksaans",
@@ -60,7 +60,7 @@ class PemeriksaanAPIController extends AppBaseController
     public function index(Request $request)
     {
         $pemeriksaans = $this->pemeriksaanRepository->all(
-            $request->except(['skip', 'limit']),
+            array_merge($request->except(['skip', 'limit']), ['pasien_id' => $request->user()->id]),
             $request->get('skip'),
             $request->get('limit')
         );

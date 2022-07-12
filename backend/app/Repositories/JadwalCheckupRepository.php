@@ -9,8 +9,7 @@ use App\Repositories\BaseRepository;
  * Class JadwalCheckupRepository
  * @package App\Repositories
  * @version July 11, 2022, 4:59 pm UTC
-*/
-
+ */
 class JadwalCheckupRepository extends BaseRepository
 {
     /**
@@ -19,7 +18,11 @@ class JadwalCheckupRepository extends BaseRepository
     protected $fieldSearchable = [
         'checkup',
         'tgl_checkup',
-        'catatan'
+        'catatan',
+        'pasien_id',
+        'dokter_id',
+        'pemeriksaan_id',
+        'lokasi'
     ];
 
     /**
