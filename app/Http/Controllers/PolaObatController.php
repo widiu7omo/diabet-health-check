@@ -14,6 +14,8 @@ use App\Http\Controllers\AppBaseController;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Redirector;
 use Response;
 
 class PolaObatController extends AppBaseController
@@ -56,8 +58,8 @@ class PolaObatController extends AppBaseController
         return view('pola_obats.create')
             ->with('pemeriksaans', $pemeriksaans)
             ->with('selectedPemeriksaan', $selectedPemeriksaan)
-            ->with('$jadwals', $jadwals)
-            ->with('$selectedJadwal', $selectedJadwal);
+            ->with('jadwals', $jadwals)
+            ->with('selectedJadwal', $selectedJadwal);
     }
 
     /**
@@ -103,19 +105,27 @@ class PolaObatController extends AppBaseController
      *
      * @param int $id
      *
-     * @return Response
+     * @return Application|Factory|View|Response
      */
     public function edit($id)
     {
         $polaObat = $this->polaObatRepository->find($id);
-
+        $pemeriksaans = $this->pemeriksaanRepository->all()->pluck('pemeriksaan', 'id');
+        $selectedPemeriksaan = [$polaObat->pemeriksaan->id];
+        $jadwals = $this->jadwalCheckupRepository->all()->pluck('checkup', 'id');
+        $selectedJadwal = [$polaObat->jadwal_checkup->id];
         if (empty($polaObat)) {
             Flash::error('Pola Obat not found');
 
             return redirect(route('polaObats.index'));
         }
 
-        return view('pola_obats.edit')->with('polaObat', $polaObat);
+        return view('pola_obats.edit')
+            ->with('polaObat', $polaObat)
+            ->with('pemeriksaans', $pemeriksaans)
+            ->with('selectedPemeriksaan', $selectedPemeriksaan)
+            ->with('jadwals', $jadwals)
+            ->with('selectedJadwal', $selectedJadwal);
     }
 
     /**
@@ -124,7 +134,7 @@ class PolaObatController extends AppBaseController
      * @param int $id
      * @param UpdatePolaObatRequest $request
      *
-     * @return Response
+     * @return Application|Redirector|RedirectResponse
      */
     public function update($id, UpdatePolaObatRequest $request)
     {

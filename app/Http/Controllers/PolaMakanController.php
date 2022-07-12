@@ -49,16 +49,16 @@ class PolaMakanController extends AppBaseController
      */
     public function create()
     {
-        $pemeriksaans = $this->pemeriksaanRepository->all()->pluck('id', 'pemeriksaan');
+        $pemeriksaans = $this->pemeriksaanRepository->all()->pluck('pemeriksaan', 'id');
         $selectedPemeriksaan = [];
-        $jadwals = $this->jadwalCheckupRepository->all()->pluck('id', 'checkup');
+        $jadwals = $this->jadwalCheckupRepository->all()->pluck('checkup', 'id');
         $selectedJadwal = [];
         return
             view('pola_makans.create')
                 ->with('pemeriksaans', $pemeriksaans)
                 ->with('selectedPemeriksaan', $selectedPemeriksaan)
-                ->with('$jadwals', $jadwals)
-                ->with('$selectedJadwal', $selectedJadwal);
+                ->with('jadwals', $jadwals)
+                ->with('selectedJadwal', $selectedJadwal);
     }
 
     /**
@@ -104,19 +104,27 @@ class PolaMakanController extends AppBaseController
      *
      * @param int $id
      *
-     * @return Response
+     * @return Application|Factory|View
      */
     public function edit($id)
     {
         $polaMakan = $this->polaMakanRepository->find($id);
-
+        $pemeriksaans = $this->pemeriksaanRepository->all()->pluck('pemeriksaan', 'id');
+        $selectedPemeriksaan = [$polaMakan->pemeriksaan->id];
+        $jadwals = $this->jadwalCheckupRepository->all()->pluck('checkup', 'id');
+        $selectedJadwal = [$polaMakan->jadwal_checkup->id];
         if (empty($polaMakan)) {
             Flash::error('Pola Makan not found');
 
             return redirect(route('polaMakans.index'));
         }
 
-        return view('pola_makans.edit')->with('polaMakan', $polaMakan);
+        return view('pola_makans.edit')
+            ->with('polaMakan', $polaMakan)
+            ->with('pemeriksaans', $pemeriksaans)
+            ->with('selectedPemeriksaan', $selectedPemeriksaan)
+            ->with('jadwals', $jadwals)
+            ->with('selectedJadwal', $selectedJadwal);
     }
 
     /**
