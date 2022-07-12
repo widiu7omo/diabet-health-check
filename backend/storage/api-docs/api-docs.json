@@ -4,7 +4,7 @@
         "title": "Returns Services API",
         "description": "API documentation for Returns Service App",
         "contact": {
-            "email": "sushil@stepfront.com"
+            "email": "admin@adm.com"
         },
         "version": "1.0.0"
     },
@@ -15,9 +15,917 @@
         }
     ],
     "paths": {
-        "/": {}
+        "/": {},
+        "/jadwalCheckups": {
+            "get": {
+                "tags": [
+                    "JadwalCheckup"
+                ],
+                "summary": "getJadwalCheckupList",
+                "description": "Get all JadwalCheckups",
+                "operationId": "f73baa87ee44e2fa72f7343c328e1d93",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "JadwalCheckup"
+                ],
+                "summary": "createJadwalCheckup",
+                "description": "Create JadwalCheckup",
+                "operationId": "434aa99fd250bd1051eecee384c955cf",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    ""
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "description": "desc",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/jadwalCheckups/{id}": {
+            "get": {
+                "tags": [
+                    "JadwalCheckup"
+                ],
+                "summary": "getJadwalCheckupItem",
+                "description": "Get JadwalCheckup",
+                "operationId": "8aa5f816495ee28ed9b7e9a584a788b0",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of JadwalCheckup",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "JadwalCheckup"
+                ],
+                "summary": "updateJadwalCheckup",
+                "description": "Update JadwalCheckup",
+                "operationId": "40cad71d552891430590e738210487e5",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of JadwalCheckup",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    ""
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "description": "desc",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "JadwalCheckup"
+                ],
+                "summary": "deleteJadwalCheckup",
+                "description": "Delete JadwalCheckup",
+                "operationId": "992ea2e7ee9f2c958f0e49f602e4cab1",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of JadwalCheckup",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/pemeriksaans": {
+            "get": {
+                "tags": [
+                    "Pemeriksaan"
+                ],
+                "summary": "getPemeriksaanList",
+                "description": "Get all Pemeriksaans",
+                "operationId": "561a9cd31418a0cb78b6feddc8717d9d",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Pemeriksaan"
+                ],
+                "summary": "createPemeriksaan",
+                "description": "Create Pemeriksaan",
+                "operationId": "d0c10f16dfb3699fd4a840a2e1e9e241",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    ""
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "description": "desc",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/pemeriksaans/{id}": {
+            "get": {
+                "tags": [
+                    "Pemeriksaan"
+                ],
+                "summary": "getPemeriksaanItem",
+                "description": "Get Pemeriksaan",
+                "operationId": "25549947a4b73e9de93ae518e557b6c9",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Pemeriksaan",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Pemeriksaan"
+                ],
+                "summary": "updatePemeriksaan",
+                "description": "Update Pemeriksaan",
+                "operationId": "0dd28a9bd2f0275cd5882042f3d1fa6b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Pemeriksaan",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    ""
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "description": "desc",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Pemeriksaan"
+                ],
+                "summary": "deletePemeriksaan",
+                "description": "Delete Pemeriksaan",
+                "operationId": "9449c7eaa7117aa091a382f11cc69189",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Pemeriksaan",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/polaMakans": {
+            "get": {
+                "tags": [
+                    "PolaMakan"
+                ],
+                "summary": "getPolaMakanList",
+                "description": "Get all PolaMakans",
+                "operationId": "8cd37763e58b5da6bff16131d5b827dc",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "PolaMakan"
+                ],
+                "summary": "createPolaMakan",
+                "description": "Create PolaMakan",
+                "operationId": "a6c026868bd24038d3197547ae35ab99",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    ""
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "description": "desc",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/polaMakans/{id}": {
+            "get": {
+                "tags": [
+                    "PolaMakan"
+                ],
+                "summary": "getPolaMakanItem",
+                "description": "Get PolaMakan",
+                "operationId": "ab96e237f682ee1de6f4eb42c7568cab",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of PolaMakan",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "PolaMakan"
+                ],
+                "summary": "updatePolaMakan",
+                "description": "Update PolaMakan",
+                "operationId": "f7f85fcef00533ccb54292926d6b8e66",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of PolaMakan",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    ""
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "description": "desc",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "PolaMakan"
+                ],
+                "summary": "deletePolaMakan",
+                "description": "Delete PolaMakan",
+                "operationId": "199f774a838beb459c95630c1e590a13",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of PolaMakan",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/polaObats": {
+            "get": {
+                "tags": [
+                    "PolaObat"
+                ],
+                "summary": "getPolaObatList",
+                "description": "Get all PolaObats",
+                "operationId": "abff72e7c87b3774c4a93467b4969ce0",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "PolaObat"
+                ],
+                "summary": "createPolaObat",
+                "description": "Create PolaObat",
+                "operationId": "dbadcd5249dd7b708a8e83a500a89d00",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    ""
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "description": "desc",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/polaObats/{id}": {
+            "get": {
+                "tags": [
+                    "PolaObat"
+                ],
+                "summary": "getPolaObatItem",
+                "description": "Get PolaObat",
+                "operationId": "8fa50fa7a77bee27ba50064efa50707b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of PolaObat",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "PolaObat"
+                ],
+                "summary": "updatePolaObat",
+                "description": "Update PolaObat",
+                "operationId": "3622d4c72468a6edc011948bf0504c23",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of PolaObat",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    ""
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "description": "desc",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "PolaObat"
+                ],
+                "summary": "deletePolaObat",
+                "description": "Delete PolaObat",
+                "operationId": "b745eaa95dce41c61d468a5983618a42",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of PolaObat",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/users": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "getUserList",
+                "description": "Get all Users",
+                "operationId": "1df092f5eddb2e29c3c5aa8043dd6d44",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "createUser",
+                "description": "Create User",
+                "operationId": "3465c05467f56755d8fde6dfe336f784",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    ""
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "description": "desc",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/users/{id}": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "getUserItem",
+                "description": "Get User",
+                "operationId": "ca775ff26d0144e4b01abbd8c926f7c3",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of User",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "updateUser",
+                "description": "Update User",
+                "operationId": "acefdff5c10ad10456b5e12506f8ab63",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of User",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    ""
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "description": "desc",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "deleteUser",
+                "description": "Delete User",
+                "operationId": "b3671c968c691df9358298f3a285c767",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of User",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        }
     },
-    "security": [
-        []
-    ]
+    "components": {
+        "schemas": {
+            "JadwalCheckup": {
+                "required": [
+                    "checkup",
+                    "tgl_checkup",
+                    "lokasi",
+                    "catatan"
+                ],
+                "properties": {
+                    "id": {
+                        "description": "id",
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "checkup": {
+                        "description": "checkup",
+                        "type": "string"
+                    },
+                    "tgl_checkup": {
+                        "description": "tgl_checkup",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "lokasi": {
+                        "description": "lokasi",
+                        "type": "string"
+                    },
+                    "catatan": {
+                        "description": "catatan",
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "description": "created_at",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "description": "updated_at",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "deleted_at": {
+                        "description": "deleted_at",
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
+            "Pemeriksaan": {
+                "required": [
+                    "pemeriksaan",
+                    "tgl_periksa",
+                    "detail_pembahasan",
+                    "hasil_diagnosa"
+                ],
+                "properties": {
+                    "id": {
+                        "description": "id",
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "pemeriksaan": {
+                        "description": "pemeriksaan",
+                        "type": "string"
+                    },
+                    "tgl_periksa": {
+                        "description": "tgl_periksa",
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "detail_pembahasan": {
+                        "description": "detail_pembahasan",
+                        "type": "string"
+                    },
+                    "hasil_diagnosa": {
+                        "description": "hasil_diagnosa",
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "description": "created_at",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "description": "updated_at",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "deleted_at": {
+                        "description": "deleted_at",
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
+            "PolaMakan": {
+                "required": [
+                    "category",
+                    "dilarang",
+                    "dianjurkan"
+                ],
+                "properties": {
+                    "id": {
+                        "description": "id",
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "category": {
+                        "description": "category",
+                        "type": "string"
+                    },
+                    "dilarang": {
+                        "description": "dilarang",
+                        "type": "string"
+                    },
+                    "dianjurkan": {
+                        "description": "dianjurkan",
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "description": "created_at",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "description": "updated_at",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "deleted_at": {
+                        "description": "deleted_at",
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
+            "PolaObat": {
+                "required": [
+                    "obat",
+                    "jumlah",
+                    "anjuran"
+                ],
+                "properties": {
+                    "id": {
+                        "description": "id",
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "obat": {
+                        "description": "obat",
+                        "type": "string"
+                    },
+                    "jumlah": {
+                        "description": "jumlah",
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "anjuran": {
+                        "description": "anjuran",
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "description": "created_at",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "description": "updated_at",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "deleted_at": {
+                        "description": "deleted_at",
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
+            "User": {
+                "required": [
+                    "name",
+                    "email"
+                ],
+                "properties": {
+                    "id": {
+                        "description": "id",
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "name": {
+                        "description": "name",
+                        "type": "string"
+                    },
+                    "email": {
+                        "description": "email",
+                        "type": "string"
+                    },
+                    "password": {
+                        "description": "password",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    }
 }

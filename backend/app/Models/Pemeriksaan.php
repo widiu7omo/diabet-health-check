@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use OpenApi\Annotations as OA;
 
 /**
  * @OA\Schema(
@@ -13,61 +14,45 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *      @OA\Property(
  *          property="id",
  *          description="id",
- *          readOnly=$FIELD_READ_ONLY$,
- *          nullable=$FIELD_NULLABLE$,
  *          type="integer",
  *          format="int32"
  *      ),
  *      @OA\Property(
  *          property="pemeriksaan",
  *          description="pemeriksaan",
- *          readOnly=$FIELD_READ_ONLY$,
- *          nullable=$FIELD_NULLABLE$,
  *          type="string"
  *      ),
  *      @OA\Property(
  *          property="tgl_periksa",
  *          description="tgl_periksa",
- *          readOnly=$FIELD_READ_ONLY$,
- *          nullable=$FIELD_NULLABLE$,
  *          type="string",
  *          format="date"
  *      ),
  *      @OA\Property(
  *          property="detail_pembahasan",
  *          description="detail_pembahasan",
- *          readOnly=$FIELD_READ_ONLY$,
- *          nullable=$FIELD_NULLABLE$,
  *          type="string"
  *      ),
  *      @OA\Property(
  *          property="hasil_diagnosa",
  *          description="hasil_diagnosa",
- *          readOnly=$FIELD_READ_ONLY$,
- *          nullable=$FIELD_NULLABLE$,
  *          type="string"
  *      ),
  *      @OA\Property(
  *          property="created_at",
  *          description="created_at",
- *          readOnly=$FIELD_READ_ONLY$,
- *          nullable=$FIELD_NULLABLE$,
  *          type="string",
  *          format="date-time"
  *      ),
  *      @OA\Property(
  *          property="updated_at",
  *          description="updated_at",
- *          readOnly=$FIELD_READ_ONLY$,
- *          nullable=$FIELD_NULLABLE$,
  *          type="string",
  *          format="date-time"
  *      ),
  *      @OA\Property(
  *          property="deleted_at",
  *          description="deleted_at",
- *          readOnly=$FIELD_READ_ONLY$,
- *          nullable=$FIELD_NULLABLE$,
  *          type="string",
  *          format="date-time"
  *      )

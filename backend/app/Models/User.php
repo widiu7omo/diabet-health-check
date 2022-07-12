@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use OpenApi\Annotations as OA;
 use Spatie\Permission\Traits\HasRoles;
 
 /**
@@ -16,30 +17,26 @@ use Spatie\Permission\Traits\HasRoles;
  *      @OA\Property(
  *          property="id",
  *          description="id",
- *          readOnly=$FIELD_READ_ONLY$,
- *          nullable=$FIELD_NULLABLE$,
+
  *          type="integer",
  *          format="int32"
  *      ),
  *      @OA\Property(
  *          property="name",
  *          description="name",
- *          readOnly=$FIELD_READ_ONLY$,
- *          nullable=$FIELD_NULLABLE$,
+
  *          type="string"
  *      ),
  *      @OA\Property(
  *          property="email",
  *          description="email",
- *          readOnly=$FIELD_READ_ONLY$,
- *          nullable=$FIELD_NULLABLE$,
+
  *          type="string"
  *      ),
  *      @OA\Property(
  *          property="password",
  *          description="password",
- *          readOnly=$FIELD_READ_ONLY$,
- *          nullable=$FIELD_NULLABLE$,
+
  *          type="string"
  *      )
  * )
