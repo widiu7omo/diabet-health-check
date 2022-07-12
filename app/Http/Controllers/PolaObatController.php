@@ -6,19 +6,28 @@ use App\DataTables\PolaObatDataTable;
 use App\Http\Requests;
 use App\Http\Requests\CreatePolaObatRequest;
 use App\Http\Requests\UpdatePolaObatRequest;
+use App\Repositories\JadwalCheckupRepository;
+use App\Repositories\PemeriksaanRepository;
 use App\Repositories\PolaObatRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Response;
 
 class PolaObatController extends AppBaseController
 {
-    /** @var PolaObatRepository $polaObatRepository*/
+    /** @var PolaObatRepository $polaObatRepository */
     private $polaObatRepository;
+    private $pemeriksaanRepository;
+    private $jadwalCheckupRepository;
 
-    public function __construct(PolaObatRepository $polaObatRepo)
+    public function __construct(PolaObatRepository $polaObatRepo, PemeriksaanRepository $pemeriksaanRepository, JadwalCheckupRepository $jadwalCheckupRepository)
     {
         $this->polaObatRepository = $polaObatRepo;
+        $this->pemeriksaanRepository = $pemeriksaanRepository;
+        $this->jadwalCheckupRepository = $jadwalCheckupRepository;
     }
 
     /**
@@ -36,11 +45,19 @@ class PolaObatController extends AppBaseController
     /**
      * Show the form for creating a new PolaObat.
      *
-     * @return Response
+     * @return Application|Factory|View
      */
     public function create()
     {
-        return view('pola_obats.create');
+        $pemeriksaans = $this->pemeriksaanRepository->all()->pluck('id', 'pemeriksaan');
+        $selectedPemeriksaan = [];
+        $jadwals = $this->jadwalCheckupRepository->all()->pluck('id', 'checkup');
+        $selectedJadwal = [];
+        return view('pola_obats.create')
+            ->with('pemeriksaans', $pemeriksaans)
+            ->with('selectedPemeriksaan', $selectedPemeriksaan)
+            ->with('$jadwals', $jadwals)
+            ->with('$selectedJadwal', $selectedJadwal);
     }
 
     /**

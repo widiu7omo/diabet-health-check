@@ -132,7 +132,7 @@ class Pemeriksaan extends Model
 
     public function jadwal_checkups()
     {
-        return $this->hasMany(JadwalCheckup::class);
+        return $this->hasMany(JadwalCheckup::class, 'jadwal_id');
     }
 
     public function pola_makans()

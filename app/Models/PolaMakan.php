@@ -115,6 +115,6 @@ class PolaMakan extends Model
 
     public function jadwal_checkup()
     {
-        return $this->belongsTo(JadwalCheckup::class);
+        return $this->belongsTo(JadwalCheckup::class,'jadwal_id');
     }
 }

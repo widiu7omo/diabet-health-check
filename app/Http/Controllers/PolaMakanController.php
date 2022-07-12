@@ -6,19 +6,28 @@ use App\DataTables\PolaMakanDataTable;
 use App\Http\Requests;
 use App\Http\Requests\CreatePolaMakanRequest;
 use App\Http\Requests\UpdatePolaMakanRequest;
+use App\Repositories\JadwalCheckupRepository;
+use App\Repositories\PemeriksaanRepository;
 use App\Repositories\PolaMakanRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Response;
 
 class PolaMakanController extends AppBaseController
 {
-    /** @var PolaMakanRepository $polaMakanRepository*/
+    /** @var PolaMakanRepository $polaMakanRepository */
     private $polaMakanRepository;
+    private $pemeriksaanRepository;
+    private $jadwalCheckupRepository;
 
-    public function __construct(PolaMakanRepository $polaMakanRepo)
+    public function __construct(PolaMakanRepository $polaMakanRepo, PemeriksaanRepository $pemeriksaanRepository, JadwalCheckupRepository $jadwalCheckupRepository)
     {
         $this->polaMakanRepository = $polaMakanRepo;
+        $this->pemeriksaanRepository = $pemeriksaanRepository;
+        $this->jadwalCheckupRepository = $jadwalCheckupRepository;
     }
 
     /**
@@ -36,11 +45,20 @@ class PolaMakanController extends AppBaseController
     /**
      * Show the form for creating a new PolaMakan.
      *
-     * @return Response
+     * @return Application|Factory|View
      */
     public function create()
     {
-        return view('pola_makans.create');
+        $pemeriksaans = $this->pemeriksaanRepository->all()->pluck('id', 'pemeriksaan');
+        $selectedPemeriksaan = [];
+        $jadwals = $this->jadwalCheckupRepository->all()->pluck('id', 'checkup');
+        $selectedJadwal = [];
+        return
+            view('pola_makans.create')
+                ->with('pemeriksaans', $pemeriksaans)
+                ->with('selectedPemeriksaan', $selectedPemeriksaan)
+                ->with('$jadwals', $jadwals)
+                ->with('$selectedJadwal', $selectedJadwal);
     }
 
     /**

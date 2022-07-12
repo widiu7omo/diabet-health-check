@@ -17,8 +17,14 @@ class PolaObatDataTable extends DataTable
     public function dataTable($query)
     {
         $dataTable = new EloquentDataTable($query);
-
-        return $dataTable->addColumn('action', 'pola_obats.datatables_actions');
+        $columns = array_column($this->getColumns(), 'data');
+        return $dataTable
+            ->editColumn('pemeriksaan', function ($polaObat) {
+                return $polaObat->pemeriksaan->pemeriksaan;
+            })->editColumn('jadwal_checkup', function ($polaObat) {
+                return $polaObat->jadwal_checkup->checkup . " ( " . $polaObat->jadwal_checkup->tgl_checkup . " )";
+            })
+            ->addColumn('action', 'pola_obats.datatables_actions')->rawColumns(array_merge($columns, ['action']));
     }
 
     /**
@@ -44,10 +50,10 @@ class PolaObatDataTable extends DataTable
             ->minifiedAjax()
             ->addAction(['width' => '120px', 'printable' => false])
             ->parameters([
-                'dom'       => 'Bfrtip',
+                'dom' => 'Bfrtip',
                 'stateSave' => true,
-                'order'     => [[0, 'desc']],
-                'buttons'   => [
+                'order' => [[0, 'desc']],
+                'buttons' => [
                     ['extend' => 'create', 'className' => 'btn btn-default btn-sm no-corner',],
                     ['extend' => 'export', 'className' => 'btn btn-default btn-sm no-corner',],
                     ['extend' => 'print', 'className' => 'btn btn-default btn-sm no-corner',],
@@ -65,6 +71,18 @@ class PolaObatDataTable extends DataTable
     protected function getColumns()
     {
         return [
+            [
+                'data' => 'pemeriksaan',
+                'title' => 'Hasil Pemeriksaan',
+                'orderable' => false, 'searchable' => false,
+
+            ],
+            [
+                'data' => 'jadwal_checkup',
+                'title' => 'Jadwal Checkup',
+                'orderable' => false, 'searchable' => false,
+
+            ],
             'obat',
             'jumlah',
             'anjuran' => ['searchable' => false]
