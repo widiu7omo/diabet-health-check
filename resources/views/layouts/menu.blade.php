@@ -1,4 +1,3 @@
-
 <li class="nav-item">
     <a href="{{ route('pemeriksaans.index') }}"
        class="nav-link {{ Request::is('pemeriksaans*') ? 'active' : '' }}">
@@ -28,6 +27,7 @@
     </a>
 </li>
 
+@hasrole("Admin")
 <li class="dropdown-divider"></li>
 <li class="nav-item">
     <a href="{{ route('roles.index') }}"
@@ -43,5 +43,6 @@
         <p><i class="fa fa-user mr-2"></i>Users</p>
     </a>
 </li>
+@endhasrole
 
 
