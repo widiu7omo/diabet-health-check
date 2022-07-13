@@ -62,7 +62,7 @@ class JadwalCheckupAPIController extends AppBaseController
             array_merge($request->except(['skip', 'limit']), ['pasien_id' => $request->user()->id]),
             $request->get('skip'),
             $request->get('limit'),
-            ['pasien', 'dokter', 'pemeriksaan']
+            ['pasien', 'dokter', 'pemeriksaan'], ['updated_at', 'desc']
         );
 
         return $this->sendResponse(JadwalCheckupResource::collection($jadwalCheckups), 'Jadwal Checkups retrieved successfully');

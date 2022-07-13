@@ -49,7 +49,7 @@ class _HomePageState extends State<HomePage> {
                       response.body,
                       (json) => Pemeriksaan.fromJson(json),
                     );
-                    pemeriksaanTerkini = listResponse.data?.last;
+                    pemeriksaanTerkini = listResponse.data?.first;
                   } catch (e) {
                     print(e);
                   }

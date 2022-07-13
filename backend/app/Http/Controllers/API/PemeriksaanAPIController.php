@@ -63,7 +63,7 @@ class PemeriksaanAPIController extends AppBaseController
             array_merge($request->except(['skip', 'limit']), ['pasien_id' => $request->user()->id]),
             $request->get('skip'),
             $request->get('limit'),
-            ['pasien', 'dokter']
+            ['pasien', 'dokter'], ['updated_at', 'desc']
         );
         return $this->sendResponse(PemeriksaanResource::collection($pemeriksaans), 'Pemeriksaans retrieved successfully');
     }

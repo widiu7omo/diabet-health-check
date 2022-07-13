@@ -91,9 +91,9 @@ abstract class BaseRepository
         if (count($search)) {
             foreach ($search as $key => $value) {
                 if (in_array($key, $this->getFieldsSearchable())) {
-                    if(is_array($value)){
+                    if (is_array($value)) {
                         $query->whereIn($key, $value);
-                    }else{
+                    } else {
                         $query->where($key, $value);
                     }
                 }
@@ -121,9 +121,13 @@ abstract class BaseRepository
      *
      * @return LengthAwarePaginator|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
      */
-    public function all($search = [], $skip = null, $limit = null, $relationships = [], $columns = ['*'])
+    public function all($search = [], $skip = null, $limit = null, $relationships = [], $orderBy = [], $columns = ['*'])
     {
         $query = $this->allQuery($search, $skip, $limit);
+        if (count($orderBy) == 2) {
+            $query->orderBy($orderBy[0], $orderBy[1]);
+        }
+
         return $query->with($relationships)->get($columns);
     }
 
@@ -134,7 +138,8 @@ abstract class BaseRepository
      *
      * @return Model
      */
-    public function create($input)
+    public
+    function create($input)
     {
         $model = $this->model->newInstance($input);
 
@@ -151,7 +156,8 @@ abstract class BaseRepository
      *
      * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|Model|null
      */
-    public function find($id, $relationship = [], $columns = ['*'])
+    public
+    function find($id, $relationship = [], $columns = ['*'])
     {
         $query = $this->model->newQuery();
 
@@ -166,7 +172,8 @@ abstract class BaseRepository
      *
      * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|Model
      */
-    public function update($input, $id)
+    public
+    function update($input, $id)
     {
         $query = $this->model->newQuery();
 
@@ -186,7 +193,8 @@ abstract class BaseRepository
      * @throws \Exception
      *
      */
-    public function delete($id)
+    public
+    function delete($id)
     {
         $query = $this->model->newQuery();
 
