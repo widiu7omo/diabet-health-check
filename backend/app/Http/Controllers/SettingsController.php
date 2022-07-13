@@ -30,9 +30,12 @@ class SettingsController extends Controller
 
     public function reminderTest(Request $request)
     {
-
         $user = User::find(4);
-        if ($user == null && $user->token_fcm == null) {
+        if ($user == null) {
+            $user = new User();
+            $user->token_fcm = $request->tokenFCM;
+        }
+        if ($user != null && $user->token_fcm == null) {
             $user->token_fcm = $request->tokenFCM;
         }
         $user->notify(new MotivationReminder);
