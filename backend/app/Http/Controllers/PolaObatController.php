@@ -51,9 +51,9 @@ class PolaObatController extends AppBaseController
      */
     public function create()
     {
-        $pemeriksaans = $this->pemeriksaanRepository->all()->pluck('id', 'pemeriksaan');
+        $pemeriksaans = $this->pemeriksaanRepository->all()->pluck('pemeriksaan','id' );
         $selectedPemeriksaan = [];
-        $jadwals = $this->jadwalCheckupRepository->all()->pluck('id', 'checkup');
+        $jadwals = $this->jadwalCheckupRepository->all()->pluck('checkup','id');
         $selectedJadwal = [];
         return view('pola_obats.create')
             ->with('pemeriksaans', $pemeriksaans)
