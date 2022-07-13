@@ -24,6 +24,8 @@ mixin _$PolaObat {
   String get obat => throw _privateConstructorUsedError;
   int get jumlah => throw _privateConstructorUsedError;
   String get anjuran => throw _privateConstructorUsedError;
+  Pemeriksaan? get pemeriksaan => throw _privateConstructorUsedError;
+  JadwalCheckup? get jadwal => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +37,16 @@ mixin _$PolaObat {
 abstract class $PolaObatCopyWith<$Res> {
   factory $PolaObatCopyWith(PolaObat value, $Res Function(PolaObat) then) =
       _$PolaObatCopyWithImpl<$Res>;
-  $Res call({int id, String obat, int jumlah, String anjuran});
+  $Res call(
+      {int id,
+      String obat,
+      int jumlah,
+      String anjuran,
+      Pemeriksaan? pemeriksaan,
+      JadwalCheckup? jadwal});
+
+  $PemeriksaanCopyWith<$Res>? get pemeriksaan;
+  $JadwalCheckupCopyWith<$Res>? get jadwal;
 }
 
 /// @nodoc
@@ -52,6 +63,8 @@ class _$PolaObatCopyWithImpl<$Res> implements $PolaObatCopyWith<$Res> {
     Object? obat = freezed,
     Object? jumlah = freezed,
     Object? anjuran = freezed,
+    Object? pemeriksaan = freezed,
+    Object? jadwal = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -70,7 +83,37 @@ class _$PolaObatCopyWithImpl<$Res> implements $PolaObatCopyWith<$Res> {
           ? _value.anjuran
           : anjuran // ignore: cast_nullable_to_non_nullable
               as String,
+      pemeriksaan: pemeriksaan == freezed
+          ? _value.pemeriksaan
+          : pemeriksaan // ignore: cast_nullable_to_non_nullable
+              as Pemeriksaan?,
+      jadwal: jadwal == freezed
+          ? _value.jadwal
+          : jadwal // ignore: cast_nullable_to_non_nullable
+              as JadwalCheckup?,
     ));
+  }
+
+  @override
+  $PemeriksaanCopyWith<$Res>? get pemeriksaan {
+    if (_value.pemeriksaan == null) {
+      return null;
+    }
+
+    return $PemeriksaanCopyWith<$Res>(_value.pemeriksaan!, (value) {
+      return _then(_value.copyWith(pemeriksaan: value));
+    });
+  }
+
+  @override
+  $JadwalCheckupCopyWith<$Res>? get jadwal {
+    if (_value.jadwal == null) {
+      return null;
+    }
+
+    return $JadwalCheckupCopyWith<$Res>(_value.jadwal!, (value) {
+      return _then(_value.copyWith(jadwal: value));
+    });
   }
 }
 
@@ -80,7 +123,18 @@ abstract class _$$_PolaObatCopyWith<$Res> implements $PolaObatCopyWith<$Res> {
           _$_PolaObat value, $Res Function(_$_PolaObat) then) =
       __$$_PolaObatCopyWithImpl<$Res>;
   @override
-  $Res call({int id, String obat, int jumlah, String anjuran});
+  $Res call(
+      {int id,
+      String obat,
+      int jumlah,
+      String anjuran,
+      Pemeriksaan? pemeriksaan,
+      JadwalCheckup? jadwal});
+
+  @override
+  $PemeriksaanCopyWith<$Res>? get pemeriksaan;
+  @override
+  $JadwalCheckupCopyWith<$Res>? get jadwal;
 }
 
 /// @nodoc
@@ -99,6 +153,8 @@ class __$$_PolaObatCopyWithImpl<$Res> extends _$PolaObatCopyWithImpl<$Res>
     Object? obat = freezed,
     Object? jumlah = freezed,
     Object? anjuran = freezed,
+    Object? pemeriksaan = freezed,
+    Object? jadwal = freezed,
   }) {
     return _then(_$_PolaObat(
       id: id == freezed
@@ -117,6 +173,14 @@ class __$$_PolaObatCopyWithImpl<$Res> extends _$PolaObatCopyWithImpl<$Res>
           ? _value.anjuran
           : anjuran // ignore: cast_nullable_to_non_nullable
               as String,
+      pemeriksaan: pemeriksaan == freezed
+          ? _value.pemeriksaan
+          : pemeriksaan // ignore: cast_nullable_to_non_nullable
+              as Pemeriksaan?,
+      jadwal: jadwal == freezed
+          ? _value.jadwal
+          : jadwal // ignore: cast_nullable_to_non_nullable
+              as JadwalCheckup?,
     ));
   }
 }
@@ -128,7 +192,9 @@ class _$_PolaObat implements _PolaObat {
       {required this.id,
       required this.obat,
       required this.jumlah,
-      required this.anjuran});
+      required this.anjuran,
+      this.pemeriksaan,
+      this.jadwal});
 
   factory _$_PolaObat.fromJson(Map<String, dynamic> json) =>
       _$$_PolaObatFromJson(json);
@@ -141,10 +207,14 @@ class _$_PolaObat implements _PolaObat {
   final int jumlah;
   @override
   final String anjuran;
+  @override
+  final Pemeriksaan? pemeriksaan;
+  @override
+  final JadwalCheckup? jadwal;
 
   @override
   String toString() {
-    return 'PolaObat(id: $id, obat: $obat, jumlah: $jumlah, anjuran: $anjuran)';
+    return 'PolaObat(id: $id, obat: $obat, jumlah: $jumlah, anjuran: $anjuran, pemeriksaan: $pemeriksaan, jadwal: $jadwal)';
   }
 
   @override
@@ -155,7 +225,10 @@ class _$_PolaObat implements _PolaObat {
             const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.obat, obat) &&
             const DeepCollectionEquality().equals(other.jumlah, jumlah) &&
-            const DeepCollectionEquality().equals(other.anjuran, anjuran));
+            const DeepCollectionEquality().equals(other.anjuran, anjuran) &&
+            const DeepCollectionEquality()
+                .equals(other.pemeriksaan, pemeriksaan) &&
+            const DeepCollectionEquality().equals(other.jadwal, jadwal));
   }
 
   @JsonKey(ignore: true)
@@ -165,7 +238,9 @@ class _$_PolaObat implements _PolaObat {
       const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(obat),
       const DeepCollectionEquality().hash(jumlah),
-      const DeepCollectionEquality().hash(anjuran));
+      const DeepCollectionEquality().hash(anjuran),
+      const DeepCollectionEquality().hash(pemeriksaan),
+      const DeepCollectionEquality().hash(jadwal));
 
   @JsonKey(ignore: true)
   @override
@@ -183,7 +258,9 @@ abstract class _PolaObat implements PolaObat {
       {required final int id,
       required final String obat,
       required final int jumlah,
-      required final String anjuran}) = _$_PolaObat;
+      required final String anjuran,
+      final Pemeriksaan? pemeriksaan,
+      final JadwalCheckup? jadwal}) = _$_PolaObat;
 
   factory _PolaObat.fromJson(Map<String, dynamic> json) = _$_PolaObat.fromJson;
 
@@ -195,6 +272,10 @@ abstract class _PolaObat implements PolaObat {
   int get jumlah;
   @override
   String get anjuran;
+  @override
+  Pemeriksaan? get pemeriksaan;
+  @override
+  JadwalCheckup? get jadwal;
   @override
   @JsonKey(ignore: true)
   _$$_PolaObatCopyWith<_$_PolaObat> get copyWith =>

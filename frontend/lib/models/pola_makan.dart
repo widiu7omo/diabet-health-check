@@ -1,5 +1,7 @@
 import 'package:diabetesapps/models/jadwal_checkup.dart';
+import 'package:diabetesapps/models/pemeriksaan.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+
 part 'pola_makan.freezed.dart';
 part 'pola_makan.g.dart';
 
