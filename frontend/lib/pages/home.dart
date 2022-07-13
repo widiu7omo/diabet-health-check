@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 
 import '../models/base_response.dart';
 import '../models/jadwal_checkup.dart';
+import '../models/user.dart';
 import '../services/rest_http_service.dart';
 
 class HomePage extends StatefulWidget {
@@ -19,6 +20,7 @@ class _HomePageState extends State<HomePage> {
   var showNav = false;
   late Pemeriksaan? pemeriksaanTerkini;
   late JadwalCheckup? jadwalCheckupTerkirin;
+  late User? currentUser;
   var loading = false;
 
   @override
@@ -38,6 +40,16 @@ class _HomePageState extends State<HomePage> {
     return listResponseJadwal.data?.first;
   }
 
+  Future<User?> getCurrentUser() async {
+    final responseUser =
+        await Provider.of<RestHttpService>(context, listen: false).getUser();
+    final singleResponseUser = SingleResponse<User>.fromJson(
+      responseUser.body,
+      (json) => User.fromJson(json),
+    );
+    return singleResponseUser.data;
+  }
+
   Future<Pemeriksaan?> getLastPemeriksaan() async {
     final responsePemeriksaan =
         await Provider.of<RestHttpService>(context, listen: false)
@@ -53,6 +65,12 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       loading = true;
     });
+    User? user = await getCurrentUser();
+    if (user != null) {
+      setState(() {
+        currentUser = user;
+      });
+    }
     Pemeriksaan? pemeriksaan = await getLastPemeriksaan();
     if (pemeriksaan != null) {
       setState(() {
@@ -88,10 +106,13 @@ class _HomePageState extends State<HomePage> {
       margin: EdgeInsets.only(top: 90, left: 24, right: 24),
       child: ListView(
         children: [
-          Text(
-            "Hai, Anisa Tri Astuti",
-            style: poppinstext.copyWith(fontSize: 18, fontWeight: semiBold),
-          ),
+          !loading
+              ? Text(
+                  "Hai, ${currentUser?.name}",
+                  style:
+                      poppinstext.copyWith(fontSize: 18, fontWeight: semiBold),
+                )
+              : Text("Fetching User..."),
           Container(
             margin: EdgeInsets.only(top: 30),
             child: Text(
