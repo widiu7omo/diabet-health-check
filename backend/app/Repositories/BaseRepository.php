@@ -91,7 +91,11 @@ abstract class BaseRepository
         if (count($search)) {
             foreach ($search as $key => $value) {
                 if (in_array($key, $this->getFieldsSearchable())) {
-                    $query->where($key, $value);
+                    if(is_array($value)){
+                        $query->whereIn($key, $value);
+                    }else{
+                        $query->where($key, $value);
+                    }
                 }
             }
         }

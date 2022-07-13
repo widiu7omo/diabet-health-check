@@ -20,7 +20,7 @@ class PolaObatResource extends JsonResource
             'jumlah' => $this->jumlah,
             'anjuran' => $this->anjuran,
             'pemeriksaan' => new PemeriksaanResource($this->whenLoaded('pemeriksaan')),
-            'jadwal' => new JadwalCheckupResource($this->whenLoaded('jadwal')),
+            'jadwal' => new JadwalCheckupResource($this->whenLoaded('jadwal_checkup')),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
         ];

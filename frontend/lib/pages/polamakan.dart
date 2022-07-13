@@ -18,6 +18,21 @@ class PolaMakanPage extends StatefulWidget {
 class _PolaMakanPageState extends State<PolaMakanPage> {
   var showNav = false;
 
+  String getAsset(String category) {
+    switch (category) {
+      case "Makan Pagi":
+        return "assets/pm1.png";
+      case "Makan Siang":
+        return "assets/pm2.png";
+      case "Makan Malam":
+        return "assets/pm3.png";
+      case "Snacks":
+        return "assets/pm4.png";
+      default:
+        return "assets/pm1.png";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     Widget content() {
@@ -80,7 +95,8 @@ class _PolaMakanPageState extends State<PolaMakanPage> {
                                     polaMakans.length,
                                     (index) => PolaMakanItem(
                                           title: polaMakans[index].category,
-                                          img: "assets/pm1.png",
+                                          img: getAsset(
+                                              polaMakans[index].category),
                                           onPress: () {
                                             Navigator.pushNamed(
                                                 context, "/detail-pm",

@@ -82,8 +82,13 @@ class User extends Authenticatable
         return $this->hasMany(Pemeriksaan::class, 'pasien_id');
     }
 
-    public function jadwal_checkups()
+    public function jadwal_checkup_dokters()
     {
-        return $this->hasMany(JadwalCheckup::class);
+        return $this->hasMany(JadwalCheckup::class, 'dokter_id');
+    }
+
+    public function jadwal_checkup_pasiens()
+    {
+        return $this->hasMany(JadwalCheckup::class, 'pasien_id');
     }
 }

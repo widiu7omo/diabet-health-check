@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\Response;
  * Class PolaObatController
  * @package App\Http\Controllers\API
  */
-
 class PolaObatAPIController extends AppBaseController
 {
     /** @var  PolaObatRepository */
@@ -63,7 +62,7 @@ class PolaObatAPIController extends AppBaseController
         $polaObats = $this->polaObatRepository->all(
             $request->except(['skip', 'limit']),
             $request->get('skip'),
-            $request->get('limit')
+            $request->get('limit'), ['jadwal_checkup', 'pemeriksaan']
         );
 
         return $this->sendResponse(PolaObatResource::collection($polaObats), 'Pola Obats retrieved successfully');
@@ -125,7 +124,7 @@ class PolaObatAPIController extends AppBaseController
 
     /**
      * @param int $id
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      *
      * @OA\Get(
      *      path="/polaObats/{id}",
@@ -165,7 +164,7 @@ class PolaObatAPIController extends AppBaseController
     public function show($id)
     {
         /** @var PolaObat $polaObat */
-        $polaObat = $this->polaObatRepository->find($id);
+        $polaObat = $this->polaObatRepository->find($id, ['jadwal_checkup', 'pemeriksaan']);
 
         if (empty($polaObat)) {
             return $this->sendError('Pola Obat not found');

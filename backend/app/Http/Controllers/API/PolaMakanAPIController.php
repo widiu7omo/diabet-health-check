@@ -9,13 +9,13 @@ use App\Repositories\PolaMakanRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Resources\PolaMakanResource;
-use Response;
+use Illuminate\Support\Facades\Response;
+use OpenApi\Annotations as OA;
 
 /**
  * Class PolaMakanController
  * @package App\Http\Controllers\API
  */
-
 class PolaMakanAPIController extends AppBaseController
 {
     /** @var  PolaMakanRepository */
@@ -62,7 +62,7 @@ class PolaMakanAPIController extends AppBaseController
         $polaMakans = $this->polaMakanRepository->all(
             $request->except(['skip', 'limit']),
             $request->get('skip'),
-            $request->get('limit')
+            $request->get('limit'), ['jadwal_checkup', 'pemeriksaan']
         );
 
         return $this->sendResponse(PolaMakanResource::collection($polaMakans), 'Pola Makans retrieved successfully');
@@ -70,7 +70,7 @@ class PolaMakanAPIController extends AppBaseController
 
     /**
      * @param Request $request
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      *
      * @OA\Post(
      *      path="/polaMakans",
@@ -124,7 +124,7 @@ class PolaMakanAPIController extends AppBaseController
 
     /**
      * @param int $id
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      *
      * @OA\Get(
      *      path="/polaMakans/{id}",
@@ -164,7 +164,7 @@ class PolaMakanAPIController extends AppBaseController
     public function show($id)
     {
         /** @var PolaMakan $polaMakan */
-        $polaMakan = $this->polaMakanRepository->find($id);
+        $polaMakan = $this->polaMakanRepository->find($id,['jadwal_checkup', 'pemeriksaan']);
 
         if (empty($polaMakan)) {
             return $this->sendError('Pola Makan not found');

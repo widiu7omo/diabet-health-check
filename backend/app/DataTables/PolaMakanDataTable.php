@@ -23,6 +23,12 @@ class PolaMakanDataTable extends DataTable
         })->editColumn('jadwal_checkup', function ($polaObat) {
             return $polaObat->jadwal_checkup->checkup . " ( " . $polaObat->jadwal_checkup->tgl_checkup . " )";
         })
+            ->editColumn('dokter', function ($polaObat) {
+                return $polaObat->jadwal_checkup->dokter->name;
+            })
+            ->editColumn('pasien', function ($polaObat) {
+                return $polaObat->jadwal_checkup->pasien->name;
+            })
             ->addColumn('action', 'pola_makans.datatables_actions')
             ->rawColumns(array_merge($columns, ['action']));
     }
@@ -86,7 +92,8 @@ class PolaMakanDataTable extends DataTable
             'category',
             'dilarang',
             'dianjurkan' => ['searchable' => false],
-
+            'dokter',
+            'pasien'
         ];
     }
 
