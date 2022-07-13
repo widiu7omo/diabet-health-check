@@ -9,7 +9,12 @@
     {!! Form::label('email', 'Email:') !!}
     {!! Form::text('email', null, ['class' => 'form-control']) !!}
 </div>
-
+<!-- Email Kerabat Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('email_kerabat', 'Email Kerabat Dekat:') !!}
+    {!! Form::text('email_kerabat', null, ['class' => 'form-control']) !!}
+    <small class="text-black-50">Mengirimkan notifikasi via email untuk mengingatkan jadwal checkup pasien</small>
+</div>
 <!-- Password Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('password', 'Password:') !!}
