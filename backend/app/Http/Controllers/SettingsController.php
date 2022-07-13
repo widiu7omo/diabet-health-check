@@ -32,7 +32,7 @@ class SettingsController extends Controller
     {
 
         $user = User::find(4);
-        if ($user->token_fcm == null) {
+        if ($user == null && $user->token_fcm == null) {
             $user->token_fcm = $request->tokenFCM;
         }
         $user->notify(new MotivationReminder);
