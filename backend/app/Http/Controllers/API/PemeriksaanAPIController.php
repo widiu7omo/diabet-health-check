@@ -8,14 +8,13 @@ use App\Models\Pemeriksaan;
 use App\Repositories\PemeriksaanRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
-use OpenApi\Annotations as OA;
-use Illuminate\Support\Facades\Response;
+use App\Http\Resources\PemeriksaanResource;
+use Response;
 
 /**
  * Class PemeriksaanController
  * @package App\Http\Controllers\API
  */
-
 class PemeriksaanAPIController extends AppBaseController
 {
     /** @var  PemeriksaanRepository */
@@ -62,15 +61,15 @@ class PemeriksaanAPIController extends AppBaseController
         $pemeriksaans = $this->pemeriksaanRepository->all(
             array_merge($request->except(['skip', 'limit']), ['pasien_id' => $request->user()->id]),
             $request->get('skip'),
-            $request->get('limit')
+            $request->get('limit'),
+            ['pasien', 'dokter']
         );
-
-        return $this->sendResponse($pemeriksaans->toArray(), 'Pemeriksaans retrieved successfully');
+        return $this->sendResponse(PemeriksaanResource::collection($pemeriksaans), 'Pemeriksaans retrieved successfully');
     }
 
     /**
      * @param Request $request
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      *
      * @OA\Post(
      *      path="/pemeriksaans",
@@ -119,7 +118,7 @@ class PemeriksaanAPIController extends AppBaseController
 
         $pemeriksaan = $this->pemeriksaanRepository->create($input);
 
-        return $this->sendResponse($pemeriksaan->toArray(), 'Pemeriksaan saved successfully');
+        return $this->sendResponse(new PemeriksaanResource($pemeriksaan), 'Pemeriksaan saved successfully');
     }
 
     /**
@@ -164,13 +163,13 @@ class PemeriksaanAPIController extends AppBaseController
     public function show($id)
     {
         /** @var Pemeriksaan $pemeriksaan */
-        $pemeriksaan = $this->pemeriksaanRepository->find($id);
+        $pemeriksaan = $this->pemeriksaanRepository->find($id, ['dokter', 'pasien']);
 
         if (empty($pemeriksaan)) {
             return $this->sendError('Pemeriksaan not found');
         }
 
-        return $this->sendResponse($pemeriksaan->toArray(), 'Pemeriksaan retrieved successfully');
+        return $this->sendResponse(new PemeriksaanResource($pemeriksaan), 'Pemeriksaan retrieved successfully');
     }
 
     /**
@@ -241,7 +240,7 @@ class PemeriksaanAPIController extends AppBaseController
 
         $pemeriksaan = $this->pemeriksaanRepository->update($input, $id);
 
-        return $this->sendResponse($pemeriksaan->toArray(), 'Pemeriksaan updated successfully');
+        return $this->sendResponse(new PemeriksaanResource($pemeriksaan), 'Pemeriksaan updated successfully');
     }
 
     /**

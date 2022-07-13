@@ -8,6 +8,7 @@ use App\Models\PolaObat;
 use App\Repositories\PolaObatRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
+use App\Http\Resources\PolaObatResource;
 use OpenApi\Annotations as OA;
 use Illuminate\Support\Facades\Response;
 
@@ -15,6 +16,7 @@ use Illuminate\Support\Facades\Response;
  * Class PolaObatController
  * @package App\Http\Controllers\API
  */
+
 class PolaObatAPIController extends AppBaseController
 {
     /** @var  PolaObatRepository */
@@ -64,12 +66,12 @@ class PolaObatAPIController extends AppBaseController
             $request->get('limit')
         );
 
-        return $this->sendResponse($polaObats->toArray(), 'Pola Obats retrieved successfully');
+        return $this->sendResponse(PolaObatResource::collection($polaObats), 'Pola Obats retrieved successfully');
     }
 
     /**
-     * @param Request $request
-     * @return Response
+     * @param CreatePolaObatAPIRequest $request
+     * @return \Illuminate\Http\JsonResponse
      *
      * @OA\Post(
      *      path="/polaObats",
@@ -118,7 +120,7 @@ class PolaObatAPIController extends AppBaseController
 
         $polaObat = $this->polaObatRepository->create($input);
 
-        return $this->sendResponse($polaObat->toArray(), 'Pola Obat saved successfully');
+        return $this->sendResponse(new PolaObatResource($polaObat), 'Pola Obat saved successfully');
     }
 
     /**
@@ -169,7 +171,7 @@ class PolaObatAPIController extends AppBaseController
             return $this->sendError('Pola Obat not found');
         }
 
-        return $this->sendResponse($polaObat->toArray(), 'Pola Obat retrieved successfully');
+        return $this->sendResponse(new PolaObatResource($polaObat), 'Pola Obat retrieved successfully');
     }
 
     /**
@@ -240,7 +242,7 @@ class PolaObatAPIController extends AppBaseController
 
         $polaObat = $this->polaObatRepository->update($input, $id);
 
-        return $this->sendResponse($polaObat->toArray(), 'PolaObat updated successfully');
+        return $this->sendResponse(new PolaObatResource($polaObat), 'PolaObat updated successfully');
     }
 
     /**

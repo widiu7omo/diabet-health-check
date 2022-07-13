@@ -1,8 +1,14 @@
+import 'package:chopper/chopper.dart';
+import 'package:diabetesapps/models/pemeriksaan.dart';
 import 'package:diabetesapps/shared/theme.dart';
 import 'package:diabetesapps/widgets/drawer.dart';
 import 'package:diabetesapps/widgets/header.dart';
 import 'package:diabetesapps/widgets/monitoritem.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../models/base_response.dart';
+import '../services/rest_http_service.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -31,14 +37,48 @@ class _HomePageState extends State<HomePage> {
           SizedBox(
             height: 5,
           ),
-          Container(
-            child: Container(
-                child: Text(
-              "Beresiko Diabetes",
-              style: poppinstext.copyWith(
-                  fontSize: 14, fontWeight: semiBold, color: Color(0xffF5985A)),
-            )),
-          ),
+          FutureBuilder<Object>(
+              future: Provider.of<RestHttpService>(context)
+                  .getPemeriksaans(), //TODO: get pemeriksaan terkini
+              builder: (context, snapshot) {
+                Pemeriksaan? pemeriksaanTerkini;
+                if (snapshot.connectionState == ConnectionState.done) {
+                  try {
+                    final response = snapshot.data as Response;
+                    final listResponse = ListResponse<Pemeriksaan>.fromJson(
+                      response.body,
+                      (json) => Pemeriksaan.fromJson(json),
+                    );
+                    pemeriksaanTerkini = listResponse.data?.last;
+                  } catch (e) {
+                    print(e);
+                  }
+                  if (snapshot.hasError) {
+                    return Center(
+                      child: Text(
+                        snapshot.error.toString(),
+                        textAlign: TextAlign.center,
+                        textScaleFactor: 1.3,
+                      ),
+                    );
+                  }
+                  return Container(
+                    child: Container(
+                        child: Text(
+                      pemeriksaanTerkini != null &&
+                              pemeriksaanTerkini.hasilDiagnosa == "Diabetes"
+                          ? "Beresiko Diabetes"
+                          : "Tidak Beresiko",
+                      style: poppinstext.copyWith(
+                          fontSize: 14,
+                          fontWeight: semiBold,
+                          color: Color(0xffF5985A)),
+                    )),
+                  );
+                } else {
+                  return Container(child: Center(child: Text("Loading..")));
+                }
+              }),
           SizedBox(
             height: 6,
           ),

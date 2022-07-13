@@ -17,26 +17,22 @@ use Spatie\Permission\Traits\HasRoles;
  *      @OA\Property(
  *          property="id",
  *          description="id",
-
  *          type="integer",
  *          format="int32"
  *      ),
  *      @OA\Property(
  *          property="name",
  *          description="name",
-
  *          type="string"
  *      ),
  *      @OA\Property(
  *          property="email",
  *          description="email",
-
  *          type="string"
  *      ),
  *      @OA\Property(
  *          property="password",
  *          description="password",
-
  *          type="string"
  *      )
  * )
@@ -76,9 +72,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function pemeriksaans()
+    public function pemeriksaan_dokters()
     {
-        return $this->hasMany(Pemeriksaan::class);
+        return $this->hasMany(Pemeriksaan::class, 'dokter_id');
+    }
+
+    public function pemeriksaan_pasiens()
+    {
+        return $this->hasMany(Pemeriksaan::class, 'pasien_id');
     }
 
     public function jadwal_checkups()

@@ -6,11 +6,10 @@ use App\Http\Requests\API\CreateJadwalCheckupAPIRequest;
 use App\Http\Requests\API\UpdateJadwalCheckupAPIRequest;
 use App\Models\JadwalCheckup;
 use App\Repositories\JadwalCheckupRepository;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
-use OpenApi\Annotations as OA;
-use Illuminate\Support\Facades\Response;
+use App\Http\Resources\JadwalCheckupResource;
+use Response;
 
 /**
  * Class JadwalCheckupController
@@ -28,7 +27,7 @@ class JadwalCheckupAPIController extends AppBaseController
 
     /**
      * @param Request $request
-     * @return JsonResponse
+     * @return \Illuminate\Http\JsonResponse
      *
      * @OA\Get(
      *      path="/jadwalCheckups",
@@ -62,15 +61,16 @@ class JadwalCheckupAPIController extends AppBaseController
         $jadwalCheckups = $this->jadwalCheckupRepository->all(
             array_merge($request->except(['skip', 'limit']), ['pasien_id' => $request->user()->id]),
             $request->get('skip'),
-            $request->get('limit')
+            $request->get('limit'),
+            ['pasien', 'dokter', 'pemeriksaan']
         );
 
-        return $this->sendResponse($jadwalCheckups->toArray(), 'Jadwal Checkups retrieved successfully');
+        return $this->sendResponse(JadwalCheckupResource::collection($jadwalCheckups), 'Jadwal Checkups retrieved successfully');
     }
 
     /**
-     * @param CreateJadwalCheckupAPIRequest $request
-     * @return JsonResponse
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
      *
      * @OA\Post(
      *      path="/jadwalCheckups",
@@ -119,12 +119,12 @@ class JadwalCheckupAPIController extends AppBaseController
 
         $jadwalCheckup = $this->jadwalCheckupRepository->create($input);
 
-        return $this->sendResponse($jadwalCheckup->toArray(), 'Jadwal Checkup saved successfully');
+        return $this->sendResponse(new JadwalCheckupResource($jadwalCheckup), 'Jadwal Checkup saved successfully');
     }
 
     /**
      * @param int $id
-     * @return JsonResponse
+     * @return \Illuminate\Http\JsonResponse
      *
      * @OA\Get(
      *      path="/jadwalCheckups/{id}",
@@ -170,13 +170,13 @@ class JadwalCheckupAPIController extends AppBaseController
             return $this->sendError('Jadwal Checkup not found');
         }
 
-        return $this->sendResponse($jadwalCheckup->toArray(), 'Jadwal Checkup retrieved successfully');
+        return $this->sendResponse(new JadwalCheckupResource($jadwalCheckup), 'Jadwal Checkup retrieved successfully');
     }
 
     /**
      * @param int $id
      * @param Request $request
-     * @return JsonResponse
+     * @return Response
      *
      * @OA\Put(
      *      path="/jadwalCheckups/{id}",
@@ -241,12 +241,12 @@ class JadwalCheckupAPIController extends AppBaseController
 
         $jadwalCheckup = $this->jadwalCheckupRepository->update($input, $id);
 
-        return $this->sendResponse($jadwalCheckup->toArray(), 'JadwalCheckup updated successfully');
+        return $this->sendResponse(new JadwalCheckupResource($jadwalCheckup), 'JadwalCheckup updated successfully');
     }
 
     /**
      * @param int $id
-     * @return JsonResponse
+     * @return Response
      *
      * @OA\Delete(
      *      path="/jadwalCheckups/{id}",

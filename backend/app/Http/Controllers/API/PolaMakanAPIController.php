@@ -8,13 +8,14 @@ use App\Models\PolaMakan;
 use App\Repositories\PolaMakanRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
-use OpenApi\Annotations as OA;
-use Illuminate\Support\Facades\Response;
+use App\Http\Resources\PolaMakanResource;
+use Response;
 
 /**
  * Class PolaMakanController
  * @package App\Http\Controllers\API
  */
+
 class PolaMakanAPIController extends AppBaseController
 {
     /** @var  PolaMakanRepository */
@@ -27,7 +28,7 @@ class PolaMakanAPIController extends AppBaseController
 
     /**
      * @param Request $request
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      *
      * @OA\Get(
      *      path="/polaMakans",
@@ -64,7 +65,7 @@ class PolaMakanAPIController extends AppBaseController
             $request->get('limit')
         );
 
-        return $this->sendResponse($polaMakans->toArray(), 'Pola Makans retrieved successfully');
+        return $this->sendResponse(PolaMakanResource::collection($polaMakans), 'Pola Makans retrieved successfully');
     }
 
     /**
@@ -118,7 +119,7 @@ class PolaMakanAPIController extends AppBaseController
 
         $polaMakan = $this->polaMakanRepository->create($input);
 
-        return $this->sendResponse($polaMakan->toArray(), 'Pola Makan saved successfully');
+        return $this->sendResponse(new PolaMakanResource($polaMakan), 'Pola Makan saved successfully');
     }
 
     /**
@@ -169,7 +170,7 @@ class PolaMakanAPIController extends AppBaseController
             return $this->sendError('Pola Makan not found');
         }
 
-        return $this->sendResponse($polaMakan->toArray(), 'Pola Makan retrieved successfully');
+        return $this->sendResponse(new PolaMakanResource($polaMakan), 'Pola Makan retrieved successfully');
     }
 
     /**
@@ -240,7 +241,7 @@ class PolaMakanAPIController extends AppBaseController
 
         $polaMakan = $this->polaMakanRepository->update($input, $id);
 
-        return $this->sendResponse($polaMakan->toArray(), 'PolaMakan updated successfully');
+        return $this->sendResponse(new PolaMakanResource($polaMakan), 'PolaMakan updated successfully');
     }
 
     /**

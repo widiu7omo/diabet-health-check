@@ -3,13 +3,26 @@ import 'package:diabetesapps/widgets/drawer.dart';
 import 'package:diabetesapps/widgets/header.dart';
 import 'package:flutter/material.dart';
 
+import '../models/pemeriksaan.dart';
+
 class DetailHpPage extends StatefulWidget {
+  final Pemeriksaan arg;
+
+  const DetailHpPage({super.key, required this.arg});
+
   @override
   State<DetailHpPage> createState() => _DetailHpPageState();
 }
 
 class _DetailHpPageState extends State<DetailHpPage> {
+  late Pemeriksaan pemeriksaan;
   var showNav = false;
+  @override
+  void initState() {
+    print(widget.arg);
+    pemeriksaan = widget.arg;
+  }
+
   @override
   Widget build(BuildContext context) {
     Widget content() {
@@ -26,7 +39,7 @@ class _DetailHpPageState extends State<DetailHpPage> {
               height: 10,
             ),
             Text(
-              "Pemeriksaan 1",
+              pemeriksaan.pemeriksaan,
               style: poppinstext.copyWith(fontSize: 16, fontWeight: semiBold),
             ),
             Container(
@@ -35,7 +48,7 @@ class _DetailHpPageState extends State<DetailHpPage> {
               color: Colors.black,
             ),
             Text(
-              "Senin, 01 November 2021",
+              pemeriksaan.tglPeriksa,
               style: poppinstext.copyWith(fontSize: 14, fontWeight: reguler),
             ),
             SizedBox(
@@ -71,21 +84,21 @@ class _DetailHpPageState extends State<DetailHpPage> {
               height: 10,
             ),
             Text(
-              "* Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+              pemeriksaan.detailPembahasan,
               style: poppinstext.copyWith(fontSize: 14, fontWeight: reguler),
             ),
-            Text(
-              "* Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-              style: poppinstext.copyWith(fontSize: 14, fontWeight: reguler),
-            ),
-            Text(
-              "* Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-              style: poppinstext.copyWith(fontSize: 14, fontWeight: reguler),
-            ),
-            Text(
-              "* Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-              style: poppinstext.copyWith(fontSize: 14, fontWeight: reguler),
-            ),
+            // Text(
+            //   "* Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            //   style: poppinstext.copyWith(fontSize: 14, fontWeight: reguler),
+            // ),
+            // Text(
+            //   "* Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            //   style: poppinstext.copyWith(fontSize: 14, fontWeight: reguler),
+            // ),
+            // Text(
+            //   "* Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            //   style: poppinstext.copyWith(fontSize: 14, fontWeight: reguler),
+            // ),
             SizedBox(
               height: 10,
             ),
@@ -99,7 +112,7 @@ class _DetailHpPageState extends State<DetailHpPage> {
             Container(
               child: Container(
                   child: Text(
-                "Beresiko Diabetes",
+                pemeriksaan.hasilDiagnosa,
                 style: poppinstext.copyWith(
                     fontSize: 14,
                     fontWeight: semiBold,

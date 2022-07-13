@@ -24,4 +24,5 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::resource('pemeriksaans', App\Http\Controllers\API\PemeriksaanAPIController::class);
     Route::resource('pola_makans', App\Http\Controllers\API\PolaMakanAPIController::class);
     Route::resource('pola_obats', App\Http\Controllers\API\PolaObatAPIController::class);
+    Route::get('/dokters', [App\Http\Controllers\API\UserAPIController::class, 'dokters']);
 });

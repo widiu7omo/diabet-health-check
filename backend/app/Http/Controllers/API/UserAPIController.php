@@ -8,14 +8,13 @@ use App\Models\User;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
-use OpenApi\Annotations as OA;
+use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Response;
 
 /**
  * Class UserController
  * @package App\Http\Controllers\API
  */
-
 class UserAPIController extends AppBaseController
 {
     /** @var  UserRepository */
@@ -28,7 +27,7 @@ class UserAPIController extends AppBaseController
 
     /**
      * @param Request $request
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      *
      * @OA\Get(
      *      path="/users",
@@ -64,8 +63,7 @@ class UserAPIController extends AppBaseController
             $request->get('skip'),
             $request->get('limit')
         );
-
-        return $this->sendResponse($users->toArray(), 'Users retrieved successfully');
+        return $this->sendResponse(UserResource::collection($users), 'Users retrieved successfully');
     }
 
     /**
@@ -119,12 +117,12 @@ class UserAPIController extends AppBaseController
 
         $user = $this->userRepository->create($input);
 
-        return $this->sendResponse($user->toArray(), 'User saved successfully');
+        return $this->sendResponse(new UserResource($user), 'User saved successfully');
     }
 
     /**
      * @param int $id
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      *
      * @OA\Get(
      *      path="/users/{id}",
@@ -170,7 +168,7 @@ class UserAPIController extends AppBaseController
             return $this->sendError('User not found');
         }
 
-        return $this->sendResponse($user->toArray(), 'User retrieved successfully');
+        return $this->sendResponse(new UserResource($user), 'User retrieved successfully');
     }
 
     /**
@@ -241,12 +239,12 @@ class UserAPIController extends AppBaseController
 
         $user = $this->userRepository->update($input, $id);
 
-        return $this->sendResponse($user->toArray(), 'User updated successfully');
+        return $this->sendResponse(new UserResource($user), 'User updated successfully');
     }
 
     /**
      * @param int $id
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      *
      * @OA\Delete(
      *      path="/users/{id}",
@@ -295,5 +293,12 @@ class UserAPIController extends AppBaseController
         $user->delete();
 
         return $this->sendSuccess('User deleted successfully');
+    }
+
+    public function dokters()
+    {
+        $users = $this->userRepository->makeModel()->role('Dokter')->get();
+
+        return $this->sendResponse(UserResource::collection($users), 'Users retrieved successfully');
     }
 }
