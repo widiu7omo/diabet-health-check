@@ -71,6 +71,13 @@ class _PolaObatPageState extends State<PolaObatPage> {
                     SizedBox(
                       height: 16,
                     ),
+                    polaObats.length == 0
+                        ? Expanded(
+                            child: Center(
+                              child: Text("Belum ada pola obat"),
+                            ),
+                          )
+                        : SizedBox(),
                     ...List.generate(
                       polaObats.length,
                       (index) => PolaObatItem(
