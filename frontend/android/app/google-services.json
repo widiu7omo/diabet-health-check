@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "303720759928",
+    "project_id": "diabetes-health-check",
+    "storage_bucket": "diabetes-health-check.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:303720759928:android:2914374d193bc1abe8e38d",
+        "android_client_info": {
+          "package_name": "com.example.diabetesapps"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "303720759928-1evbugemd1d8rts6rk3au07qnf4b62cn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqLL8GSUk8nxC0phtiEnkHLLz88XgStyo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "303720759928-1evbugemd1d8rts6rk3au07qnf4b62cn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

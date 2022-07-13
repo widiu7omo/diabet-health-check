@@ -55,6 +55,12 @@ class AuthAPIController extends AppBaseController
         return $this->sendResponse(['token' => $token], 'success');
     }
 
+    public function postTokenFCM(Request $request)
+    {
+        $this->userRepository->update(['token_fcm' => $request->tokenFCM], $request->user()->id);
+        return $this->sendResponse([], 'Success Upload Token FCM');
+    }
+
     public function user(Request $request)
     {
         return $this->sendResponse($request->user(), 'success');
