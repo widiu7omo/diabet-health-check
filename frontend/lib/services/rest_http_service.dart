@@ -29,16 +29,20 @@ abstract class RestHttpService extends ChopperService {
   Future<Response> getUser();
 
   @Get(path: 'pemeriksaans')
-  Future<Response> getPemeriksaans();
+  Future<Response> getPemeriksaans({@Query("limit") int? limit});
 
   @Get(path: 'jadwal_checkups')
-  Future<Response> getJadwalCheckups();
+  Future<Response> getJadwalCheckups({@Query("limit") int? limit});
 
   @Get(path: 'pola_obats')
-  Future<Response> getPolaObats();
+  Future<Response> getPolaObats(
+      {@Query("jadwal_id") int? jadwalId,
+      @Query("pemeriksaan_id") int? pemeriksaanId});
 
   @Get(path: 'pola_makans')
-  Future<Response> getPolaMakans();
+  Future<Response> getPolaMakans(
+      {@Query("jadwal_id") int? jadwalId,
+      @Query("pemeriksaan_id") int? pemeriksaanId});
 
   @Get(path: 'dokters')
   Future<Response> getDokters();

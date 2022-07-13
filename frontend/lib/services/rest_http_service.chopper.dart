@@ -24,30 +24,40 @@ class _$RestHttpService extends RestHttpService {
   }
 
   @override
-  Future<Response<dynamic>> getPemeriksaans() {
+  Future<Response<dynamic>> getPemeriksaans({int? limit}) {
     final $url = 'api/pemeriksaans';
-    final $request = Request('GET', $url, client.baseUrl);
+    final $params = <String, dynamic>{'limit': limit};
+    final $request = Request('GET', $url, client.baseUrl, parameters: $params);
     return client.send<dynamic, dynamic>($request);
   }
 
   @override
-  Future<Response<dynamic>> getJadwalCheckups() {
+  Future<Response<dynamic>> getJadwalCheckups({int? limit}) {
     final $url = 'api/jadwal_checkups';
-    final $request = Request('GET', $url, client.baseUrl);
+    final $params = <String, dynamic>{'limit': limit};
+    final $request = Request('GET', $url, client.baseUrl, parameters: $params);
     return client.send<dynamic, dynamic>($request);
   }
 
   @override
-  Future<Response<dynamic>> getPolaObats() {
+  Future<Response<dynamic>> getPolaObats({int? jadwalId, int? pemeriksaanId}) {
     final $url = 'api/pola_obats';
-    final $request = Request('GET', $url, client.baseUrl);
+    final $params = <String, dynamic>{
+      'jadwal_id': jadwalId,
+      'pemeriksaan_id': pemeriksaanId
+    };
+    final $request = Request('GET', $url, client.baseUrl, parameters: $params);
     return client.send<dynamic, dynamic>($request);
   }
 
   @override
-  Future<Response<dynamic>> getPolaMakans() {
+  Future<Response<dynamic>> getPolaMakans({int? jadwalId, int? pemeriksaanId}) {
     final $url = 'api/pola_makans';
-    final $request = Request('GET', $url, client.baseUrl);
+    final $params = <String, dynamic>{
+      'jadwal_id': jadwalId,
+      'pemeriksaan_id': pemeriksaanId
+    };
+    final $request = Request('GET', $url, client.baseUrl, parameters: $params);
     return client.send<dynamic, dynamic>($request);
   }
 

@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Provider(
       create: (_) => RestHttpService.create(
-          bearerToken: "1|ORPxC6mm0JFscMxCuP1h1uc19LNYTsviOrKpoRQP"),
+          bearerToken: "2|Erxg2LkaDQqcbzZbmlSfjLNgriDCFN6S027ybv1Y"),
       dispose: (_, RestHttpService service) {
         print("PROVIDER_DISPOSED");
         return service.client.dispose();

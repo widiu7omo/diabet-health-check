@@ -38,12 +38,16 @@ class RouteGenerator {
         return MaterialPageRoute(
             builder: (context) => DetailHpPage(arg: args as Pemeriksaan));
       case "/pola-makan":
-        return MaterialPageRoute(builder: (context) => PolaMakanPage());
+        return MaterialPageRoute(
+            builder: (context) =>
+                PolaMakanPage(arg: args as Map<String, dynamic>));
       case "/detail-pm":
         return MaterialPageRoute(
             builder: (context) => DetailPolaMakanPage(arg: args as PolaMakan));
       case "/pola-obat":
-        return MaterialPageRoute(builder: (context) => PolaObatPage());
+        return MaterialPageRoute(
+            builder: (context) =>
+                PolaObatPage(arg: args as Map<String, dynamic>));
       case "/jadwal-cu":
         return MaterialPageRoute(builder: (context) => JadwalCheckupPage());
       case "/jadwal-detail":

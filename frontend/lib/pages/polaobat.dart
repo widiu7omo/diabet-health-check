@@ -11,19 +11,32 @@ import 'package:provider/provider.dart';
 import '../models/base_response.dart';
 
 class PolaObatPage extends StatefulWidget {
+  final Map<String, dynamic> arg;
+
+  const PolaObatPage({super.key, required this.arg});
+
   @override
   State<PolaObatPage> createState() => _PolaObatPageState();
 }
 
 class _PolaObatPageState extends State<PolaObatPage> {
   var showNav = false;
+  late var jadwalId, pemeriksaanId;
+
+  @override
+  void initState() {
+    jadwalId = widget.arg['jadwal_id'];
+    pemeriksaanId = widget.arg['pemeriksaan_id'];
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     Widget content() {
       return FutureBuilder(
           future: Provider.of<RestHttpService>(context, listen: false)
-              .getPolaObats(),
+              .getPolaObats(
+                  pemeriksaanId: this.pemeriksaanId, jadwalId: this.jadwalId),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               List<PolaObat> polaObats = [];

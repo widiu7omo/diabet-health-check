@@ -11,12 +11,24 @@ import 'package:provider/provider.dart';
 import '../models/base_response.dart';
 
 class PolaMakanPage extends StatefulWidget {
+  final Map<String, dynamic> arg;
+
+  const PolaMakanPage({super.key, required this.arg});
+
   @override
   State<PolaMakanPage> createState() => _PolaMakanPageState();
 }
 
 class _PolaMakanPageState extends State<PolaMakanPage> {
   var showNav = false;
+  late var jadwalId, pemeriksaanId;
+
+  @override
+  void initState() {
+    jadwalId = widget.arg['jadwal_id'];
+    pemeriksaanId = widget.arg['pemeriksaan_id'];
+    super.initState();
+  }
 
   String getAsset(String category) {
     switch (category) {
@@ -38,7 +50,8 @@ class _PolaMakanPageState extends State<PolaMakanPage> {
     Widget content() {
       return FutureBuilder<Object>(
           future: Provider.of<RestHttpService>(context, listen: false)
-              .getPolaMakans(),
+              .getPolaMakans(
+                  pemeriksaanId: this.pemeriksaanId, jadwalId: this.jadwalId),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               List<PolaMakan> polaMakans = [];
