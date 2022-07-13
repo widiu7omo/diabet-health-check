@@ -5,9 +5,13 @@ class CustommedInput extends StatelessWidget {
   String label;
   String hint;
   bool secure;
+  TextEditingController controller;
 
   CustommedInput(
-      {required this.hint, required this.label, this.secure = false});
+      {required this.hint,
+      required this.label,
+      this.secure = false,
+      required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +31,7 @@ class CustommedInput extends StatelessWidget {
                 color: primaryColor, borderRadius: BorderRadius.circular(100)),
             child: TextFormField(
               obscureText: secure,
+              controller: controller,
               decoration: InputDecoration(
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.only(

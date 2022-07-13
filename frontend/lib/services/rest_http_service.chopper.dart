@@ -24,6 +24,22 @@ class _$RestHttpService extends RestHttpService {
   }
 
   @override
+  Future<Response<dynamic>> login({Map<String, dynamic>? body}) {
+    final $url = 'api/login';
+    final $body = body;
+    final $request = Request('POST', $url, client.baseUrl, body: $body);
+    return client.send<dynamic, dynamic>($request);
+  }
+
+  @override
+  Future<Response<dynamic>> register({Map<String, dynamic>? body}) {
+    final $url = 'api/register';
+    final $body = body;
+    final $request = Request('POST', $url, client.baseUrl, body: $body);
+    return client.send<dynamic, dynamic>($request);
+  }
+
+  @override
   Future<Response<dynamic>> getPemeriksaans({int? limit}) {
     final $url = 'api/pemeriksaans';
     final $params = <String, dynamic>{'limit': limit};

@@ -1,6 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../main.dart';
+import '../models/base_response.dart';
+import '../models/user.dart';
+import '../services/rest_http_service.dart';
 
 class SplashPage extends StatefulWidget {
   @override
@@ -16,8 +22,29 @@ class _SplashPageState extends State<SplashPage> {
         Duration(
           seconds: 2,
         ), () {
-      Navigator.pushNamed(context, "/login");
+      initData();
     });
+  }
+
+  void initData() async {
+    String? tokenApi = await getToken();
+    if (tokenApi == null) {
+      Navigator.of(context).pushNamed("/login");
+    } else {
+      getCurrentUser().then((_) {
+        Navigator.of(context).pushNamed("/home");
+      });
+    }
+  }
+
+  Future<User?> getCurrentUser() async {
+    final responseUser =
+        await Provider.of<RestHttpService>(context, listen: false).getUser();
+    final singleResponseUser = SingleResponse<User>.fromJson(
+      responseUser.body,
+      (json) => User.fromJson(json),
+    );
+    return singleResponseUser.data;
   }
 
   @override

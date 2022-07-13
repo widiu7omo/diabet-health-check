@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:chopper/chopper.dart';
 
 class HeaderInterceptor implements RequestInterceptor {
@@ -10,8 +11,13 @@ class HeaderInterceptor implements RequestInterceptor {
 
   @override
   FutureOr<Request> onRequest(Request request) async {
-    Request newRequest =
-        request.copyWith(headers: {AUTH_HEADER: BEARER + bearerToken});
+    Request newRequest = request.copyWith(
+      headers: {
+        AUTH_HEADER: BEARER + bearerToken,
+        "Accept": "application/json",
+        'Content-Type': 'application/json'
+      },
+    );
     return newRequest;
   }
 }

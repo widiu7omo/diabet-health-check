@@ -28,6 +28,12 @@ abstract class RestHttpService extends ChopperService {
   @Get(path: "user")
   Future<Response> getUser();
 
+  @Post(path: "login")
+  Future<Response> login({@Body() Map<String, dynamic>? body});
+
+  @Post(path: "register")
+  Future<Response> register({@Body() Map<String, dynamic>? body});
+
   @Get(path: 'pemeriksaans')
   Future<Response> getPemeriksaans({@Query("limit") int? limit});
 
