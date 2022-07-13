@@ -1,7 +1,6 @@
 import "dart:async";
-import 'package:chopper/chopper.dart';
 
-import '../models/user.dart';
+import 'package:chopper/chopper.dart';
 
 // This is necessary for the generator to work.
 part "rest_http_service.chopper.dart";

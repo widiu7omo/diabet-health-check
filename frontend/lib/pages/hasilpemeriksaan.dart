@@ -59,18 +59,6 @@ class _HasilPemeriksaanPageState extends State<HasilPemeriksaanPage> {
                         },
                       );
                     }),
-                    // HpItem(
-                    //   title: "Pemeriksaan 1",
-                    //   desc: "Senin, 01 November 2021",
-                    //   onPress: () {
-                    //     Navigator.pushNamed(context, "/detailhp");
-                    //   },
-                    // ),
-                    // HpItem(
-                    //   title: "Pemeriksaan 2",
-                    //   desc: "Senin, 08 November 2021",
-                    //   onPress: () {},
-                    // ),
                   ],
                 ),
               );

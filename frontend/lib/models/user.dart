@@ -1,12 +1,12 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'user.g.dart';
 part 'user.freezed.dart';
+part 'user.g.dart';
 
 @freezed
 class User with _$User {
   factory User({
-    String? id,
+    int? id,
     String? name,
     required String email,
     String? phone,

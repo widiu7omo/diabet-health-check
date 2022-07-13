@@ -25,7 +25,7 @@ mixin _$Pemeriksaan {
   @JsonKey(name: "tgl_periksa")
   String get tglPeriksa => throw _privateConstructorUsedError;
   @JsonKey(name: "detail_pembahasan")
-  String get detailPembahasan => throw _privateConstructorUsedError;
+  String? get detailPembahasan => throw _privateConstructorUsedError;
   @JsonKey(name: "hasil_diagnosa")
   String get hasilDiagnosa => throw _privateConstructorUsedError;
   User? get dokter => throw _privateConstructorUsedError;
@@ -46,10 +46,13 @@ abstract class $PemeriksaanCopyWith<$Res> {
       {int id,
       String pemeriksaan,
       @JsonKey(name: "tgl_periksa") String tglPeriksa,
-      @JsonKey(name: "detail_pembahasan") String detailPembahasan,
+      @JsonKey(name: "detail_pembahasan") String? detailPembahasan,
       @JsonKey(name: "hasil_diagnosa") String hasilDiagnosa,
       User? dokter,
       User? pasien});
+
+  $UserCopyWith<$Res>? get dokter;
+  $UserCopyWith<$Res>? get pasien;
 }
 
 /// @nodoc
@@ -86,7 +89,7 @@ class _$PemeriksaanCopyWithImpl<$Res> implements $PemeriksaanCopyWith<$Res> {
       detailPembahasan: detailPembahasan == freezed
           ? _value.detailPembahasan
           : detailPembahasan // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       hasilDiagnosa: hasilDiagnosa == freezed
           ? _value.hasilDiagnosa
           : hasilDiagnosa // ignore: cast_nullable_to_non_nullable
@@ -101,6 +104,28 @@ class _$PemeriksaanCopyWithImpl<$Res> implements $PemeriksaanCopyWith<$Res> {
               as User?,
     ));
   }
+
+  @override
+  $UserCopyWith<$Res>? get dokter {
+    if (_value.dokter == null) {
+      return null;
+    }
+
+    return $UserCopyWith<$Res>(_value.dokter!, (value) {
+      return _then(_value.copyWith(dokter: value));
+    });
+  }
+
+  @override
+  $UserCopyWith<$Res>? get pasien {
+    if (_value.pasien == null) {
+      return null;
+    }
+
+    return $UserCopyWith<$Res>(_value.pasien!, (value) {
+      return _then(_value.copyWith(pasien: value));
+    });
+  }
 }
 
 /// @nodoc
@@ -114,10 +139,15 @@ abstract class _$$_PemeriksaanCopyWith<$Res>
       {int id,
       String pemeriksaan,
       @JsonKey(name: "tgl_periksa") String tglPeriksa,
-      @JsonKey(name: "detail_pembahasan") String detailPembahasan,
+      @JsonKey(name: "detail_pembahasan") String? detailPembahasan,
       @JsonKey(name: "hasil_diagnosa") String hasilDiagnosa,
       User? dokter,
       User? pasien});
+
+  @override
+  $UserCopyWith<$Res>? get dokter;
+  @override
+  $UserCopyWith<$Res>? get pasien;
 }
 
 /// @nodoc
@@ -156,7 +186,7 @@ class __$$_PemeriksaanCopyWithImpl<$Res> extends _$PemeriksaanCopyWithImpl<$Res>
       detailPembahasan: detailPembahasan == freezed
           ? _value.detailPembahasan
           : detailPembahasan // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       hasilDiagnosa: hasilDiagnosa == freezed
           ? _value.hasilDiagnosa
           : hasilDiagnosa // ignore: cast_nullable_to_non_nullable
@@ -180,7 +210,7 @@ class _$_Pemeriksaan implements _Pemeriksaan {
       {required this.id,
       required this.pemeriksaan,
       @JsonKey(name: "tgl_periksa") required this.tglPeriksa,
-      @JsonKey(name: "detail_pembahasan") required this.detailPembahasan,
+      @JsonKey(name: "detail_pembahasan") this.detailPembahasan,
       @JsonKey(name: "hasil_diagnosa") required this.hasilDiagnosa,
       this.dokter,
       this.pasien});
@@ -197,7 +227,7 @@ class _$_Pemeriksaan implements _Pemeriksaan {
   final String tglPeriksa;
   @override
   @JsonKey(name: "detail_pembahasan")
-  final String detailPembahasan;
+  final String? detailPembahasan;
   @override
   @JsonKey(name: "hasil_diagnosa")
   final String hasilDiagnosa;
@@ -256,12 +286,9 @@ abstract class _Pemeriksaan implements Pemeriksaan {
   factory _Pemeriksaan(
       {required final int id,
       required final String pemeriksaan,
-      @JsonKey(name: "tgl_periksa")
-          required final String tglPeriksa,
-      @JsonKey(name: "detail_pembahasan")
-          required final String detailPembahasan,
-      @JsonKey(name: "hasil_diagnosa")
-          required final String hasilDiagnosa,
+      @JsonKey(name: "tgl_periksa") required final String tglPeriksa,
+      @JsonKey(name: "detail_pembahasan") final String? detailPembahasan,
+      @JsonKey(name: "hasil_diagnosa") required final String hasilDiagnosa,
       final User? dokter,
       final User? pasien}) = _$_Pemeriksaan;
 
@@ -277,7 +304,7 @@ abstract class _Pemeriksaan implements Pemeriksaan {
   String get tglPeriksa;
   @override
   @JsonKey(name: "detail_pembahasan")
-  String get detailPembahasan;
+  String? get detailPembahasan;
   @override
   @JsonKey(name: "hasil_diagnosa")
   String get hasilDiagnosa;

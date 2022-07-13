@@ -17,9 +17,9 @@ class DetailHpPage extends StatefulWidget {
 class _DetailHpPageState extends State<DetailHpPage> {
   late Pemeriksaan pemeriksaan;
   var showNav = false;
+
   @override
   void initState() {
-    print(widget.arg);
     pemeriksaan = widget.arg;
   }
 
@@ -59,7 +59,7 @@ class _DetailHpPageState extends State<DetailHpPage> {
               style: poppinstext.copyWith(fontSize: 14, fontWeight: semiBold),
             ),
             Text(
-              "Dr Ria",
+              pemeriksaan.dokter?.name ?? "Unknown",
               style: poppinstext.copyWith(fontSize: 14, fontWeight: reguler),
             ),
             SizedBox(
@@ -70,7 +70,7 @@ class _DetailHpPageState extends State<DetailHpPage> {
               style: poppinstext.copyWith(fontSize: 14, fontWeight: semiBold),
             ),
             Text(
-              "Anisa Tri Astuti",
+              pemeriksaan.pasien?.name ?? "Unknown",
               style: poppinstext.copyWith(fontSize: 14, fontWeight: reguler),
             ),
             SizedBox(
@@ -84,7 +84,7 @@ class _DetailHpPageState extends State<DetailHpPage> {
               height: 10,
             ),
             Text(
-              pemeriksaan.detailPembahasan,
+              pemeriksaan.detailPembahasan ?? "Tidak ada pembahasan",
               style: poppinstext.copyWith(fontSize: 14, fontWeight: reguler),
             ),
             // Text(

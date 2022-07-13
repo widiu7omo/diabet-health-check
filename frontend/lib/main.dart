@@ -1,5 +1,3 @@
-//@dart=2.9
-
 import 'package:chopper/chopper.dart';
 import 'package:diabetesapps/route_generator.dart';
 import 'package:diabetesapps/services/rest_http_service.dart';
@@ -29,7 +27,7 @@ void main() {
 class MyApp extends StatelessWidget {
   final ChopperClient httpClient;
 
-  const MyApp({Key key, this.httpClient}) : super(key: key);
+  const MyApp({Key? key, required this.httpClient}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Provider(
