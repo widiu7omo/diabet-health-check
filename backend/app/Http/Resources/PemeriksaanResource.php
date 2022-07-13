@@ -18,6 +18,7 @@ class PemeriksaanResource extends JsonResource
             'id' => $this->id,
             'pemeriksaan' => $this->pemeriksaan,
             'tgl_periksa' => $this->tgl_periksa,
+            'detailPembahasan' => $this->detailPembahasan,
             'hasil_diagnosa' => $this->hasil_diagnosa,
             'dokter' => new UserResource($this->whenLoaded('dokter')),
             'pasien' => new UserResource($this->whenLoaded('pasien')),

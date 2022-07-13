@@ -123,7 +123,7 @@ class PemeriksaanAPIController extends AppBaseController
 
     /**
      * @param int $id
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      *
      * @OA\Get(
      *      path="/pemeriksaans/{id}",
