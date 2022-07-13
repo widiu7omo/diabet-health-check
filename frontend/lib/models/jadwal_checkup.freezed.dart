@@ -27,6 +27,9 @@ mixin _$JadwalCheckup {
   String get lokasi => throw _privateConstructorUsedError;
   String? get catatan => throw _privateConstructorUsedError;
   String get status => throw _privateConstructorUsedError;
+  Pemeriksaan? get pemeriksaan => throw _privateConstructorUsedError;
+  User? get dokter => throw _privateConstructorUsedError;
+  User? get pasien => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -45,7 +48,14 @@ abstract class $JadwalCheckupCopyWith<$Res> {
       @JsonKey(name: "tgl_checkup") String tglCheckup,
       String lokasi,
       String? catatan,
-      String status});
+      String status,
+      Pemeriksaan? pemeriksaan,
+      User? dokter,
+      User? pasien});
+
+  $PemeriksaanCopyWith<$Res>? get pemeriksaan;
+  $UserCopyWith<$Res>? get dokter;
+  $UserCopyWith<$Res>? get pasien;
 }
 
 /// @nodoc
@@ -65,6 +75,9 @@ class _$JadwalCheckupCopyWithImpl<$Res>
     Object? lokasi = freezed,
     Object? catatan = freezed,
     Object? status = freezed,
+    Object? pemeriksaan = freezed,
+    Object? dokter = freezed,
+    Object? pasien = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -91,7 +104,52 @@ class _$JadwalCheckupCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as String,
+      pemeriksaan: pemeriksaan == freezed
+          ? _value.pemeriksaan
+          : pemeriksaan // ignore: cast_nullable_to_non_nullable
+              as Pemeriksaan?,
+      dokter: dokter == freezed
+          ? _value.dokter
+          : dokter // ignore: cast_nullable_to_non_nullable
+              as User?,
+      pasien: pasien == freezed
+          ? _value.pasien
+          : pasien // ignore: cast_nullable_to_non_nullable
+              as User?,
     ));
+  }
+
+  @override
+  $PemeriksaanCopyWith<$Res>? get pemeriksaan {
+    if (_value.pemeriksaan == null) {
+      return null;
+    }
+
+    return $PemeriksaanCopyWith<$Res>(_value.pemeriksaan!, (value) {
+      return _then(_value.copyWith(pemeriksaan: value));
+    });
+  }
+
+  @override
+  $UserCopyWith<$Res>? get dokter {
+    if (_value.dokter == null) {
+      return null;
+    }
+
+    return $UserCopyWith<$Res>(_value.dokter!, (value) {
+      return _then(_value.copyWith(dokter: value));
+    });
+  }
+
+  @override
+  $UserCopyWith<$Res>? get pasien {
+    if (_value.pasien == null) {
+      return null;
+    }
+
+    return $UserCopyWith<$Res>(_value.pasien!, (value) {
+      return _then(_value.copyWith(pasien: value));
+    });
   }
 }
 
@@ -108,7 +166,17 @@ abstract class _$$_JadwalCheckupCopyWith<$Res>
       @JsonKey(name: "tgl_checkup") String tglCheckup,
       String lokasi,
       String? catatan,
-      String status});
+      String status,
+      Pemeriksaan? pemeriksaan,
+      User? dokter,
+      User? pasien});
+
+  @override
+  $PemeriksaanCopyWith<$Res>? get pemeriksaan;
+  @override
+  $UserCopyWith<$Res>? get dokter;
+  @override
+  $UserCopyWith<$Res>? get pasien;
 }
 
 /// @nodoc
@@ -130,6 +198,9 @@ class __$$_JadwalCheckupCopyWithImpl<$Res>
     Object? lokasi = freezed,
     Object? catatan = freezed,
     Object? status = freezed,
+    Object? pemeriksaan = freezed,
+    Object? dokter = freezed,
+    Object? pasien = freezed,
   }) {
     return _then(_$_JadwalCheckup(
       id: id == freezed
@@ -156,6 +227,18 @@ class __$$_JadwalCheckupCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as String,
+      pemeriksaan: pemeriksaan == freezed
+          ? _value.pemeriksaan
+          : pemeriksaan // ignore: cast_nullable_to_non_nullable
+              as Pemeriksaan?,
+      dokter: dokter == freezed
+          ? _value.dokter
+          : dokter // ignore: cast_nullable_to_non_nullable
+              as User?,
+      pasien: pasien == freezed
+          ? _value.pasien
+          : pasien // ignore: cast_nullable_to_non_nullable
+              as User?,
     ));
   }
 }
@@ -169,7 +252,10 @@ class _$_JadwalCheckup implements _JadwalCheckup {
       @JsonKey(name: "tgl_checkup") required this.tglCheckup,
       required this.lokasi,
       this.catatan,
-      required this.status});
+      required this.status,
+      this.pemeriksaan,
+      this.dokter,
+      this.pasien});
 
   factory _$_JadwalCheckup.fromJson(Map<String, dynamic> json) =>
       _$$_JadwalCheckupFromJson(json);
@@ -187,10 +273,16 @@ class _$_JadwalCheckup implements _JadwalCheckup {
   final String? catatan;
   @override
   final String status;
+  @override
+  final Pemeriksaan? pemeriksaan;
+  @override
+  final User? dokter;
+  @override
+  final User? pasien;
 
   @override
   String toString() {
-    return 'JadwalCheckup(id: $id, checkup: $checkup, tglCheckup: $tglCheckup, lokasi: $lokasi, catatan: $catatan, status: $status)';
+    return 'JadwalCheckup(id: $id, checkup: $checkup, tglCheckup: $tglCheckup, lokasi: $lokasi, catatan: $catatan, status: $status, pemeriksaan: $pemeriksaan, dokter: $dokter, pasien: $pasien)';
   }
 
   @override
@@ -204,7 +296,11 @@ class _$_JadwalCheckup implements _JadwalCheckup {
                 .equals(other.tglCheckup, tglCheckup) &&
             const DeepCollectionEquality().equals(other.lokasi, lokasi) &&
             const DeepCollectionEquality().equals(other.catatan, catatan) &&
-            const DeepCollectionEquality().equals(other.status, status));
+            const DeepCollectionEquality().equals(other.status, status) &&
+            const DeepCollectionEquality()
+                .equals(other.pemeriksaan, pemeriksaan) &&
+            const DeepCollectionEquality().equals(other.dokter, dokter) &&
+            const DeepCollectionEquality().equals(other.pasien, pasien));
   }
 
   @JsonKey(ignore: true)
@@ -216,7 +312,10 @@ class _$_JadwalCheckup implements _JadwalCheckup {
       const DeepCollectionEquality().hash(tglCheckup),
       const DeepCollectionEquality().hash(lokasi),
       const DeepCollectionEquality().hash(catatan),
-      const DeepCollectionEquality().hash(status));
+      const DeepCollectionEquality().hash(status),
+      const DeepCollectionEquality().hash(pemeriksaan),
+      const DeepCollectionEquality().hash(dokter),
+      const DeepCollectionEquality().hash(pasien));
 
   @JsonKey(ignore: true)
   @override
@@ -236,7 +335,10 @@ abstract class _JadwalCheckup implements JadwalCheckup {
       @JsonKey(name: "tgl_checkup") required final String tglCheckup,
       required final String lokasi,
       final String? catatan,
-      required final String status}) = _$_JadwalCheckup;
+      required final String status,
+      final Pemeriksaan? pemeriksaan,
+      final User? dokter,
+      final User? pasien}) = _$_JadwalCheckup;
 
   factory _JadwalCheckup.fromJson(Map<String, dynamic> json) =
       _$_JadwalCheckup.fromJson;
@@ -254,6 +356,12 @@ abstract class _JadwalCheckup implements JadwalCheckup {
   String? get catatan;
   @override
   String get status;
+  @override
+  Pemeriksaan? get pemeriksaan;
+  @override
+  User? get dokter;
+  @override
+  User? get pasien;
   @override
   @JsonKey(ignore: true)
   _$$_JadwalCheckupCopyWith<_$_JadwalCheckup> get copyWith =>

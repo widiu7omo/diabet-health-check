@@ -1,15 +1,26 @@
+import 'package:diabetesapps/models/pola_makan.dart';
 import 'package:diabetesapps/shared/theme.dart';
 import 'package:diabetesapps/widgets/drawer.dart';
 import 'package:diabetesapps/widgets/header.dart';
 import 'package:flutter/material.dart';
 
 class DetailPolaMakanPage extends StatefulWidget {
+  final PolaMakan arg;
+
+  const DetailPolaMakanPage({super.key, required this.arg});
+
   @override
   State<DetailPolaMakanPage> createState() => _DetailPolaMakanPageState();
 }
 
 class _DetailPolaMakanPageState extends State<DetailPolaMakanPage> {
   var showNav = false;
+  late PolaMakan polaMakan;
+
+  void initState() {
+    polaMakan = widget.arg;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +38,7 @@ class _DetailPolaMakanPageState extends State<DetailPolaMakanPage> {
               height: 4,
             ),
             Text(
-              "Sarapan",
+              polaMakan.category,
               style: poppinstext.copyWith(fontSize: 12, fontWeight: reguler),
             ),
             SizedBox(
@@ -41,21 +52,21 @@ class _DetailPolaMakanPageState extends State<DetailPolaMakanPage> {
               height: 10,
             ),
             Text(
-              "* Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+              polaMakan.dianjurkan,
               style: poppinstext.copyWith(fontSize: 14, fontWeight: reguler),
             ),
-            Text(
-              "* Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-              style: poppinstext.copyWith(fontSize: 14, fontWeight: reguler),
-            ),
-            Text(
-              "* Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-              style: poppinstext.copyWith(fontSize: 14, fontWeight: reguler),
-            ),
-            Text(
-              "* Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-              style: poppinstext.copyWith(fontSize: 14, fontWeight: reguler),
-            ),
+            // Text(
+            //   "* Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            //   style: poppinstext.copyWith(fontSize: 14, fontWeight: reguler),
+            // ),
+            // Text(
+            //   "* Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            //   style: poppinstext.copyWith(fontSize: 14, fontWeight: reguler),
+            // ),
+            // Text(
+            //   "* Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            //   style: poppinstext.copyWith(fontSize: 14, fontWeight: reguler),
+            // ),
             SizedBox(
               height: 16,
             ),
@@ -67,21 +78,21 @@ class _DetailPolaMakanPageState extends State<DetailPolaMakanPage> {
               height: 10,
             ),
             Text(
-              "* Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+              polaMakan.dilarang,
               style: poppinstext.copyWith(fontSize: 14, fontWeight: reguler),
             ),
-            Text(
-              "* Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-              style: poppinstext.copyWith(fontSize: 14, fontWeight: reguler),
-            ),
-            Text(
-              "* Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-              style: poppinstext.copyWith(fontSize: 14, fontWeight: reguler),
-            ),
-            Text(
-              "* Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-              style: poppinstext.copyWith(fontSize: 14, fontWeight: reguler),
-            ),
+            // Text(
+            //   "* Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            //   style: poppinstext.copyWith(fontSize: 14, fontWeight: reguler),
+            // ),
+            // Text(
+            //   "* Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            //   style: poppinstext.copyWith(fontSize: 14, fontWeight: reguler),
+            // ),
+            // Text(
+            //   "* Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            //   style: poppinstext.copyWith(fontSize: 14, fontWeight: reguler),
+            // ),
           ],
         ),
       );

@@ -1,6 +1,8 @@
+import 'package:diabetesapps/models/jadwal_checkup.dart';
 import 'package:diabetesapps/models/pemeriksaan.dart';
 import 'package:flutter/material.dart';
 
+import 'models/pola_makan.dart';
 import 'pages/changepw.dart';
 import 'pages/detailhp.dart';
 import 'pages/detailjadwa.dart';
@@ -31,21 +33,22 @@ class RouteGenerator {
       case "/changepw":
         return MaterialPageRoute(builder: (context) => ChangePasswordPage());
       case "/hasilp":
-        return MaterialPageRoute(
-            builder: (context) =>
-                HasilPemeriksaanPage());
+        return MaterialPageRoute(builder: (context) => HasilPemeriksaanPage());
       case "/detailhp":
-        return MaterialPageRoute(builder: (context) => DetailHpPage(arg: args as Pemeriksaan));
+        return MaterialPageRoute(
+            builder: (context) => DetailHpPage(arg: args as Pemeriksaan));
       case "/pola-makan":
         return MaterialPageRoute(builder: (context) => PolaMakanPage());
       case "/detail-pm":
-        return MaterialPageRoute(builder: (context) => DetailPolaMakanPage());
+        return MaterialPageRoute(
+            builder: (context) => DetailPolaMakanPage(arg: args as PolaMakan));
       case "/pola-obat":
         return MaterialPageRoute(builder: (context) => PolaObatPage());
       case "/jadwal-cu":
         return MaterialPageRoute(builder: (context) => JadwalCheckupPage());
       case "/jadwal-detail":
-        return MaterialPageRoute(builder: (context) => DetailJadwal());
+        return MaterialPageRoute(
+            builder: (context) => DetailJadwal(arg: args as JadwalCheckup));
       case "/konsultasi":
         return MaterialPageRoute(builder: (context) => KonsultasiPage());
       default:

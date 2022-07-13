@@ -3,13 +3,26 @@ import 'package:diabetesapps/widgets/drawer.dart';
 import 'package:diabetesapps/widgets/header.dart';
 import 'package:flutter/material.dart';
 
+import '../models/jadwal_checkup.dart';
+
 class DetailJadwal extends StatefulWidget {
+  final JadwalCheckup arg;
+
+  const DetailJadwal({super.key, required this.arg});
+
   @override
   State<DetailJadwal> createState() => _DetailJadwalState();
 }
 
 class _DetailJadwalState extends State<DetailJadwal> {
   var showNav = false;
+  late JadwalCheckup jadwalCheckup;
+
+  @override
+  void initState() {
+    jadwalCheckup = widget.arg;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +46,7 @@ class _DetailJadwalState extends State<DetailJadwal> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Checkup 1",
+                      jadwalCheckup.checkup,
                       style: poppinstext.copyWith(
                           fontSize: 16, fontWeight: semiBold),
                     ),
@@ -43,7 +56,7 @@ class _DetailJadwalState extends State<DetailJadwal> {
                       color: Colors.black,
                     ),
                     Text(
-                      "Senin, 01 November 2021",
+                      jadwalCheckup.tglCheckup,
                       style: poppinstext.copyWith(
                           fontSize: 14, fontWeight: reguler),
                     )
@@ -55,7 +68,7 @@ class _DetailJadwalState extends State<DetailJadwal> {
                       color: primaryColor,
                       borderRadius: BorderRadius.circular(4)),
                   child: Text(
-                    "Selesai",
+                    jadwalCheckup.status,
                     style: poppinstext.copyWith(
                         fontSize: 12, fontWeight: semiBold),
                   ),
@@ -70,7 +83,7 @@ class _DetailJadwalState extends State<DetailJadwal> {
               style: poppinstext.copyWith(fontSize: 14, fontWeight: semiBold),
             ),
             Text(
-              "Dr Ria",
+              jadwalCheckup.dokter?.name ?? "Unknown",
               style: poppinstext.copyWith(fontSize: 14, fontWeight: reguler),
             ),
             SizedBox(
@@ -81,7 +94,7 @@ class _DetailJadwalState extends State<DetailJadwal> {
               style: poppinstext.copyWith(fontSize: 14, fontWeight: semiBold),
             ),
             Text(
-              "Anisa Tri Astuti",
+              jadwalCheckup.pasien?.name ?? "Unknown",
               style: poppinstext.copyWith(fontSize: 14, fontWeight: reguler),
             ),
             SizedBox(
@@ -92,7 +105,7 @@ class _DetailJadwalState extends State<DetailJadwal> {
               style: poppinstext.copyWith(fontSize: 14, fontWeight: semiBold),
             ),
             Text(
-              "Puskesmas Kembangan",
+              jadwalCheckup.lokasi,
               style: poppinstext.copyWith(fontSize: 14, fontWeight: reguler),
             ),
             SizedBox(
@@ -103,7 +116,7 @@ class _DetailJadwalState extends State<DetailJadwal> {
               style: poppinstext.copyWith(fontSize: 14, fontWeight: semiBold),
             ),
             Text(
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Elementum faucibus ut viverra quisque non, facilisis volutpat est. Ultrices in aliquet ultricies proin dapibus habitasse elit turpis feugiat.",
+              jadwalCheckup.catatan ?? "Tidak ada catatan",
               style: poppinstext.copyWith(fontSize: 14, fontWeight: reguler),
             ),
           ],

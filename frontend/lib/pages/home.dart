@@ -38,7 +38,7 @@ class _HomePageState extends State<HomePage> {
             height: 5,
           ),
           FutureBuilder<Object>(
-              future: Provider.of<RestHttpService>(context)
+              future: Provider.of<RestHttpService>(context, listen: false)
                   .getPemeriksaans(), //TODO: get pemeriksaan terkini
               builder: (context, snapshot) {
                 Pemeriksaan? pemeriksaanTerkini;
@@ -76,7 +76,7 @@ class _HomePageState extends State<HomePage> {
                     )),
                   );
                 } else {
-                  return Container(child: Center(child: Text("Loading..")));
+                  return Container(child: Text("Loading.."));
                 }
               }),
           SizedBox(
