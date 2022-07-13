@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Log;
 use Laravel\Sanctum\HasApiTokens;
 use OpenApi\Annotations as OA;
 use Spatie\Permission\Traits\HasRoles;
@@ -54,6 +55,17 @@ class User extends Authenticatable
         'token_fcm',
         'email_kerabat'
     ];
+
+    /**
+     * Specifies the user's FCM token
+     *
+     * @return string|array
+     */
+    public function routeNotificationForFcm()
+    {
+        Log::debug($this->token_fcm);
+        return $this->token_fcm;
+    }
 
     /**
      * The attributes that should be hidden for serialization.

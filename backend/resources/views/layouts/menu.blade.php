@@ -28,7 +28,20 @@
 </li>
 
 @hasrole("Admin")
-<li class="dropdown-divider"></li>
+<li class="dropdown-divider" style="border-top-color:#696969;"></li>
+<li class="nav-item">
+    <a href="{{ route('motivasis.index') }}"
+       class="nav-link {{ Request::is('motivasis*') ? 'active' : '' }}">
+        <p><i class="fa fa-grin-stars mr-2"></i>Kata Motivasi</p>
+    </a>
+</li>
+<li class="nav-item">
+    <a href="{{ route('settings.reminder') }}"
+       class="nav-link {{ Request::is('reminder*') ? 'active' : '' }}">
+        <p><i class="fa fa-cog mr-2"></i>Pengaturan</p>
+    </a>
+</li>
+<li class="dropdown-divider" style="border-top-color:#696969;"></li>
 <li class="nav-item">
     <a href="{{ route('roles.index') }}"
        class="nav-link {{ Request::is('roles*') ? 'active' : '' }}">
@@ -44,5 +57,3 @@
     </a>
 </li>
 @endhasrole
-
-
