@@ -9,6 +9,7 @@ use App\Repositories\PemeriksaanRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Resources\PemeriksaanResource;
+use OpenApi\Annotations as OA;
 use Response;
 
 /**
