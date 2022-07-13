@@ -38,8 +38,15 @@ class _MyAppState extends State<MyApp> {
     getToken().then((token) {
       tokenApi = token;
       firebaseInit().then((tokenFcm) async {
+        print(tokenApi);
         httpService = RestHttpService.create(bearerToken: tokenApi ?? "");
-        await httpService?.postTokenFCM(body: {"tokenFCM": tokenFcm});
+        try {
+          final response =
+              await httpService?.postTokenFCM(body: {"tokenFCM": tokenFcm});
+          print(response?.body);
+        } catch (e) {
+          print(e);
+        }
       });
     });
     super.initState();

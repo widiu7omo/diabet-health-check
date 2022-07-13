@@ -33,7 +33,7 @@ class _$RestHttpService extends RestHttpService {
 
   @override
   Future<Response<dynamic>> postTokenFCM({Map<String, dynamic>? body}) {
-    final $url = 'api/postTokenFCM';
+    final $url = 'api/post_token_FCM';
     final $body = body;
     final $request = Request('POST', $url, client.baseUrl, body: $body);
     return client.send<dynamic, dynamic>($request);
