@@ -20,6 +20,8 @@
         {!! Form::label('pemeriksaan_id', 'Hasil Pemeriksaan:') !!}
         {!! Form::select('pemeriksaan_id', $pemeriksaans,$selectedPemeriksaans, ['class' => 'select2 form-control','id'=>"pemeriksaan_id",'required'=>'true']) !!}
     </div>
+@else
+    {!! Form::hidden('pemeriksaan_id', $pemeriksaan->id) !!}
 @endif
 @role('Admin')
 <!-- Pasiens Field -->
