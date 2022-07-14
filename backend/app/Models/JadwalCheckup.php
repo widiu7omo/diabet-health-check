@@ -79,7 +79,8 @@ class JadwalCheckup extends Model
         'dokter_id',
         'pasien_id',
         'pemeriksaan_id',
-        'status'
+        'status',
+        'antrian'
     ];
 
     /**
@@ -101,6 +102,7 @@ class JadwalCheckup extends Model
         'dokter_id' => 'integer',
         'pasien_id' => 'integer',
         'pemeriksaan_id' => 'integer',
+        'antrian' => 'integer',
         'status' => 'string'
     ];
 

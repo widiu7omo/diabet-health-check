@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\JadwalCheckupDataTable;
-use App\Http\Requests;
 use App\Http\Requests\CreateJadwalCheckupRequest;
 use App\Http\Requests\UpdateJadwalCheckupRequest;
 use App\Repositories\JadwalCheckupRepository;
@@ -14,7 +13,7 @@ use App\Http\Controllers\AppBaseController;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Response;
+use Illuminate\Support\Facades\Response;
 
 class JadwalCheckupController extends AppBaseController
 {
