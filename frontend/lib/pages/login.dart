@@ -1,3 +1,4 @@
+import 'package:diabetesapps/main.dart';
 import 'package:diabetesapps/services/device_info.dart';
 import 'package:diabetesapps/shared/theme.dart';
 import 'package:diabetesapps/widgets/custombutton.dart';
@@ -22,6 +23,7 @@ class _LoginPageState extends State<LoginPage> {
     final prefs = await SharedPreferences.getInstance();
     await Provider.of<RestHttpService>(context, listen: false)
         .postTokenFCM(body: {"tokenFCM": token});
+    tokenApi.value = token;
     prefs.setString("token", token);
   }
 
@@ -106,7 +108,7 @@ class _LoginPageState extends State<LoginPage> {
                         loggedIn().then((token) {
                           if (token != null) {
                             saveToken(token).then((_) {
-                              // Navigator.pushNamed(context, "/home");
+                              Navigator.pushNamed(context, "/home");
                             });
                           }
                         });

@@ -8,6 +8,7 @@ import 'package:diabetesapps/widgets/jadwalitem.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../main.dart';
 import '../models/base_response.dart';
 
 class JadwalCheckupPage extends StatefulWidget {
@@ -17,13 +18,25 @@ class JadwalCheckupPage extends StatefulWidget {
 
 class _JadwalCheckupPageState extends State<JadwalCheckupPage> {
   var showNav = false;
+  RestHttpService? httpService;
+  @override
+  void initState() {
+    initData();
+    super.initState();
+  }
+
+  void initData() async {
+    String? tokenApi = await getToken();
+    setState(() {
+      httpService = RestHttpService.create(bearerToken: tokenApi ?? "");
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     Widget content() {
       return FutureBuilder(
-          future: Provider.of<RestHttpService>(context, listen: false)
-              .getJadwalCheckups(),
+          future: httpService?.getJadwalCheckups(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               List<JadwalCheckup> jadwalCheckups = [];
@@ -102,7 +115,7 @@ class _JadwalCheckupPageState extends State<JadwalCheckupPage> {
       body: SafeArea(
         child: Stack(
           children: [
-            content(),
+            httpService != null ? content() : SizedBox(),
             showNav ? DrawerNavigator() : SizedBox(),
             HeaderCustom(
               onPress: () {

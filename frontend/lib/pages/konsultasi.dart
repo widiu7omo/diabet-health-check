@@ -8,6 +8,7 @@ import 'package:diabetesapps/widgets/waitem.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../main.dart';
 import '../models/base_response.dart';
 
 class KonsultasiPage extends StatefulWidget {
@@ -17,13 +18,26 @@ class KonsultasiPage extends StatefulWidget {
 
 class _KonsultasiPageState extends State<KonsultasiPage> {
   var showNav = false;
+  RestHttpService? httpService;
+
+  @override
+  void initState() {
+    initData();
+    super.initState();
+  }
+
+  void initData() async {
+    String? tokenApi = await getToken();
+    setState(() {
+      httpService = RestHttpService.create(bearerToken: tokenApi ?? "");
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     Widget content() {
       return FutureBuilder(
-          future:
-              Provider.of<RestHttpService>(context, listen: false).getDokters(),
+          future: httpService?.getDokters(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               List<User> dokters = [];
@@ -86,7 +100,7 @@ class _KonsultasiPageState extends State<KonsultasiPage> {
       body: SafeArea(
         child: Stack(
           children: [
-            content(),
+            httpService != null ? content() : SizedBox(),
             showNav ? DrawerNavigator() : SizedBox(),
             HeaderCustom(
               onPress: () {

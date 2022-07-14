@@ -6,6 +6,7 @@ import 'package:diabetesapps/widgets/monitoritem.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../main.dart';
 import '../models/base_response.dart';
 import '../models/jadwal_checkup.dart';
 import '../models/user.dart';
@@ -30,9 +31,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<JadwalCheckup?> getLastJadwalCheckup() async {
-    final responseJadwal =
-        await Provider.of<RestHttpService>(context, listen: false)
-            .getJadwalCheckups(limit: 1);
+    String? tokenApi = await getToken();
+    final httpService = RestHttpService.create(bearerToken: tokenApi ?? "");
+    final responseJadwal = await httpService.getJadwalCheckups(limit: 1);
     final listResponseJadwal = ListResponse<JadwalCheckup>.fromJson(
       responseJadwal.body,
       (json) => JadwalCheckup.fromJson(json),
@@ -41,8 +42,10 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<User?> getCurrentUser() async {
+    String? tokenApi = await getToken();
+    final httpService = RestHttpService.create(bearerToken: tokenApi ?? "");
     final responseUser =
-        await Provider.of<RestHttpService>(context, listen: false).getUser();
+        await httpService.getUser(bearerToken: "Bearer $tokenApi");
     final singleResponseUser = SingleResponse<User>.fromJson(
       responseUser.body,
       (json) => User.fromJson(json),
@@ -51,9 +54,10 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<Pemeriksaan?> getLastPemeriksaan() async {
-    final responsePemeriksaan =
-        await Provider.of<RestHttpService>(context, listen: false)
-            .getPemeriksaans(limit: 1);
+    String? tokenApi = await getToken();
+    final httpService = RestHttpService.create(bearerToken: tokenApi ?? "");
+    final responsePemeriksaan = await httpService.getPemeriksaans(
+        limit: 1, bearerToken: "Bearer $tokenApi");
     final listResponsePemeriksaan = ListResponse<Pemeriksaan>.fromJson(
       responsePemeriksaan.body,
       (json) => Pemeriksaan.fromJson(json),

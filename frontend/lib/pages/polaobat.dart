@@ -8,6 +8,7 @@ import 'package:diabetesapps/widgets/pbitem.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../main.dart';
 import '../models/base_response.dart';
 
 class PolaObatPage extends StatefulWidget {
@@ -22,21 +23,29 @@ class PolaObatPage extends StatefulWidget {
 class _PolaObatPageState extends State<PolaObatPage> {
   var showNav = false;
   late var jadwalId, pemeriksaanId;
+  RestHttpService? httpService;
 
   @override
   void initState() {
     jadwalId = widget.arg['jadwal_id'];
     pemeriksaanId = widget.arg['pemeriksaan_id'];
+    initData();
     super.initState();
+  }
+
+  void initData() async {
+    String? tokenApi = await getToken();
+    setState(() {
+      httpService = RestHttpService.create(bearerToken: tokenApi ?? "");
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     Widget content() {
       return FutureBuilder(
-          future: Provider.of<RestHttpService>(context, listen: false)
-              .getPolaObats(
-                  pemeriksaanId: this.pemeriksaanId, jadwalId: this.jadwalId),
+          future: httpService?.getPolaObats(
+              pemeriksaanId: this.pemeriksaanId, jadwalId: this.jadwalId),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               List<PolaObat> polaObats = [];
@@ -113,7 +122,7 @@ class _PolaObatPageState extends State<PolaObatPage> {
       body: SafeArea(
         child: Stack(
           children: [
-            content(),
+            httpService != null ? content() : SizedBox(),
             showNav ? DrawerNavigator() : SizedBox(),
             HeaderCustom(
               onPress: () {

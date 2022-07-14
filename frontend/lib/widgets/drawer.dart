@@ -1,6 +1,8 @@
 import 'package:diabetesapps/shared/theme.dart';
 import 'package:diabetesapps/widgets/draweritem.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DrawerNavigator extends StatelessWidget {
   @override
@@ -70,6 +72,15 @@ class DrawerNavigator extends StatelessWidget {
             img: "assets/icinfo.png",
             title: "Tentang Kami",
             onPress: () {},
+          ),
+          DrawerItem(
+            img: "assets/icinfo.png",
+            title: "Logout",
+            onPress: () async {
+              final prefs = await SharedPreferences.getInstance();
+              await prefs.remove('token');
+              Navigator.of(context).pushReplacementNamed('/login');
+            },
           ),
         ],
       ),

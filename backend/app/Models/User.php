@@ -63,7 +63,6 @@ class User extends Authenticatable
      */
     public function routeNotificationForFcm()
     {
-        Log::debug($this->token_fcm);
         return $this->token_fcm;
     }
 

@@ -26,33 +26,43 @@ abstract class RestHttpService extends ChopperService {
   }
 
   @Get(path: "user")
-  Future<Response> getUser();
+  Future<Response> getUser({@Header("Authorization") String? bearerToken});
 
   @Post(path: "login")
-  Future<Response> login({@Body() Map<String, dynamic>? body});
+  Future<Response> login({
+    @Body() Map<String, dynamic>? body,
+  });
 
   @Post(path: "post_token_FCM")
-  Future<Response> postTokenFCM({@Body() Map<String, dynamic>? body});
+  Future<Response> postTokenFCM(
+      {@Body() Map<String, dynamic>? body,
+      @Header("Authorization") String? bearerToken});
 
   @Post(path: "register")
   Future<Response> register({@Body() Map<String, dynamic>? body});
 
   @Get(path: 'pemeriksaans')
-  Future<Response> getPemeriksaans({@Query("limit") int? limit});
+  Future<Response> getPemeriksaans(
+      {@Query("limit") int? limit,
+      @Header("Authorization") String? bearerToken});
 
   @Get(path: 'jadwal_checkups')
-  Future<Response> getJadwalCheckups({@Query("limit") int? limit});
+  Future<Response> getJadwalCheckups(
+      {@Query("limit") int? limit,
+      @Header("Authorization") String? bearerToken});
 
   @Get(path: 'pola_obats')
   Future<Response> getPolaObats(
       {@Query("jadwal_id") int? jadwalId,
-      @Query("pemeriksaan_id") int? pemeriksaanId});
+      @Query("pemeriksaan_id") int? pemeriksaanId,
+      @Header("Authorization") String? bearerToken});
 
   @Get(path: 'pola_makans')
   Future<Response> getPolaMakans(
       {@Query("jadwal_id") int? jadwalId,
-      @Query("pemeriksaan_id") int? pemeriksaanId});
+      @Query("pemeriksaan_id") int? pemeriksaanId,
+      @Header("Authorization") String? bearerToken});
 
   @Get(path: 'dokters')
-  Future<Response> getDokters();
+  Future<Response> getDokters({@Header("Authorization") String? bearerToken});
 }

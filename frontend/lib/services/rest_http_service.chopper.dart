@@ -17,9 +17,13 @@ class _$RestHttpService extends RestHttpService {
   final definitionType = RestHttpService;
 
   @override
-  Future<Response<dynamic>> getUser() {
+  Future<Response<dynamic>> getUser({String? bearerToken}) {
     final $url = 'api/user';
-    final $request = Request('GET', $url, client.baseUrl);
+    final $headers = {
+      if (bearerToken != null) 'Authorization': bearerToken,
+    };
+
+    final $request = Request('GET', $url, client.baseUrl, headers: $headers);
     return client.send<dynamic, dynamic>($request);
   }
 
@@ -32,10 +36,16 @@ class _$RestHttpService extends RestHttpService {
   }
 
   @override
-  Future<Response<dynamic>> postTokenFCM({Map<String, dynamic>? body}) {
+  Future<Response<dynamic>> postTokenFCM(
+      {Map<String, dynamic>? body, String? bearerToken}) {
     final $url = 'api/post_token_FCM';
+    final $headers = {
+      if (bearerToken != null) 'Authorization': bearerToken,
+    };
+
     final $body = body;
-    final $request = Request('POST', $url, client.baseUrl, body: $body);
+    final $request =
+        Request('POST', $url, client.baseUrl, body: $body, headers: $headers);
     return client.send<dynamic, dynamic>($request);
   }
 
@@ -48,47 +58,74 @@ class _$RestHttpService extends RestHttpService {
   }
 
   @override
-  Future<Response<dynamic>> getPemeriksaans({int? limit}) {
+  Future<Response<dynamic>> getPemeriksaans({int? limit, String? bearerToken}) {
     final $url = 'api/pemeriksaans';
     final $params = <String, dynamic>{'limit': limit};
-    final $request = Request('GET', $url, client.baseUrl, parameters: $params);
+    final $headers = {
+      if (bearerToken != null) 'Authorization': bearerToken,
+    };
+
+    final $request = Request('GET', $url, client.baseUrl,
+        parameters: $params, headers: $headers);
     return client.send<dynamic, dynamic>($request);
   }
 
   @override
-  Future<Response<dynamic>> getJadwalCheckups({int? limit}) {
+  Future<Response<dynamic>> getJadwalCheckups(
+      {int? limit, String? bearerToken}) {
     final $url = 'api/jadwal_checkups';
     final $params = <String, dynamic>{'limit': limit};
-    final $request = Request('GET', $url, client.baseUrl, parameters: $params);
+    final $headers = {
+      if (bearerToken != null) 'Authorization': bearerToken,
+    };
+
+    final $request = Request('GET', $url, client.baseUrl,
+        parameters: $params, headers: $headers);
     return client.send<dynamic, dynamic>($request);
   }
 
   @override
-  Future<Response<dynamic>> getPolaObats({int? jadwalId, int? pemeriksaanId}) {
+  Future<Response<dynamic>> getPolaObats(
+      {int? jadwalId, int? pemeriksaanId, String? bearerToken}) {
     final $url = 'api/pola_obats';
     final $params = <String, dynamic>{
       'jadwal_id': jadwalId,
       'pemeriksaan_id': pemeriksaanId
     };
-    final $request = Request('GET', $url, client.baseUrl, parameters: $params);
+    final $headers = {
+      if (bearerToken != null) 'Authorization': bearerToken,
+    };
+
+    final $request = Request('GET', $url, client.baseUrl,
+        parameters: $params, headers: $headers);
     return client.send<dynamic, dynamic>($request);
   }
 
   @override
-  Future<Response<dynamic>> getPolaMakans({int? jadwalId, int? pemeriksaanId}) {
+  Future<Response<dynamic>> getPolaMakans(
+      {int? jadwalId, int? pemeriksaanId, String? bearerToken}) {
     final $url = 'api/pola_makans';
     final $params = <String, dynamic>{
       'jadwal_id': jadwalId,
       'pemeriksaan_id': pemeriksaanId
     };
-    final $request = Request('GET', $url, client.baseUrl, parameters: $params);
+    final $headers = {
+      if (bearerToken != null) 'Authorization': bearerToken,
+    };
+
+    final $request = Request('GET', $url, client.baseUrl,
+        parameters: $params, headers: $headers);
     return client.send<dynamic, dynamic>($request);
   }
 
   @override
-  Future<Response<dynamic>> getDokters() {
+  Future<Response<dynamic>> getDokters({String? bearerToken}) {
     final $url = 'api/dokters';
-    final $request = Request('GET', $url, client.baseUrl);
+    final $headers = {
+      if (bearerToken != null) 'Authorization': bearerToken,
+    };
+
+    final $request = Request('GET', $url, client.baseUrl, headers: $headers);
     return client.send<dynamic, dynamic>($request);
   }
 }

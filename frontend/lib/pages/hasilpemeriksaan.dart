@@ -7,6 +7,7 @@ import 'package:diabetesapps/widgets/hpitem.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../main.dart';
 import '../models/base_response.dart';
 import '../models/pemeriksaan.dart';
 
@@ -17,11 +18,25 @@ class HasilPemeriksaanPage extends StatefulWidget {
 
 class _HasilPemeriksaanPageState extends State<HasilPemeriksaanPage> {
   var showNav = false;
+  RestHttpService? httpService;
+  @override
+  void initState() {
+    initData();
+    super.initState();
+  }
+
+  void initData() async {
+    String? tokenApi = await getToken();
+    setState(() {
+      httpService = RestHttpService.create(bearerToken: tokenApi ?? "");
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     Widget content() {
       return FutureBuilder<Object>(
-          future: Provider.of<RestHttpService>(context).getPemeriksaans(),
+          future: httpService?.getPemeriksaans(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               List<Pemeriksaan>? pemeriksaans;
@@ -74,7 +89,7 @@ class _HasilPemeriksaanPageState extends State<HasilPemeriksaanPage> {
       body: SafeArea(
         child: Stack(
           children: [
-            content(),
+            httpService != null ? content() : SizedBox(),
             showNav ? DrawerNavigator() : SizedBox(),
             HeaderCustom(
               onPress: () {

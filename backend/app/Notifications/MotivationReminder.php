@@ -42,8 +42,8 @@ class MotivationReminder extends Notification
         return FcmMessage::create()
             ->setData(['data1' => 'value', 'data2' => 'value2'])
             ->setNotification(\NotificationChannels\Fcm\Resources\Notification::create()
-                ->setTitle('Account Activated')
-                ->setBody('Your account has been activated.'))
+                ->setTitle('Motivasi')
+                ->setBody('Sakit ini bukan penghalang untukmu. Kamu harus percaya bisa melewati semuanya. Semoga sehat kembali.'))
             ->setAndroid(
                 AndroidConfig::create()
                     ->setFcmOptions(AndroidFcmOptions::create()->setAnalyticsLabel('analytics'))

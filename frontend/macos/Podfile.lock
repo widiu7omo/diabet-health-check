@@ -40,6 +40,8 @@ PODS:
     - GoogleUtilities/Reachability (~> 7.7)
     - GoogleUtilities/UserDefaults (~> 7.7)
     - nanopb (< 2.30910.0, >= 2.30908.0)
+  - flutter_local_notifications (0.0.1):
+    - FlutterMacOS
   - FlutterMacOS (1.0.0)
   - GoogleDataTransport (9.1.4):
     - GoogleUtilities/Environment (~> 7.7)
@@ -77,6 +79,7 @@ DEPENDENCIES:
   - device_info_plus_macos (from `Flutter/ephemeral/.symlinks/plugins/device_info_plus_macos/macos`)
   - firebase_core (from `Flutter/ephemeral/.symlinks/plugins/firebase_core/macos`)
   - firebase_messaging (from `Flutter/ephemeral/.symlinks/plugins/firebase_messaging/macos`)
+  - flutter_local_notifications (from `Flutter/ephemeral/.symlinks/plugins/flutter_local_notifications/macos`)
   - FlutterMacOS (from `Flutter/ephemeral`)
   - path_provider_macos (from `Flutter/ephemeral/.symlinks/plugins/path_provider_macos/macos`)
   - shared_preferences_macos (from `Flutter/ephemeral/.symlinks/plugins/shared_preferences_macos/macos`)
@@ -101,6 +104,8 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/firebase_core/macos
   firebase_messaging:
     :path: Flutter/ephemeral/.symlinks/plugins/firebase_messaging/macos
+  flutter_local_notifications:
+    :path: Flutter/ephemeral/.symlinks/plugins/flutter_local_notifications/macos
   FlutterMacOS:
     :path: Flutter/ephemeral
   path_provider_macos:
@@ -118,6 +123,7 @@ SPEC CHECKSUMS:
   FirebaseCoreInternal: cb966328b6985dbd6f535e1461291063e1c4a00f
   FirebaseInstallations: 21186f0ca7849f90f4a3219fa31a5eca2e30f113
   FirebaseMessaging: 4eaf1b8a7464b2c5e619ad66e9b20ee3e3206b24
+  flutter_local_notifications: 3805ca215b2fb7f397d78b66db91f6a747af52e4
   FlutterMacOS: 57701585bf7de1b3fc2bb61f6378d73bbdea8424
   GoogleDataTransport: 5fffe35792f8b96ec8d6775f5eccd83c998d5a3b
   GoogleUtilities: e0913149f6b0625b553d70dae12b49fc62914fd1

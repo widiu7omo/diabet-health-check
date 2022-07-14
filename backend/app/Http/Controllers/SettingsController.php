@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SendReminderJob;
 use App\Models\User;
 use App\Notifications\MotivationReminder;
 use Arcanedev\LaravelSettings\Contracts\Store;
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Http\Request;
 
 class SettingsController extends Controller
@@ -28,7 +30,7 @@ class SettingsController extends Controller
         return redirect(route('settings.notification'));
     }
 
-    public function reminderTest(Request $request)
+    public function reminderTest(Request $request, Schedule $schedule)
     {
         $user = User::find(4);
         if ($user == null) {
@@ -38,6 +40,7 @@ class SettingsController extends Controller
         if ($user != null && $user->token_fcm == null) {
             $user->token_fcm = $request->tokenFCM;
         }
+//        $schedule->job(SendReminderJob::class, 'default', 'database')->cron("*/5 * * * * *");
         $user->notify(new MotivationReminder);
     }
 

@@ -11,11 +11,14 @@ import 'firebase_options.dart';
 
 late AndroidNotificationChannel channel;
 late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+
 void onIOSDidReceiveLocalNotification(
     int id, String? title, String? body, String? payload) async {
   print(title);
   print(body);
 }
+
+final ValueNotifier<String> tokenApi = new ValueNotifier("");
 
 void main() async {
   //TODO: get local storage token
@@ -54,16 +57,20 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
+tokenListener() {
+  print("TOKEN_API_CHANGES");
+  print(tokenApi.value);
+}
+
 class _MyAppState extends State<MyApp> {
-  late String? tokenApi;
   RestHttpService? httpService = null;
   @override
   void initState() {
+    tokenApi.addListener(tokenListener);
     getToken().then((token) {
-      tokenApi = token;
+      tokenApi.value = token ?? "";
       firebaseInit().then((tokenFcm) async {
-        print(tokenApi);
-        httpService = RestHttpService.create(bearerToken: tokenApi ?? "");
+        httpService = RestHttpService.create(bearerToken: tokenApi.value);
         try {
           await httpService?.postTokenFCM(body: {"tokenFCM": tokenFcm});
         } catch (e) {
@@ -76,6 +83,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void dispose() {
+    tokenApi.removeListener(tokenListener);
     super.dispose();
     httpService?.client.dispose();
   }
@@ -119,16 +127,27 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return Provider(
-      create: (_) => RestHttpService.create(bearerToken: tokenApi ?? ""),
-      dispose: (_, RestHttpService service) {
-        print("PROVIDER_DISPOSED");
-        return service.client.dispose();
-      },
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        onGenerateRoute: RouteGenerator.generateRoute,
-      ),
-    );
+    return ValueListenableBuilder<String>(
+        valueListenable: tokenApi,
+        builder: (context, tokenValue, child) {
+          print("TOKEN_${tokenApi.value}");
+          RestHttpService instance =
+              RestHttpService.create(bearerToken: tokenApi.value);
+          print(instance);
+          return Provider(
+            create: (_) {
+              print(instance.hashCode);
+              return instance;
+            },
+            dispose: (_, RestHttpService service) {
+              print("PROVIDER_DISPOSED");
+              return service.client.dispose();
+            },
+            child: MaterialApp(
+              debugShowCheckedModeBanner: false,
+              onGenerateRoute: RouteGenerator.generateRoute,
+            ),
+          );
+        });
   }
 }
