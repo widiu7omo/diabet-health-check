@@ -5,7 +5,6 @@ import 'package:diabetesapps/widgets/drawer.dart';
 import 'package:diabetesapps/widgets/header.dart';
 import 'package:diabetesapps/widgets/hpitem.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../main.dart';
 import '../models/base_response.dart';
