@@ -117,9 +117,9 @@ class JadwalCheckupController extends AppBaseController
     {
         $jadwalCheckup = $this->jadwalCheckupRepository->find($id);
         $pasiens = $this->userRepository->makeModel()->role('Pasien')->get()->pluck('name', 'id');
-        $selectedPasiens = [];
+        $selectedPasiens = [$jadwalCheckup->dokter_id];
         $dokters = $this->userRepository->makeModel()->role('Dokter')->get()->pluck('name', 'id');
-        $selectedDokters = [];
+        $selectedDokters = [$jadwalCheckup->pasien_id];
         $pemeriksaans = $this->pemeriksaanRepository->all()->pluck('pemeriksaan', 'id');
         $selectedPemeriksaans = [];
         $selectedStatus = [$jadwalCheckup->status];

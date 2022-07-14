@@ -30,6 +30,7 @@ Route::group(['middleware' => 'auth:web'], function () {
     Route::post('reminder/save', [App\Http\Controllers\SettingsController::class, 'reminderSave'])->name("settings.reminder.save");
     Route::get('email', [App\Http\Controllers\SettingsController::class, 'email'])->name("settings.email");
     Route::post('email/save', [App\Http\Controllers\SettingsController::class, 'emailSave'])->name("settings.email.save");
+    Route::post('email/test', [App\Http\Controllers\SettingsController::class, 'emailTest'])->name("settings.email.test");
     Route::get('notification', [App\Http\Controllers\SettingsController::class, 'notification'])->name("settings.notification");
     Route::post('notification/save', [App\Http\Controllers\SettingsController::class, 'notificationSave'])->name("settings.notification.save");
     Route::resource('pemeriksaans', App\Http\Controllers\PemeriksaanController::class);
@@ -42,3 +43,6 @@ Route::group(['middleware' => 'auth:web'], function () {
 
 
 Route::resource('motivasis', App\Http\Controllers\MotivasiController::class);
+
+
+Route::resource('jadwalDokters', App\Http\Controllers\JadwalDokterController::class);

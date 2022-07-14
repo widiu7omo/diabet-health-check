@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * @OA\Schema(
- *      schema="Motivasi",
- *      required={"title", "content"},
+ *      schema="JadwalDokter",
+ *      required={"hari", "jam_mulai", "jam_selesai"},
  *      @OA\Property(
  *          property="id",
  *          description="id",
@@ -19,15 +19,22 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *          format="int32"
  *      ),
  *      @OA\Property(
- *          property="title",
- *          description="title",
+ *          property="hari",
+ *          description="hari",
  *          readOnly=$FIELD_READ_ONLY$,
  *          nullable=$FIELD_NULLABLE$,
  *          type="string"
  *      ),
  *      @OA\Property(
- *          property="content",
- *          description="content",
+ *          property="jam_mulai",
+ *          description="jam_mulai",
+ *          readOnly=$FIELD_READ_ONLY$,
+ *          nullable=$FIELD_NULLABLE$,
+ *          type="string"
+ *      ),
+ *      @OA\Property(
+ *          property="jam_selesai",
+ *          description="jam_selesai",
  *          readOnly=$FIELD_READ_ONLY$,
  *          nullable=$FIELD_NULLABLE$,
  *          type="string"
@@ -58,22 +65,23 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *      )
  * )
  */
-class Motivasi extends Model
+class JadwalDokter extends Model
 {
     use SoftDeletes;
 
     use HasFactory;
 
-    public $table = 'motivasis';
+    public $table = 'jadwal_dokters';
 
 
     protected $dates = ['deleted_at'];
 
 
-
     public $fillable = [
-        'title',
-        'content'
+        'hari',
+        'jam_mulai',
+        'jam_selesai',
+        'dokter_id'
     ];
 
     /**
@@ -83,8 +91,10 @@ class Motivasi extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'title' => 'string',
-        'content' => 'string'
+        'hari' => 'string',
+        'jam_mulai' => 'string',
+        'jam_selesai' => 'string',
+        'dokter_id' => 'integer'
     ];
 
     /**
@@ -93,9 +103,14 @@ class Motivasi extends Model
      * @var array
      */
     public static $rules = [
-        'title' => 'required',
-        'content' => 'required'
+        'hari' => 'required',
+        'jam_mulai' => 'required',
+        'jam_selesai' => 'required'
     ];
 
+    public function dokter()
+    {
+        return $this->belongsTo(User::class, 'dokter_id');
+    }
 
 }

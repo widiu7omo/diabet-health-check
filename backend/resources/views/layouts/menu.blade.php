@@ -30,6 +30,12 @@
 @hasrole("Admin")
 <li class="dropdown-divider" style="border-top-color:#696969;"></li>
 <li class="nav-item">
+    <a href="{{ route('jadwalDokters.index') }}"
+       class="nav-link {{ Request::is('jadwalDokters*') ? 'active' : '' }}">
+        <p><i class="fa fa-calendar mr-2"></i>Jadwal Dokters</p>
+    </a>
+</li>
+<li class="nav-item">
     <a href="{{ route('motivasis.index') }}"
        class="nav-link {{ Request::is('motivasis*') ? 'active' : '' }}">
         <p><i class="fa fa-grin-stars mr-2"></i>Kata Motivasi</p>
@@ -57,3 +63,5 @@
     </a>
 </li>
 @endhasrole
+
+

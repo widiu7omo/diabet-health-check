@@ -79,13 +79,13 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <input type="email" class="form-control"
+                                        <input type="email" name="email" id="email" class="form-control"
                                                placeholder="Masukkan email untuk melakukan tes email">
                                     </div>
                                     <small class="text-black-50">Masukkan email tes</small>
                                 </div>
                                 <div class="col-6">
-                                    <button class="btn btn-primary">Tes Kirim Email</button>
+                                    <button class="btn btn-primary" id="test-kirim">Tes Kirim Email</button>
                                 </div>
                             </div>
                         </div>
@@ -99,7 +99,21 @@
     <script>
         $(document).ready(function () {
             var csrf = $("[name='_token']").val();
-
+            $('#test-kirim').on('click', function () {
+                var email = $('#email').val();
+                $.ajax({
+                    url: "{{route('settings.email.test')}}",
+                    method: 'POST',
+                    dataType: 'json',
+                    data: {
+                        "_token": csrf,
+                        email
+                    },
+                    success(res) {
+                        console.log(res);
+                    }
+                });
+            });
             $('#email_enable_notification').on("change", function (e) {
                 console.log(e.target.checked);
                 $.ajax({

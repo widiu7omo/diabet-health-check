@@ -105,4 +105,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(JadwalCheckup::class, 'pasien_id');
     }
+
+    public function jadwal_dokters()
+    {
+        return $this->hasMany(JadwalDokter::class, 'dokter_id');
+    }
 }

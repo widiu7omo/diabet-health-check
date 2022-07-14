@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\SendReminderJob;
+use App\Mail\Gmail;
 use App\Models\User;
 use App\Notifications\MotivationReminder;
 use Arcanedev\LaravelSettings\Contracts\Store;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Response;
+use InfyOm\Generator\Utils\ResponseUtil;
 
 class SettingsController extends Controller
 {
@@ -60,6 +64,22 @@ class SettingsController extends Controller
     public function email()
     {
         return view('settings.email');
+    }
+
+    public function emailTest(Request $request, Schedule $schedule)
+    {
+        if ($request->email == null) {
+            return Response::json(ResponseUtil::makeResponse("Failed Send Email Test", []));
+        }
+//        $schedule->job(SendReminderJob::class, 'default', 'database')->cron("*/5 * * * * *");
+        $details = [
+            'title' => 'Thank you for subscribing to my newsletter',
+            'body' => 'You will receive a newsletter every Fourth Friday of the month'
+
+        ];
+        Mail::to($request->email)->send(new Gmail($details));
+        return Response::json(ResponseUtil::makeResponse("Success Send Email Test", []));
+
     }
 
     public function emailSave(Request $request)
