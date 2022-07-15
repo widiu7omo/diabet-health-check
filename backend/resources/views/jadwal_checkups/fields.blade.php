@@ -30,16 +30,13 @@
     {!! Form::select('dokter_id', $dokters,$selectedDokters, ['class' => 'select2 form-control','id'=>"dokter_id",'required'=>'true']) !!}
 </div>
 @endrole
-@push('page_scripts')
-    <script type="text/javascript">
-        $('#tgl_checkup').datetimepicker({
-            format: 'YYYY-MM-DD HH:mm:ss',
-            useCurrent: true,
-            sideBySide: true
-        })
-    </script>
-@endpush
 
+<!-- Lokasi Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('antrian', 'Antrian:') !!}
+    {!! Form::text('antrian', null, ['class' => 'form-control','type'=>'number']) !!}
+    <small class="text-black-50">Akan digenerate otomatis setelah anda memilih tanggal dan dokter</small>
+</div>
 <!-- Lokasi Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('lokasi', 'Lokasi:') !!}
@@ -55,3 +52,41 @@
     {!! Form::label('catatan', 'Catatan:') !!}
     {!! Form::textarea('catatan', null, ['class' => 'form-control']) !!}
 </div>
+@push('page_scripts')
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var csrf = $("[name='_token']").val();
+
+            $("[name='dokter_id']").on('change', function () {
+                console.log("change");
+            });
+            $('#tgl_checkup').datetimepicker({
+                format: 'YYYY-MM-DD HH:mm:ss',
+                useCurrent: true,
+                sideBySide: true
+            }).on('dp.change', function (e) {
+                $.ajax({
+                    url: '{{route('jadwalCheckups.generateAntrian')}}',
+                    method: 'POST',
+                    dataType: 'json',
+                    data: {
+                        "_token": csrf,
+                        date: e.target.value,
+                    },
+                    success(res) {
+                        if (res.success) {
+                            var optionsDokter = res.dokters.map(function (item) {
+                                return `<option value="${item.dokter.id}">${item.dokter.name} - (Jampel ${item.jadwal})</option>`
+                            });
+                            if (optionsDokter.length === 0) {
+                                optionsDokter = [`<option>Tidak ada jadwal dokter dihari ${res.day}</option>`]
+                            }
+                            $('#dokter_id').empty().append(optionsDokter.join(''))
+                        }
+                    }
+                });
+            })
+        })
+
+    </script>
+@endpush

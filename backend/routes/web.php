@@ -24,6 +24,7 @@ Route::group(['middleware' => 'auth:web'], function () {
     Route::resource('jadwalCheckups', App\Http\Controllers\JadwalCheckupController::class);
     Route::get('jadwalCheckups/polamakan/{id}', [App\Http\Controllers\JadwalCheckupController::class, 'makan'])->name("jadwalCheckups.makan");
     Route::get('jadwalCheckups/obat/{id}', [App\Http\Controllers\JadwalCheckupController::class, 'obat'])->name('jadwalCheckups.obat');
+    Route::post('jadwalCheckups/generate_antrian', [App\Http\Controllers\JadwalCheckupController::class, 'generateAntrian'])->name('jadwalCheckups.generateAntrian');
     Route::get('pemeriksaans/jadwalkan/{id}', [App\Http\Controllers\PemeriksaanController::class, 'jadwalkan'])->name("pemeriksaan.jadwalkan");
     Route::get('reminder', [App\Http\Controllers\SettingsController::class, 'reminder'])->name("settings.reminder");
     Route::post('reminder/test', [App\Http\Controllers\SettingsController::class, 'reminderTest'])->name("settings.reminder.test");

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\DataTables\JadwalCheckupDataTable;
 use App\Http\Requests\CreateJadwalCheckupRequest;
 use App\Http\Requests\UpdateJadwalCheckupRequest;
+use App\Models\JadwalDokter;
 use App\Repositories\JadwalCheckupRepository;
 use App\Repositories\PemeriksaanRepository;
 use App\Repositories\UserRepository;
@@ -13,6 +14,8 @@ use App\Http\Controllers\AppBaseController;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Response;
 
 class JadwalCheckupController extends AppBaseController
@@ -201,5 +204,38 @@ class JadwalCheckupController extends AppBaseController
     {
         $jadwalCheckup = $this->jadwalCheckupRepository->find($id);
         return view('pola_obats.create')->with('jadwalCheckup', $jadwalCheckup);
+    }
+
+    public function generateAntrian(Request $request)
+    {
+        $minimalServing = 10; //pelayanan pasien minimal 15 Menit
+        $quantum = 3; //pergantian dokter 3 jam sekali
+        $quantumInMinutes = ($quantum * 60); // 3 jam x 60 menit
+        $input = $request->except("_token");
+        $dayPick = Carbon::createFromFormat('Y-m-d H:i:s', $input['date'])->translatedFormat('l');
+        $datePick = Carbon::createFromFormat('Y-m-d H:i:s', $input['date'])->translatedFormat('Y-m-d');
+        $hourPick = Carbon::createFromFormat('Y-m-d H:i:s', $input['date'])->translatedFormat('H:i');
+        $dayPickLower = strtolower($dayPick);
+
+        $jadwalsDokter = JadwalDokter::with('dokter')->where('hari', '=', $dayPickLower)->get();
+        $doctorDates = $jadwalsDokter->map(function ($item) use ($minimalServing, $quantumInMinutes, $datePick, $hourPick) {
+            $doctorDateStart = Carbon::createFromFormat('Y-m-d H:i', $datePick . ' ' . $item->jam_mulai)->subMinutes($minimalServing);
+            $doctorDateFinish = Carbon::createFromFormat('Y-m-d H:i', $datePick . ' ' . $item->jam_selesai)->subMinutes($minimalServing);
+            $diffDateStart = Carbon::createFromFormat('Y-m-d H:i', $datePick . ' ' . $hourPick)->diffInMinutes($doctorDateStart);
+            $diffDateFinish = Carbon::createFromFormat('Y-m-d H:i', $datePick . ' ' . $hourPick)->diffInMinutes($doctorDateFinish);
+            if (($diffDateStart <= $quantumInMinutes) && ($diffDateFinish <= $quantumInMinutes)) {
+                if (($diffDateStart == 0)) {
+                    $isDoctorPicked = false;
+                } else {
+                    $isDoctorPicked = true;
+                }
+            } else {
+                $isDoctorPicked = false;
+            }
+            return ['picked' => $isDoctorPicked, 'dokter' => $item->dokter, "diff_time_start" => $diffDateStart, 'diff_time_finish' => $diffDateFinish, 'jadwal' => $item->jam_mulai . '-' . $item->jam_selesai];
+        });
+        //filter only picked doctor
+
+        return Response::json(['success' => true, 'dokters' => $doctorDates, 'day' => $dayPick, 'hour' => $hourPick]);
     }
 }
