@@ -75,13 +75,28 @@
                     },
                     success(res) {
                         if (res.success) {
-                            var optionsDokter = res.dokters.map(function (item) {
-                                return `<option value="${item.dokter.id}">${item.dokter.name} - (Jampel ${item.jadwal})</option>`
-                            });
-                            if (optionsDokter.length === 0) {
+                            var dokterDom = $('#dokter_id');
+                            var pickedDoctor = res.pickedDoctor;
+                            var optionsDokter = [];
+                            if (res.dokters.length === 0) {
                                 optionsDokter = [`<option>Tidak ada jadwal dokter dihari ${res.day}</option>`]
                             }
-                            $('#dokter_id').empty().append(optionsDokter.join(''))
+                            if (!pickedDoctor) {
+                                optionsDokter = [`<option>Tidak ada jam operasional dokter di jam ${res.hour}</option>`]
+                            } else {
+                                optionsDokter = res.dokters.map(function (item) {
+                                    return `<option value="${item.dokter.id}">${item.dokter.name} - (Jampel ${item.jadwal})</option>`
+                                });
+                            }
+                            dokterDom.empty().append(optionsDokter.join(''))
+                            if (pickedDoctor) {
+                                dokterDom.val(pickedDoctor.dokter.id).change();
+                                if (res.jadwalTerakhir != null) {
+                                    $('[name="antrian"]').val(parseInt(res.jadwalTerakhir.antrian) + 1);
+                                } else {
+                                    $('[name="antrian"]').val(1)
+                                }
+                            }
                         }
                     }
                 });

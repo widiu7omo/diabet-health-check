@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\DataTables\JadwalCheckupDataTable;
 use App\Http\Requests\CreateJadwalCheckupRequest;
 use App\Http\Requests\UpdateJadwalCheckupRequest;
+use App\Models\JadwalCheckup;
 use App\Models\JadwalDokter;
 use App\Repositories\JadwalCheckupRepository;
 use App\Repositories\PemeriksaanRepository;
@@ -232,10 +233,24 @@ class JadwalCheckupController extends AppBaseController
             } else {
                 $isDoctorPicked = false;
             }
-            return ['picked' => $isDoctorPicked, 'dokter' => $item->dokter, "diff_time_start" => $diffDateStart, 'diff_time_finish' => $diffDateFinish, 'jadwal' => $item->jam_mulai . '-' . $item->jam_selesai];
+            return ['picked' => $isDoctorPicked, 'dokter' => $item->dokter, "diff_time_start" => $diffDateStart, 'diff_time_finish' => $diffDateFinish, 'jadwal' => $item->jam_mulai . '-' . $item->jam_selesai, 'start' => $item->jam_mulai, 'end' => $item->jam_selesai];
         });
         //filter only picked doctor
-
-        return Response::json(['success' => true, 'dokters' => $doctorDates, 'day' => $dayPick, 'hour' => $hourPick]);
+        $pickedDoctor = $doctorDates->filter(function ($item) {
+            return $item['picked'] == true;
+        });
+        if ($pickedDoctor == null) {
+            return Response::json(['success' => false, 'message' => 'Doctor not found']);
+        }
+        $dokterPicked = $pickedDoctor->first();
+        $jadwalTerakhir = null;
+        if ($dokterPicked != null) {
+            //fetcho antrian by dokter and current time
+            $from = $datePick . ' ' . $dokterPicked['start'];
+            $to = $datePick . ' ' . $dokterPicked['end'];
+            $jadwalTerakhir = JadwalCheckup::with("dokter")->where('dokter_id', '=', $dokterPicked['dokter']->id)->whereBetween('tgl_checkup', [$from, $to])->orderBy('tgl_checkup', 'desc')->get()->first();
+        }
+        //add +1 and publish to user
+        return Response::json(['success' => true, 'dokters' => $doctorDates, 'day' => $dayPick, 'hour' => $hourPick, 'pickedDoctor' => $dokterPicked, 'jadwalTerakhir' => $jadwalTerakhir]);
     }
 }

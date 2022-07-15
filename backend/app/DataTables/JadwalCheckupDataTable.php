@@ -85,6 +85,7 @@ class JadwalCheckupDataTable extends DataTable
     {
         return [
             'checkup',
+            'antrian',
             'tgl_checkup',
             'status',
             [

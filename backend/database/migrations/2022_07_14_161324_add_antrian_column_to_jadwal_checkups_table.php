@@ -14,7 +14,7 @@ class AddAntrianColumnToJadwalCheckupsTable extends Migration
     public function up()
     {
         Schema::table('jadwal_checkups', function (Blueprint $table) {
-            $table->integer("antrain")->default(0);
+            $table->integer("antrian")->default(0);
         });
     }
 
@@ -26,7 +26,7 @@ class AddAntrianColumnToJadwalCheckupsTable extends Migration
     public function down()
     {
         Schema::table('jadwal_checkups', function (Blueprint $table) {
-            $table->dropColumn("antrain");
+            $table->dropColumn("antrian");
         });
     }
 }
