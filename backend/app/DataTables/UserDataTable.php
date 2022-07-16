@@ -20,6 +20,8 @@ class UserDataTable extends DataTable
         $columns = array_column($this->getColumns(), 'data');
         return $dataTable->editColumn('role', function ($user) {
             return getArrayColumn($user->roles, 'name');
+        })->editColumn('token_fcm', function ($user) {
+            return $user->token_fcm ?? "Belum ada token";
         })
             ->addColumn('action', 'users.datatables_actions')
             ->rawColumns(array_merge($columns, ['action']));
@@ -77,6 +79,7 @@ class UserDataTable extends DataTable
                 'orderable' => true, 'searchable' => true,
 
             ],
+            'token_fcm'
         ];
     }
 
