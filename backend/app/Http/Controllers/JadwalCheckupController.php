@@ -7,11 +7,11 @@ use App\Http\Requests\CreateJadwalCheckupRequest;
 use App\Http\Requests\UpdateJadwalCheckupRequest;
 use App\Models\JadwalCheckup;
 use App\Models\JadwalDokter;
+use App\Models\User;
 use App\Notifications\NotificationScheduleCreated;
 use App\Repositories\JadwalCheckupRepository;
 use App\Repositories\PemeriksaanRepository;
 use App\Repositories\UserRepository;
-use Flash;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -21,6 +21,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Response;
+use Laracasts\Flash\Flash;
 
 class JadwalCheckupController extends AppBaseController
 {
@@ -84,6 +85,13 @@ class JadwalCheckupController extends AppBaseController
         $input = $request->all();
         if (auth()->user()->hasRole('Dokter')) {
             $input['dokter_id'] = auth()->user()->id;
+        }
+        $selectedDate = Carbon::createFromFormat('Y-m-d H:i:s', $input['tgl_checkup'])->translatedFormat('Y-m-d');
+        $selectedDateFull = Carbon::createFromFormat('Y-m-d H:i:s', $input['tgl_checkup'])->translatedFormat('l, Y-m-d H:i');
+        $userAkanDijadwalkan = $this->jadwalCheckupRepository->makeModel()->where("pasien_id")->orWhereDate('tgl_checkup', '=', $selectedDate)->get();
+        if (count($userAkanDijadwalkan) > 0) {
+            Flash::error('Jadwal Checkup gagal dibuat, Pasien sudah didaftarkan di hari '.$selectedDateFull);
+            return redirect(route('jadwalCheckups.index'));
         }
         $jadwalCheckup = $this->jadwalCheckupRepository->create($input);
         if ($jadwalCheckup) {
