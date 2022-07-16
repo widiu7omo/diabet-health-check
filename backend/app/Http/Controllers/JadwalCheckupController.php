@@ -7,6 +7,7 @@ use App\Http\Requests\CreateJadwalCheckupRequest;
 use App\Http\Requests\UpdateJadwalCheckupRequest;
 use App\Models\JadwalCheckup;
 use App\Models\JadwalDokter;
+use App\Notifications\NotificationScheduleCreated;
 use App\Repositories\JadwalCheckupRepository;
 use App\Repositories\PemeriksaanRepository;
 use App\Repositories\UserRepository;
@@ -15,7 +16,9 @@ use App\Http\Controllers\AppBaseController;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Response;
 
@@ -74,7 +77,7 @@ class JadwalCheckupController extends AppBaseController
      *
      * @param CreateJadwalCheckupRequest $request
      *
-     * @return Response
+     * @return Application|Redirector|RedirectResponse
      */
     public function store(CreateJadwalCheckupRequest $request)
     {
@@ -83,6 +86,9 @@ class JadwalCheckupController extends AppBaseController
             $input['dokter_id'] = auth()->user()->id;
         }
         $jadwalCheckup = $this->jadwalCheckupRepository->create($input);
+        if ($jadwalCheckup) {
+            $jadwalCheckup->pasien->notify(new NotificationScheduleCreated($jadwalCheckup));
+        }
 
         Flash::success('Jadwal Checkup saved successfully.');
 
@@ -94,7 +100,7 @@ class JadwalCheckupController extends AppBaseController
      *
      * @param int $id
      *
-     * @return Response
+     * @return Application|Factory|View|Response
      */
     public function show($id)
     {
@@ -149,7 +155,7 @@ class JadwalCheckupController extends AppBaseController
      * @param int $id
      * @param UpdateJadwalCheckupRequest $request
      *
-     * @return Response
+     * @return Application|RedirectResponse|Redirector|Response
      */
     public function update($id, UpdateJadwalCheckupRequest $request)
     {
@@ -264,12 +270,12 @@ class JadwalCheckupController extends AppBaseController
                 $isDoctorPicked = false;
             }
             return [
-                'picked' => $isDoctorPicked, 
-                'dokter' => $item->dokter, 
-                "diff_time_start" => $diffDateStart, 
-                'diff_time_finish' => $diffDateFinish, 
-                'jadwal' => $item->jam_mulai . '-' . $item->jam_selesai, 
-                'start' => $item->jam_mulai, 
+                'picked' => $isDoctorPicked,
+                'dokter' => $item->dokter,
+                "diff_time_start" => $diffDateStart,
+                'diff_time_finish' => $diffDateFinish,
+                'jadwal' => $item->jam_mulai . '-' . $item->jam_selesai,
+                'start' => $item->jam_mulai,
                 'end' => $item->jam_selesai
             ];
             //Mengembalikan nilai value dan di simpan ke variabel array $doctorDates

@@ -35,6 +35,11 @@ class PolaObatDataTable extends DataTable
      */
     public function query(PolaObat $model)
     {
+        $user = auth()->user();
+        if ($user->hasRole('Dokter')) {
+            $jadwalsDokters = $user->jadwal_checkup_dokters->pluck('id')->toArray();
+            return $model->whereIn('jadwal_id', $jadwalsDokters);
+        }
         return $model->newQuery();
     }
 

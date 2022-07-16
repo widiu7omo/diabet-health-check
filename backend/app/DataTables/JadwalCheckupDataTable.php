@@ -48,6 +48,10 @@ class JadwalCheckupDataTable extends DataTable
      */
     public function query(JadwalCheckup $model)
     {
+        $user = auth()->user();
+        if ($user->hasRole('Dokter')) {
+            return $model->where('dokter_id', '=', $user->id);
+        }
         return $model->newQuery();
     }
 
