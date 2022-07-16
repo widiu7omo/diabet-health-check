@@ -36,14 +36,14 @@ class SettingsController extends Controller
 
     public function reminderTest(Request $request, Schedule $schedule)
     {
-        $user = User::find(4);
-        if ($user == null) {
-            $user = new User();
-            $user->token_fcm = $request->tokenFCM;
-        }
-        if ($user != null && $user->token_fcm == null) {
-            $user->token_fcm = $request->tokenFCM;
-        }
+//        $user = User::find(4);
+//        if ($user == null) {
+        $user = new User();
+        $user->token_fcm = $request->tokenFCM;
+//        }
+//        if ($user != null && $user->token_fcm == null) {
+//            $user->token_fcm = $request->tokenFCM;
+//        }
 //        $schedule->job(SendReminderJob::class, 'default', 'database')->cron("*/5 * * * * *");
         $user->notify(new MotivationReminder);
     }
