@@ -209,23 +209,53 @@ class JadwalCheckupController extends AppBaseController
 
     public function generateAntrian(Request $request)
     {
-        $minimalServing = 10; //pelayanan pasien minimal 15 Menit
-        $quantum = 3; //pergantian dokter 3 jam sekali
-        $quantumInMinutes = ($quantum * 60); // 3 jam x 60 menit
+        $minimalServing = 10;
+        //pelayanan pasien minimal 10 Menit
+
+        $quantum = 3;
+        //pergantian dokter 3 jam sekali
+
+        $quantumInMinutes = ($quantum * 60);
+        // konversi nilai quantum 3 jam x 60 menit
+
         $input = $request->except("_token");
+        //mengambil nilai request, kecuali atribut _token
+
         $dayPick = Carbon::createFromFormat('Y-m-d H:i:s', $input['date'])->translatedFormat('l');
+        //mengambil nilai dari tanggal yang dipilih oleh admin, dan menkonversinya dalam bentuk hari. contoh: Rabu
+
         $datePick = Carbon::createFromFormat('Y-m-d H:i:s', $input['date'])->translatedFormat('Y-m-d');
+        //mengambil nilai dari tanggal yang dipilih oleh admin, dan menkonversinya dalam bentuk tanggal dengan format YYYY-MM-DD. contoh: 2022-07-02
+
         $hourPick = Carbon::createFromFormat('Y-m-d H:i:s', $input['date'])->translatedFormat('H:i');
+        //mengambil nilai dari tanggal yang dipilih oleh admin, dan menkonversinya dalam bentuk jam dengan format HH:MM. contoh: 08:34
+
         $dayPickLower = strtolower($dayPick);
+        //mengubah string case ke lowerCase contoh Rabu => rabu
 
         $jadwalsDokter = JadwalDokter::with('dokter')->where('hari', '=', $dayPickLower)->get();
+        //Mengambil semua jadwal dokter yang sesuai dengan hari yang dipilih oleh admin. contoh: Admin memilih hari rabu -> semua jadwal dokter di hari rabu
+
         $doctorDates = $jadwalsDokter->map(function ($item) use ($minimalServing, $quantumInMinutes, $datePick, $hourPick) {
+            //mapping -> melooping jadwal dokter yang telah diambil sebelumnya
+
             $doctorDateStart = Carbon::createFromFormat('Y-m-d H:i', $datePick . ' ' . $item->jam_mulai)->subMinutes($minimalServing);
+            //mengambil waktu mulai dokter jaga untuk dikurang dengan minimal pelayanan -> supaya pasien dapat dijadwalkan dengan dokter lain jika pasien datang kurang dari waktu minimal pelayanan
+
             $doctorDateFinish = Carbon::createFromFormat('Y-m-d H:i', $datePick . ' ' . $item->jam_selesai)->subMinutes($minimalServing);
+            //mengambil waktu selesai dokter jaga untuk dikurang dengan minimal pelayanan -> supaya pasien dapat dijadwalkan dengan dokter lain jika pasien datang kurang dari waktu minimal pelayanan
+
             $diffDateStart = Carbon::createFromFormat('Y-m-d H:i', $datePick . ' ' . $hourPick)->diffInMinutes($doctorDateStart);
+            //mengambil nilai perbedaan/selisih dari tanggal yang dipilih admin dan waktu mulai dokter jaga dalam satuan menit
+
             $diffDateFinish = Carbon::createFromFormat('Y-m-d H:i', $datePick . ' ' . $hourPick)->diffInMinutes($doctorDateFinish);
+            //mengambil nilai perbedaan/selisih dari tanggal yang dipilih admin dan waktu selesai dokter jaga dalam satuan menit
+
             if (($diffDateStart <= $quantumInMinutes) && ($diffDateFinish <= $quantumInMinutes)) {
+                //dokter yang akan dipilih apabila memenuhi kondisi seperti ini. (jika waktu mulai kurang dari nilai quantum dan waktu selesai kurang dari kuantum)
                 if (($diffDateStart == 0)) {
+                    //Jika selisih waktu antara waktu yang dipilih dan waktu mulai dokter jaga sama dengan 0, (tidak ada selisih) maka dokter tidak akan dipilih
+                    //Ini berguna untuk menghindari pemilihan dokter yang dobel. 2 kali memilih
                     $isDoctorPicked = false;
                 } else {
                     $isDoctorPicked = true;
@@ -233,24 +263,47 @@ class JadwalCheckupController extends AppBaseController
             } else {
                 $isDoctorPicked = false;
             }
-            return ['picked' => $isDoctorPicked, 'dokter' => $item->dokter, "diff_time_start" => $diffDateStart, 'diff_time_finish' => $diffDateFinish, 'jadwal' => $item->jam_mulai . '-' . $item->jam_selesai, 'start' => $item->jam_mulai, 'end' => $item->jam_selesai];
+            return [
+                'picked' => $isDoctorPicked, 
+                'dokter' => $item->dokter, 
+                "diff_time_start" => $diffDateStart, 
+                'diff_time_finish' => $diffDateFinish, 
+                'jadwal' => $item->jam_mulai . '-' . $item->jam_selesai, 
+                'start' => $item->jam_mulai, 
+                'end' => $item->jam_selesai
+            ];
+            //Mengembalikan nilai value dan di simpan ke variabel array $doctorDates
+
         });
-        //filter only picked doctor
         $pickedDoctor = $doctorDates->filter(function ($item) {
+            //Melakukan filter dokter yang dipilih saja.
+
             return $item['picked'] == true;
         });
         if ($pickedDoctor == null) {
+            //Jika tidak ada dokter yang dipilih, maka kembalikan nilai "Dokter not found"
+
             return Response::json(['success' => false, 'message' => 'Doctor not found']);
         }
         $dokterPicked = $pickedDoctor->first();
+        //Jika dokter yang dipilih ada, ambil array pertama
+
         $jadwalTerakhir = null;
+        //Mendeklarasikan variabel jadwalTerakhir
+
         if ($dokterPicked != null) {
-            //fetcho antrian by dokter and current time
+            //Jika dokter pertama yang dipilih nilainya tidak sama dengan null
+
             $from = $datePick . ' ' . $dokterPicked['start'];
+            //menggabungkan antara tanggal yang dipilih admin dan waktu mulai dokter jaga
+
             $to = $datePick . ' ' . $dokterPicked['end'];
+            //menggabungkan antara tanggal yang dipilih admin dan waktu selesai dokter jaga
+
             $jadwalTerakhir = JadwalCheckup::with("dokter")->where('dokter_id', '=', $dokterPicked['dokter']->id)->whereBetween('tgl_checkup', [$from, $to])->orderBy('tgl_checkup', 'desc')->get()->first();
+            //mengambil jadwal terakhir untuk mengambil nilai antrian terakhir di antara waktu dokter jaga
         }
-        //add +1 and publish to user
         return Response::json(['success' => true, 'dokters' => $doctorDates, 'day' => $dayPick, 'hour' => $hourPick, 'pickedDoctor' => $dokterPicked, 'jadwalTerakhir' => $jadwalTerakhir]);
+        //Mengembalikan nilai -> response json, untuk di consume oleh client -> Javascript (Jquery)
     }
 }

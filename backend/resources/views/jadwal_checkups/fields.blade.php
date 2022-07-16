@@ -65,6 +65,9 @@
                 useCurrent: true,
                 sideBySide: true
             }).on('dp.change', function (e) {
+                //event ketika date time picker berubah, client akan melakukan request ke server dengan endpoint generate_antrian
+                //Menggunakan HTTP Method POST, dan membawa variabel tanggal
+
                 $.ajax({
                     url: '{{route('jadwalCheckups.generateAntrian')}}',
                     method: 'POST',
@@ -75,26 +78,51 @@
                     },
                     success(res) {
                         if (res.success) {
+                            //jika request sukses
+
                             var dokterDom = $('#dokter_id');
+                            //merefer dom dengan id dokter_id
+
                             var pickedDoctor = res.pickedDoctor;
+                            //menyimpan response dokter yang telah dipilih ke variabel pickedDokter
+
                             var optionsDokter = [];
+                            //Mendeklarasaikan nilai opsidokter dengan array kosong;
+
                             if (res.dokters.length === 0) {
+                                //jika jumlah array dari response variabel dokters sama dengan nol, ubah nilai opsiDokter menjadi "tidak ada jadwal"
+
                                 optionsDokter = [`<option>Tidak ada jadwal dokter dihari ${res.day}</option>`]
                             }
                             if (!pickedDoctor) {
+                                //jika dokter yang dipilih sama dengan null, ubah nilai opsi dokter menjadi "Tidak ada jam Operasional"
+
                                 optionsDokter = [`<option>Tidak ada jam operasional dokter di jam ${res.hour}</option>`]
                             } else {
+                                //jika dokter yang dipilih tersedia
+                                //simpan semua dokter ke dalam variabel opsiDokter
                                 optionsDokter = res.dokters.map(function (item) {
                                     return `<option value="${item.dokter.id}">${item.dokter.name} - (Jampel ${item.jadwal})</option>`
                                 });
                             }
                             dokterDom.empty().append(optionsDokter.join(''))
+                            //mengkosongkan HTML select terlebih dahulu, dan mengisinya dengan nilai variabel opsiDokter yang telah diisi sebelumnya oleh kondisi diatas
+
                             if (pickedDoctor) {
+                                //jika dokter yang dipilih tersedia
+
                                 dokterDom.val(pickedDoctor.dokter.id).change();
+                                //ubah nilai HTML select sesuai dengan nilai dokter yang telah dipilih
+
                                 if (res.jadwalTerakhir != null) {
+                                    //jika jadwal terakhir tidak sama dengan null
+
                                     $('[name="antrian"]').val(parseInt(res.jadwalTerakhir.antrian) + 1);
+                                    //ambil nilai antrian terakhir dan tambahkan dengan nilai 1 kemudian tampilkan ke form Antrian
+
                                 } else {
                                     $('[name="antrian"]').val(1)
+                                    //jika tidak ada jadwal terakhir, otomatis isi form Antrian dengan nilai 1; Antrian pertama
                                 }
                             }
                         }
