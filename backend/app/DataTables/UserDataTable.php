@@ -20,11 +20,13 @@ class UserDataTable extends DataTable
         $columns = array_column($this->getColumns(), 'data');
         return $dataTable->editColumn('role', function ($user) {
             return getArrayColumn($user->roles, 'name');
+        })->editColumn('email_kerabat', function ($user) {
+            return $user->email_kerabat != "" ? $user->email_kerabat : "Kosong";
         })->editColumn('token_fcm', function ($user) {
-            return $user->token_fcm ?? "Belum ada token";
+            return $user->token_fcm != null ? "<span>" . str_split($user->token_fcm, 30)[0] . "<a href='" . route("users.show", $user->id) . "'> Read more</a></span>" : "Belum ada token";
         })
             ->addColumn('action', 'users.datatables_actions')
-            ->rawColumns(array_merge($columns, ['action']));
+            ->rawColumns(array_merge($columns, ['action']))->escapeColumns('token_fcm');
     }
 
     /**
@@ -73,6 +75,7 @@ class UserDataTable extends DataTable
         return [
             'name',
             'email',
+            'email_kerabat',
             [
                 'data' => 'role',
                 'title' => 'Role',

@@ -52,8 +52,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'token_fcm',
-        'email_kerabat'
+        'token_fcm'
     ];
 
     /**
