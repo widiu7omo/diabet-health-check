@@ -31,15 +31,38 @@ class _RegisterPageState extends State<RegisterPage> {
 
   Future<String?> register() async {
     try {
+      String? devId = await DeviceInfo().getDeviceId();
+
       final name = nameController.text;
       final email = emailController.text;
       final emailAlternative = emailAlternativeController.text;
       final password = passwordController.text;
-      return null;
+      final body = {
+        "name": name,
+        "email": email,
+        "email_kerabat": emailAlternative,
+        "password": password,
+        'device_name': devId ?? "Unknown"
+      };
+      final responseRegister =
+          await Provider.of<RestHttpService>(context, listen: false)
+              .register(body: body);
+      print(body);
+      final singleResponse = SingleResponse<Map<String, dynamic>>.fromJson(
+        responseRegister.body,
+        (json) => json,
+      );
+      if (singleResponse.data != null) {
+        return singleResponse.data!['token'];
+      } else {
+        throw "Failed LoggedIn";
+      }
     } catch (e) {
+      print(e);
       ScaffoldMessenger.of(context).showSnackBar(
           new SnackBar(content: Text("Gagal melakukan registrasi. Coba lagi")));
     }
+    return null;
   }
 
   Future<String?> loggedIn() async {
@@ -73,7 +96,9 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   dispose() {
     super.dispose();
+    nameController.dispose();
     emailController.dispose();
+    emailAlternativeController.dispose();
     passwordController.dispose();
   }
 

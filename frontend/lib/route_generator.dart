@@ -1,5 +1,6 @@
 import 'package:diabetesapps/models/jadwal_checkup.dart';
 import 'package:diabetesapps/models/pemeriksaan.dart';
+import 'package:diabetesapps/pages/register.dart';
 import 'package:flutter/material.dart';
 
 import 'models/pola_makan.dart';
@@ -24,6 +25,8 @@ class RouteGenerator {
     switch (settings.name) {
       case "/":
         return MaterialPageRoute(builder: (context) => SplashPage());
+      case "/register":
+        return MaterialPageRoute(builder: (context) => RegisterPage());
       case "/login":
         return MaterialPageRoute(builder: (context) => LoginPage());
       case "/home":

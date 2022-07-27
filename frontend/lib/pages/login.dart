@@ -37,7 +37,6 @@ class _LoginPageState extends State<LoginPage> {
         'password': passwordController.text,
         'device_name': devId ?? "Unknown"
       });
-      print(responseLogin.body);
       final singleResponse = SingleResponse<Map<String, dynamic>>.fromJson(
         responseLogin.body,
         (json) => json,
@@ -101,7 +100,7 @@ class _LoginPageState extends State<LoginPage> {
                     secure: true,
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 34),
+                    margin: EdgeInsets.only(top: 28),
                     child: CustommedButton(
                       title: "Masuk",
                       onPress: () {
@@ -122,18 +121,22 @@ class _LoginPageState extends State<LoginPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Lupa akun?",
+                        "Belum punya akun?",
                         style: poppinstext.copyWith(
                             fontSize: 14,
                             fontWeight: medium,
                             color: Colors.black),
                       ),
-                      Text(
-                        " Hubungi admin",
-                        style: poppinstext.copyWith(
-                            fontSize: 14,
-                            fontWeight: semiBold,
-                            color: Colors.black),
+                      GestureDetector(
+                        onTap: () =>
+                            Navigator.of(context).pushNamed("/register"),
+                        child: Text(
+                          " Registrasi",
+                          style: poppinstext.copyWith(
+                              fontSize: 14,
+                              fontWeight: semiBold,
+                              color: Colors.black),
+                        ),
                       ),
                     ],
                   )

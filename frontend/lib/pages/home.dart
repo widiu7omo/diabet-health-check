@@ -4,7 +4,6 @@ import 'package:diabetesapps/widgets/drawer.dart';
 import 'package:diabetesapps/widgets/header.dart';
 import 'package:diabetesapps/widgets/monitoritem.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../main.dart';
 import '../models/base_response.dart';
@@ -19,26 +18,30 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   var showNav = false;
-  late Pemeriksaan? pemeriksaanTerkini;
-  late JadwalCheckup? jadwalCheckupTerkirin;
-  late User? currentUser;
+  Pemeriksaan? pemeriksaanTerkini = null;
+  JadwalCheckup? jadwalCheckupTerkirin = null;
+  User? currentUser = null;
   var loading = false;
 
   @override
   void initState() {
-    super.initState();
     initData();
+    super.initState();
   }
 
   Future<JadwalCheckup?> getLastJadwalCheckup() async {
-    String? tokenApi = await getToken();
-    final httpService = RestHttpService.create(bearerToken: tokenApi ?? "");
-    final responseJadwal = await httpService.getJadwalCheckups(limit: 1);
-    final listResponseJadwal = ListResponse<JadwalCheckup>.fromJson(
-      responseJadwal.body,
-      (json) => JadwalCheckup.fromJson(json),
-    );
-    return listResponseJadwal.data?.first;
+    try {
+      String? tokenApi = await getToken();
+      final httpService = RestHttpService.create(bearerToken: tokenApi ?? "");
+      final responseJadwal = await httpService.getJadwalCheckups(limit: 1);
+      final listResponseJadwal = ListResponse<JadwalCheckup>.fromJson(
+        responseJadwal.body,
+        (json) => JadwalCheckup.fromJson(json),
+      );
+      return listResponseJadwal.data?.first;
+    } catch (e) {
+      return null;
+    }
   }
 
   Future<User?> getCurrentUser() async {
@@ -54,15 +57,19 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<Pemeriksaan?> getLastPemeriksaan() async {
-    String? tokenApi = await getToken();
-    final httpService = RestHttpService.create(bearerToken: tokenApi ?? "");
-    final responsePemeriksaan = await httpService.getPemeriksaans(
-        limit: 1, bearerToken: "Bearer $tokenApi");
-    final listResponsePemeriksaan = ListResponse<Pemeriksaan>.fromJson(
-      responsePemeriksaan.body,
-      (json) => Pemeriksaan.fromJson(json),
-    );
-    return listResponsePemeriksaan.data?.first;
+    try {
+      String? tokenApi = await getToken();
+      final httpService = RestHttpService.create(bearerToken: tokenApi ?? "");
+      final responsePemeriksaan = await httpService.getPemeriksaans(
+          limit: 1, bearerToken: "Bearer $tokenApi");
+      final listResponsePemeriksaan = ListResponse<Pemeriksaan>.fromJson(
+        responsePemeriksaan.body,
+        (json) => Pemeriksaan.fromJson(json),
+      );
+      return listResponsePemeriksaan.data?.first;
+    } catch (e) {
+      return null;
+    }
   }
 
   void initData() async {
@@ -73,6 +80,12 @@ class _HomePageState extends State<HomePage> {
     if (user != null) {
       setState(() {
         currentUser = user;
+        loading = false;
+      });
+    } else {
+      setState(() {
+        currentUser = null;
+        loading = false;
       });
     }
     Pemeriksaan? pemeriksaan = await getLastPemeriksaan();

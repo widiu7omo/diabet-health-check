@@ -13,6 +13,7 @@ abstract class RestHttpService extends ChopperService {
   static RestHttpService create({required String bearerToken}) {
     final client = ChopperClient(
         baseUrl: "http://dhc.nowday.tech/",
+        // baseUrl: "http://localhost:8000/",
         interceptors: [
           HeaderInterceptor(bearerToken: bearerToken),
           HttpLoggingInterceptor()
