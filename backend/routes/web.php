@@ -33,6 +33,7 @@ Route::group(['middleware' => 'auth:web'], function () {
     Route::post('email/save', [App\Http\Controllers\SettingsController::class, 'emailSave'])->name("settings.email.save");
     Route::post('email/test', [App\Http\Controllers\SettingsController::class, 'emailTest'])->name("settings.email.test");
     Route::get('notification', [App\Http\Controllers\SettingsController::class, 'notification'])->name("settings.notification");
+    Route::post('notification/test', [App\Http\Controllers\SettingsController::class, 'notificationTest'])->name("settings.notification.test");
     Route::post('notification/save', [App\Http\Controllers\SettingsController::class, 'notificationSave'])->name("settings.notification.save");
     Route::resource('pemeriksaans', App\Http\Controllers\PemeriksaanController::class);
     Route::resource('polaMakans', App\Http\Controllers\PolaMakanController::class);

@@ -104,13 +104,31 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <input type="email" class="form-control"
+                                        <input id="tokenFCM" type="text" class="form-control"
                                                placeholder="Masukkan token untuk melakukan tes notifikasi">
                                     </div>
                                     <small class="text-black-50">Masukkan token</small>
+
                                 </div>
                                 <div class="col-6">
-                                    <button class="btn btn-primary">Tes Kirim Notifikasi</button>
+                                    <div class="form-group">
+                                        <input type="text" id="title" class="form-control"
+                                               placeholder="Judul Notifikasi">
+                                    </div>
+                                    <small class="text-black-50">Masukkan judul notifikasi</small>
+
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <input type="text" id="content" class="form-control"
+                                               placeholder="Konten Notifikasi">
+                                    </div>
+                                    <small class="text-black-50">Masukkan konten notifikasi</small>
+
+                                </div>
+                                <div class="col-12">
+                                    <button id="btn-test-notifikasi" class="btn btn-primary">Tes Kirim Notifikasi
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -124,7 +142,24 @@
     <script>
         $(document).ready(function () {
             var csrf = $("[name='_token']").val();
-
+            $('#btn-test-notifikasi').on('click', function () {
+                var tokenFCM = $('#tokenFCM').val();
+                var notifTitle = $("#title").val();
+                var notifContent = $("#content").val();
+                $.ajax({
+                    url: "{{route('settings.notification.test')}}",
+                    method: 'POST',
+                    dataType: 'json',
+                    data: {
+                        "_token": csrf,
+                        tokenFCM,
+                        notifTitle, notifContent
+                    },
+                    success(res) {
+                        console.log(res);
+                    }
+                });
+            });
             $('#setelah_checkup').on("change", function (e) {
                 $.ajax({
                     url: "{{route('settings.notification.save')}}",

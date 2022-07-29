@@ -2,10 +2,10 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Motivasi;
 use App\Models\User;
 use App\Notifications\MotivationReminder;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Log;
 
 class SendReminderMotivation extends Command
 {
@@ -41,7 +41,7 @@ class SendReminderMotivation extends Command
     public function handle()
     {
         $users = User::where("token_fcm", '<>', 'NULL');
-        $users->notify(new MotivationReminder);
+        $users->notify(new MotivationReminder(Motivasi::all()));
 //        Log::debug($users);
     }
 }

@@ -16,14 +16,16 @@ class MotivationReminder extends Notification
 {
     use Queueable;
 
+    private $motivationPicked;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($motivations)
     {
-        //
+        $this->motivationPicked = $motivations->random();
     }
 
     /**
@@ -42,8 +44,8 @@ class MotivationReminder extends Notification
         return FcmMessage::create()
             ->setData(['data1' => 'value', 'data2' => 'value2'])
             ->setNotification(\NotificationChannels\Fcm\Resources\Notification::create()
-                ->setTitle('Motivasi')
-                ->setBody('Sakit ini bukan penghalang untukmu. Kamu harus percaya bisa melewati semuanya. Semoga sehat kembali.'))
+                ->setTitle($this->motivationPicked->title)
+                ->setBody($this->motivationPicked->content))
             ->setAndroid(
                 AndroidConfig::create()
                     ->setFcmOptions(AndroidFcmOptions::create()->setAnalyticsLabel('analytics'))

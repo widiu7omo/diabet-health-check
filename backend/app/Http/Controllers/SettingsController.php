@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Jobs\SendReminderJob;
 use App\Mail\Gmail;
+use App\Models\Motivasi;
 use App\Models\User;
 use App\Notifications\MotivationReminder;
+use App\Notifications\NotificationCheckup;
 use Arcanedev\LaravelSettings\Contracts\Store;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Http\Request;
@@ -24,7 +26,8 @@ class SettingsController extends Controller
 
     public function notification()
     {
-        return view('settings.notification');
+        $users = User::all();
+        return view('settings.notification')->with('users', $users);
     }
 
     public function notificationSave(Request $request)
@@ -34,18 +37,18 @@ class SettingsController extends Controller
         return redirect(route('settings.notification'));
     }
 
-    public function reminderTest(Request $request, Schedule $schedule)
+    public function notificationTest(Request $request)
     {
-//        $user = User::find(4);
-//        if ($user == null) {
         $user = new User();
         $user->token_fcm = $request->tokenFCM;
-//        }
-//        if ($user != null && $user->token_fcm == null) {
-//            $user->token_fcm = $request->tokenFCM;
-//        }
-//        $schedule->job(SendReminderJob::class, 'default', 'database')->cron("*/5 * * * * *");
-        $user->notify(new MotivationReminder);
+        $user->notify(new NotificationCheckup($request->notifTitle, $request->notifContent));
+    }
+
+    public function reminderTest(Request $request, Schedule $schedule)
+    {
+        $user = new User();
+        $user->token_fcm = $request->tokenFCM;
+        $user->notify(new MotivationReminder(Motivasi::all()));
     }
 
     public function reminderSave(Request $request)
