@@ -1,7 +1,7 @@
+import 'package:diabetesapps/pages/splash.dart';
 import 'package:diabetesapps/shared/theme.dart';
 import 'package:diabetesapps/widgets/draweritem.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DrawerNavigator extends StatelessWidget {
@@ -31,7 +31,10 @@ class DrawerNavigator extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Anisa Tri Astuti",
+                    (currentUser.value != null &&
+                            currentUser.value!.name != null)
+                        ? currentUser.value!.name!
+                        : "Unknown",
                     style: poppinstext.copyWith(
                         fontSize: 16,
                         fontWeight: semiBold,

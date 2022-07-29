@@ -34,6 +34,12 @@ abstract class RestHttpService extends ChopperService {
     @Body() Map<String, dynamic>? body,
   });
 
+  @Post(path: "user")
+  Future<Response> updateProfile({@Body() Map<String, dynamic>? body});
+
+  @Post(path: "changePassword")
+  Future<Response> changePassword({@Body() Map<String, dynamic>? body});
+
   @Post(path: "post_token_FCM")
   Future<Response> postTokenFCM(
       {@Body() Map<String, dynamic>? body,

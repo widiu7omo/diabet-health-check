@@ -8,6 +8,8 @@ import '../models/base_response.dart';
 import '../models/user.dart';
 import '../services/rest_http_service.dart';
 
+final ValueNotifier<User?> currentUser = ValueNotifier<User?>(null);
+
 class SplashPage extends StatefulWidget {
   @override
   State<SplashPage> createState() => _SplashPageState();
@@ -31,7 +33,8 @@ class _SplashPageState extends State<SplashPage> {
     if (tokenApi == null) {
       Navigator.of(context).pushNamed("/login");
     } else {
-      getCurrentUser().then((_) {
+      getCurrentUser().then((user) {
+        currentUser.value = user;
         Navigator.of(context).pushNamed("/home");
       });
     }

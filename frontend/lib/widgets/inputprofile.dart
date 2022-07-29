@@ -5,8 +5,14 @@ class ProfileInput extends StatelessWidget {
   String label;
   String hint;
   bool secure;
+  TextEditingController? controller;
 
-  ProfileInput({required this.hint, required this.label, this.secure = false});
+  ProfileInput(
+      {required this.hint,
+      required this.label,
+      this.secure = false,
+      this.controller});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -27,6 +33,7 @@ class ProfileInput extends StatelessWidget {
             decoration: BoxDecoration(
                 color: primaryColor, borderRadius: BorderRadius.circular(100)),
             child: TextFormField(
+              controller: controller,
               obscureText: secure,
               decoration: InputDecoration(
                   border: InputBorder.none,

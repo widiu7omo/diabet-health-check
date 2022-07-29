@@ -5,6 +5,9 @@ import 'package:diabetesapps/widgets/header.dart';
 import 'package:diabetesapps/widgets/inputprofile.dart';
 import 'package:flutter/material.dart';
 
+import '../main.dart';
+import '../services/rest_http_service.dart';
+
 class ChangePasswordPage extends StatefulWidget {
   @override
   State<ChangePasswordPage> createState() => _ChangePasswordPageState();
@@ -12,6 +15,43 @@ class ChangePasswordPage extends StatefulWidget {
 
 class _ChangePasswordPageState extends State<ChangePasswordPage> {
   var showNav = false;
+  final TextEditingController passwordLama = TextEditingController();
+  final TextEditingController passwordBaru = TextEditingController();
+  final TextEditingController passwordBaruKonfirmasi = TextEditingController();
+
+  @override
+  initState() {
+    super.initState();
+  }
+
+  @override
+  dispose() {
+    passwordLama.dispose();
+    passwordBaru.dispose();
+    passwordBaruKonfirmasi.dispose();
+    super.dispose();
+  }
+
+  void savePassword() async {
+    if (passwordBaru.text != passwordBaruKonfirmasi.text) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("Password baru tidak cocok")));
+      return;
+    }
+    try {
+      String? tokenApi = await getToken();
+      final httpService = RestHttpService.create(bearerToken: tokenApi ?? "");
+      final response = await httpService.changePassword(body: {
+        "old_password": passwordLama.text,
+        "new_password": passwordBaru.text
+      });
+      print(response.body);
+    } catch (e) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("Password gagal diubah")));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     Widget content() {
@@ -28,16 +68,28 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
               SizedBox(
                 height: 24,
               ),
-              ProfileInput(hint: "", label: "Masukkan Password Lama"),
-              ProfileInput(hint: "", label: "Masukkan Paassword Baru"),
-              ProfileInput(hint: "", label: "Konfirmasi Password Baru"),
+              ProfileInput(
+                hint: "",
+                label: "Masukkan Password Lama",
+                controller: passwordLama,
+              ),
+              ProfileInput(
+                hint: "",
+                label: "Masukkan Paassword Baru",
+                controller: passwordBaru,
+              ),
+              ProfileInput(
+                hint: "",
+                label: "Konfirmasi Password Baru",
+                controller: passwordBaruKonfirmasi,
+              ),
               SizedBox(
                 height: 30,
               ),
               Container(
                 child: CustommedButton(
                   title: "Simpan",
-                  onPress: () {},
+                  onPress: savePassword,
                 ),
               ),
             ],

@@ -11,8 +11,11 @@ class User with _$User {
     required String email,
     String? phone,
     String? password,
-    String? address,
+    @JsonKey(name: 'alamat') String? address,
     String? token,
+    @JsonKey(name: "tempat_lahir") String? tempatLahir,
+    @JsonKey(name: "tanggal_lahir") String? tanggalLahir,
   }) = _User;
+
   factory User.fromJson(Map<String, Object?> json) => _$UserFromJson(json);
 }

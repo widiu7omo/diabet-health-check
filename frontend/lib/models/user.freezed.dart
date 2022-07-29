@@ -25,8 +25,13 @@ mixin _$User {
   String get email => throw _privateConstructorUsedError;
   String? get phone => throw _privateConstructorUsedError;
   String? get password => throw _privateConstructorUsedError;
+  @JsonKey(name: 'alamat')
   String? get address => throw _privateConstructorUsedError;
   String? get token => throw _privateConstructorUsedError;
+  @JsonKey(name: "tempat_lahir")
+  String? get tempatLahir => throw _privateConstructorUsedError;
+  @JsonKey(name: "tanggal_lahir")
+  String? get tanggalLahir => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -43,8 +48,10 @@ abstract class $UserCopyWith<$Res> {
       String email,
       String? phone,
       String? password,
-      String? address,
-      String? token});
+      @JsonKey(name: 'alamat') String? address,
+      String? token,
+      @JsonKey(name: "tempat_lahir") String? tempatLahir,
+      @JsonKey(name: "tanggal_lahir") String? tanggalLahir});
 }
 
 /// @nodoc
@@ -64,6 +71,8 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
     Object? password = freezed,
     Object? address = freezed,
     Object? token = freezed,
+    Object? tempatLahir = freezed,
+    Object? tanggalLahir = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -94,6 +103,14 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
               as String?,
+      tempatLahir: tempatLahir == freezed
+          ? _value.tempatLahir
+          : tempatLahir // ignore: cast_nullable_to_non_nullable
+              as String?,
+      tanggalLahir: tanggalLahir == freezed
+          ? _value.tanggalLahir
+          : tanggalLahir // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -109,8 +126,10 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       String email,
       String? phone,
       String? password,
-      String? address,
-      String? token});
+      @JsonKey(name: 'alamat') String? address,
+      String? token,
+      @JsonKey(name: "tempat_lahir") String? tempatLahir,
+      @JsonKey(name: "tanggal_lahir") String? tanggalLahir});
 }
 
 /// @nodoc
@@ -131,6 +150,8 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
     Object? password = freezed,
     Object? address = freezed,
     Object? token = freezed,
+    Object? tempatLahir = freezed,
+    Object? tanggalLahir = freezed,
   }) {
     return _then(_$_User(
       id: id == freezed
@@ -161,6 +182,14 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
               as String?,
+      tempatLahir: tempatLahir == freezed
+          ? _value.tempatLahir
+          : tempatLahir // ignore: cast_nullable_to_non_nullable
+              as String?,
+      tanggalLahir: tanggalLahir == freezed
+          ? _value.tanggalLahir
+          : tanggalLahir // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -174,8 +203,10 @@ class _$_User implements _User {
       required this.email,
       this.phone,
       this.password,
-      this.address,
-      this.token});
+      @JsonKey(name: 'alamat') this.address,
+      this.token,
+      @JsonKey(name: "tempat_lahir") this.tempatLahir,
+      @JsonKey(name: "tanggal_lahir") this.tanggalLahir});
 
   factory _$_User.fromJson(Map<String, dynamic> json) => _$$_UserFromJson(json);
 
@@ -190,13 +221,20 @@ class _$_User implements _User {
   @override
   final String? password;
   @override
+  @JsonKey(name: 'alamat')
   final String? address;
   @override
   final String? token;
+  @override
+  @JsonKey(name: "tempat_lahir")
+  final String? tempatLahir;
+  @override
+  @JsonKey(name: "tanggal_lahir")
+  final String? tanggalLahir;
 
   @override
   String toString() {
-    return 'User(id: $id, name: $name, email: $email, phone: $phone, password: $password, address: $address, token: $token)';
+    return 'User(id: $id, name: $name, email: $email, phone: $phone, password: $password, address: $address, token: $token, tempatLahir: $tempatLahir, tanggalLahir: $tanggalLahir)';
   }
 
   @override
@@ -210,7 +248,11 @@ class _$_User implements _User {
             const DeepCollectionEquality().equals(other.phone, phone) &&
             const DeepCollectionEquality().equals(other.password, password) &&
             const DeepCollectionEquality().equals(other.address, address) &&
-            const DeepCollectionEquality().equals(other.token, token));
+            const DeepCollectionEquality().equals(other.token, token) &&
+            const DeepCollectionEquality()
+                .equals(other.tempatLahir, tempatLahir) &&
+            const DeepCollectionEquality()
+                .equals(other.tanggalLahir, tanggalLahir));
   }
 
   @JsonKey(ignore: true)
@@ -223,7 +265,9 @@ class _$_User implements _User {
       const DeepCollectionEquality().hash(phone),
       const DeepCollectionEquality().hash(password),
       const DeepCollectionEquality().hash(address),
-      const DeepCollectionEquality().hash(token));
+      const DeepCollectionEquality().hash(token),
+      const DeepCollectionEquality().hash(tempatLahir),
+      const DeepCollectionEquality().hash(tanggalLahir));
 
   @JsonKey(ignore: true)
   @override
@@ -243,8 +287,10 @@ abstract class _User implements User {
       required final String email,
       final String? phone,
       final String? password,
-      final String? address,
-      final String? token}) = _$_User;
+      @JsonKey(name: 'alamat') final String? address,
+      final String? token,
+      @JsonKey(name: "tempat_lahir") final String? tempatLahir,
+      @JsonKey(name: "tanggal_lahir") final String? tanggalLahir}) = _$_User;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
 
@@ -259,9 +305,16 @@ abstract class _User implements User {
   @override
   String? get password;
   @override
+  @JsonKey(name: 'alamat')
   String? get address;
   @override
   String? get token;
+  @override
+  @JsonKey(name: "tempat_lahir")
+  String? get tempatLahir;
+  @override
+  @JsonKey(name: "tanggal_lahir")
+  String? get tanggalLahir;
   @override
   @JsonKey(ignore: true)
   _$$_UserCopyWith<_$_User> get copyWith => throw _privateConstructorUsedError;
