@@ -21,6 +21,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('/post_token_FCM', [App\Http\Controllers\API\AuthAPIController::class, 'postTokenFCM']);
     Route::get('/user', [App\Http\Controllers\API\AuthAPIController::class, 'user']);
     Route::post('/user', [App\Http\Controllers\API\AuthAPIController::class, 'updateProfile']);
+    Route::post('/changePassword', [App\Http\Controllers\API\AuthAPIController::class, 'changePassword']);
     Route::resource('users', App\Http\Controllers\API\UserAPIController::class);
     Route::resource('jadwal_checkups', App\Http\Controllers\API\JadwalCheckupAPIController::class);
     Route::resource('pemeriksaans', App\Http\Controllers\API\PemeriksaanAPIController::class);

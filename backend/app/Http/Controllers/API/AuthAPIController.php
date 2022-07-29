@@ -70,9 +70,24 @@ class AuthAPIController extends AppBaseController
     public function updateProfile(Request $request)
     {
         if ($request->user()->hasRole("Pasien")) {
-            return $this->sendResponse($request->user()->only(["name", 'email', 'email_kerabat', 'phone', 'alamat', 'tempat_lahir', 'tanggal_lahir']), 'success');
+            $this->userRepository->update($request->all(), $request->user()->id);
+            return $this->sendResponse($request->user()->only(['id', "name", 'email', 'email_kerabat', 'phone', 'alamat', 'tempat_lahir', 'tanggal_lahir']), 'success');
         } else {
-            return $this->sendResponse([], 'failed');
+            return $this->sendError("You dont have permission to change password");
+        }
+    }
+
+    public function changePassword(Request $request)
+    {
+        if ($request->user()->hasRole("Pasien")) {
+            if (Hash::check($request->user()->password, $request->old_password)) {
+                $this->userRepository->update(['password' => $request->new_password], $request->user()->id);
+                return $this->sendResponse([], 'success');
+            } else {
+                return $this->sendError("Failed Change Password");
+            }
+        } else {
+            return $this->sendError("You dont have permission to change password");
         }
     }
 }
