@@ -1,3 +1,4 @@
+import 'package:diabetesapps/models/base_response.dart';
 import 'package:diabetesapps/shared/theme.dart';
 import 'package:diabetesapps/widgets/custombutton.dart';
 import 'package:diabetesapps/widgets/drawer.dart';
@@ -45,8 +46,14 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
         "old_password": passwordLama.text,
         "new_password": passwordBaru.text
       });
-      print(response.body);
+      final singleResponse =
+          SingleResponse.fromJson(response.body ?? response.error, (e) => e);
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(singleResponse.success
+              ? "Password berhasil diubah"
+              : singleResponse.message)));
     } catch (e) {
+      print(e);
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text("Password gagal diubah")));
     }

@@ -81,7 +81,7 @@ class AuthAPIController extends AppBaseController
     {
         if ($request->user()->hasRole("Pasien")) {
             if (Hash::check($request->old_password, $request->user()->password)) {
-                $this->userRepository->update(['password' => $request->new_password], $request->user()->id);
+                $this->userRepository->update(['password' => bcrypt($request->new_password)], $request->user()->id);
                 return $this->sendSuccess('Password changed successfully');
             } else {
                 return $this->sendError("Failed Change Password");
