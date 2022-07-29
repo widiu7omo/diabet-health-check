@@ -80,7 +80,7 @@ class AuthAPIController extends AppBaseController
     public function changePassword(Request $request)
     {
         if ($request->user()->hasRole("Pasien")) {
-            if (Hash::check($request->user()->password, $request->old_password)) {
+            if (Hash::check($request->old_password, $request->user()->password)) {
                 $this->userRepository->update(['password' => $request->new_password], $request->user()->id);
                 return $this->sendSuccess('Password changed successfully');
             } else {
