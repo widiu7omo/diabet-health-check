@@ -2,11 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Log;
 use Laravel\Sanctum\HasApiTokens;
 use OpenApi\Annotations as OA;
 use Spatie\Permission\Traits\HasRoles;
@@ -52,7 +50,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'token_fcm', 'email_kerabat'
+        'phone',
+        'token_fcm', 'email_kerabat', 'tempat_lahir', 'tanggal_lahir', 'alamat'
     ];
 
     /**

@@ -14,7 +14,7 @@ class CreateUserAPIRequest extends APIRequest
      */
     public function authorize()
     {
-        return true;
+        return $this->request->user()->hasRoles("Pasien");
     }
 
     /**

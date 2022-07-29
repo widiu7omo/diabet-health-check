@@ -14,7 +14,7 @@ class UpdateUserAPIRequest extends APIRequest
      */
     public function authorize()
     {
-        return true;
+        return $this->request->user()->hasRoles("Pasien");
     }
 
     /**
@@ -25,7 +25,7 @@ class UpdateUserAPIRequest extends APIRequest
     public function rules()
     {
         $rules = User::$rules;
-        
+
         return $rules;
     }
 }

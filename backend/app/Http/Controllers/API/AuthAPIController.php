@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\AppBaseController;
+use App\Http\Requests\API\UpdateUserAPIRequest;
 use App\Repositories\UserRepository;
 use Exception;
 use Illuminate\Http\Request;
@@ -64,5 +65,14 @@ class AuthAPIController extends AppBaseController
     public function user(Request $request)
     {
         return $this->sendResponse($request->user(), 'success');
+    }
+
+    public function updateProfile(Request $request)
+    {
+        if ($request->user()->hasRole("Pasien")) {
+            return $this->sendResponse($request->user()->only(["name", 'email', 'email_kerabat', 'phone', 'alamat', 'tempat_lahir', 'tanggal_lahir']), 'success');
+        } else {
+            return $this->sendResponse([], 'failed');
+        }
     }
 }
