@@ -109,7 +109,7 @@ class _PolaMakanPageState extends State<PolaMakanPage> {
                               crossAxisCount: 2,
                               shrinkWrap: true,
                               physics: NeverScrollableScrollPhysics(),
-                              childAspectRatio: 120 / 120,
+                              childAspectRatio: 1,
                               crossAxisSpacing: 10,
                               mainAxisSpacing: 10,
                               children: [
@@ -125,28 +125,6 @@ class _PolaMakanPageState extends State<PolaMakanPage> {
                                                 arguments: polaMakans[index]);
                                           },
                                         )),
-                                // PolaMakanItem(
-                                //   title: "Sarapan",
-                                //   img: "assets/pm1.png",
-                                //   onPress: () {
-                                //     Navigator.pushNamed(context, "/detail-pm");
-                                //   },
-                                // ),
-                                // PolaMakanItem(
-                                //   title: "Makan Siang",
-                                //   img: "assets/pm2.png",
-                                //   onPress: () {},
-                                // ),
-                                // PolaMakanItem(
-                                //   title: "Makan Malam",
-                                //   img: "assets/pm3.png",
-                                //   onPress: () {},
-                                // ),
-                                // PolaMakanItem(
-                                //   title: "Snacks",
-                                //   img: "assets/pm4.png",
-                                //   onPress: () {},
-                                // ),
                               ],
                             ),
                           )

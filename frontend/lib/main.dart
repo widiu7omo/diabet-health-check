@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -142,10 +143,16 @@ class _MyAppState extends State<MyApp> {
               print("PROVIDER_DISPOSED");
               return service.client.dispose();
             },
-            child: MaterialApp(
-              debugShowCheckedModeBanner: false,
-              onGenerateRoute: RouteGenerator.generateRoute,
-            ),
+            child: ScreenUtilInit(
+                designSize: const Size(360, 690),
+                minTextAdapt: true,
+                splitScreenMode: true,
+                builder: (context, child) {
+                  return MaterialApp(
+                    debugShowCheckedModeBanner: false,
+                    onGenerateRoute: RouteGenerator.generateRoute,
+                  );
+                }),
           );
         });
   }

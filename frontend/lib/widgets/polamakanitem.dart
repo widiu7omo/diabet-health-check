@@ -1,5 +1,6 @@
 import 'package:diabetesapps/shared/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PolaMakanItem extends StatelessWidget {
   String img;
@@ -14,8 +15,6 @@ class PolaMakanItem extends StatelessWidget {
     return GestureDetector(
       onTap: onPress,
       child: Container(
-        height: 120,
-        width: 120,
         decoration: BoxDecoration(
             color: bgColor,
             border: Border.all(
@@ -27,7 +26,6 @@ class PolaMakanItem extends StatelessWidget {
             Container(
               margin: EdgeInsets.only(top: 14, left: 14, right: 14),
               width: double.infinity,
-              height: 63,
               decoration: BoxDecoration(color: primaryColor, boxShadow: [
                 BoxShadow(
                     color: Colors.black.withOpacity(0.4),
@@ -35,7 +33,7 @@ class PolaMakanItem extends StatelessWidget {
                     offset: Offset(0, 3))
               ]),
               child: Container(
-                height: 63,
+                height: 48.h,
                 width: 71,
                 decoration: BoxDecoration(
                     image: DecorationImage(image: AssetImage(img))),
