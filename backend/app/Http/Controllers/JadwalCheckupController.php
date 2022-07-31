@@ -88,7 +88,7 @@ class JadwalCheckupController extends AppBaseController
         }
         $selectedDate = Carbon::createFromFormat('Y-m-d H:i:s', $input['tgl_checkup'])->translatedFormat('Y-m-d');
         $selectedDateFull = Carbon::createFromFormat('Y-m-d H:i:s', $input['tgl_checkup'])->translatedFormat('l, Y-m-d H:i');
-        $userAkanDijadwalkan = $this->jadwalCheckupRepository->makeModel()->where("pasien_id")->orWhereDate('tgl_checkup', '=', $selectedDate)->get();
+        $userAkanDijadwalkan = $this->jadwalCheckupRepository->makeModel()->where("pasien_id")->whereDate('tgl_checkup', '=', $selectedDate)->get();
         if (count($userAkanDijadwalkan) > 0) {
             Flash::error('Jadwal Checkup gagal dibuat, Pasien sudah didaftarkan di hari '.$selectedDateFull);
             return redirect(route('jadwalCheckups.index'));

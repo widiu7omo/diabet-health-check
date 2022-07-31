@@ -23,8 +23,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
   Future<void> saveToken(String token) async {
     final prefs = await SharedPreferences.getInstance();
-    await Provider.of<RestHttpService>(context, listen: false)
-        .postTokenFCM(body: {"tokenFCM": token});
     tokenApi.value = token;
     prefs.setString("token", token);
   }
@@ -47,7 +45,6 @@ class _RegisterPageState extends State<RegisterPage> {
       final responseRegister =
           await Provider.of<RestHttpService>(context, listen: false)
               .register(body: body);
-      print(body);
       final singleResponse = SingleResponse<Map<String, dynamic>>.fromJson(
         responseRegister.body,
         (json) => json,
