@@ -33,7 +33,7 @@
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css"
           integrity="sha512-aEe/ZxePawj0+G2R+AaIxgrQuKT68I28qh+wgLrcAJOz3rxCP+TwrK5SPN+E5I+1IQjNtcfvb96HDagwrKRdBw=="
           crossorigin="anonymous"/>
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pickerjs@1.2.1/dist/picker.min.css" integrity="sha256-Rbg3v/C7NqiVTWBxzR5iWrm8qv3TLhG7M+r5M8L73TY=" crossorigin="anonymous">
     @stack('third_party_stylesheets')
 
     @stack('page_css')
@@ -142,7 +142,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/1.3/bootstrapSwitch.min.js"
         integrity="sha512-DAc/LqVY2liDbikmJwUS1MSE3pIH0DFprKHZKPcJC7e3TtAOzT55gEMTleegwyuIWgCfOPOM8eLbbvFaG9F/cA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/pickerjs@1.2.1/dist/picker.min.js" integrity="sha256-yMIn2/F+otyl7rKx6Z49VTlJxrg/wGFBLKqO2eRHkPg=" crossorigin="anonymous"></script>
 <script>
     $(function () {
         bsCustomFileInput.init();

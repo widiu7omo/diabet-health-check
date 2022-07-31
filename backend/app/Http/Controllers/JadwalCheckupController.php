@@ -246,16 +246,12 @@ class JadwalCheckupController extends AppBaseController
 
         $dayPickLower = strtolower($dayPick);
         //mengubah string case ke lowerCase contoh Rabu => rabu
-
         $jadwalsDokter = JadwalDokter::with('dokter')->where('hari', '=', $dayPickLower)->get();
         //Mengambil semua jadwal dokter yang sesuai dengan hari yang dipilih oleh admin. contoh: Admin memilih hari rabu -> semua jadwal dokter di hari rabu
-
         $doctorDates = $jadwalsDokter->map(function ($item) use ($minimalServing, $quantumInMinutes, $datePick, $hourPick) {
             //mapping -> melooping jadwal dokter yang telah diambil sebelumnya
-
             $doctorDateStart = Carbon::createFromFormat('Y-m-d H:i', $datePick . ' ' . $item->jam_mulai)->subMinutes($minimalServing);
             //mengambil waktu mulai dokter jaga untuk dikurang dengan minimal pelayanan -> supaya pasien dapat dijadwalkan dengan dokter lain jika pasien datang kurang dari waktu minimal pelayanan
-
             $doctorDateFinish = Carbon::createFromFormat('Y-m-d H:i', $datePick . ' ' . $item->jam_selesai)->subMinutes($minimalServing);
             //mengambil waktu selesai dokter jaga untuk dikurang dengan minimal pelayanan -> supaya pasien dapat dijadwalkan dengan dokter lain jika pasien datang kurang dari waktu minimal pelayanan
 
@@ -264,7 +260,6 @@ class JadwalCheckupController extends AppBaseController
 
             $diffDateFinish = Carbon::createFromFormat('Y-m-d H:i', $datePick . ' ' . $hourPick)->diffInMinutes($doctorDateFinish);
             //mengambil nilai perbedaan/selisih dari tanggal yang dipilih admin dan waktu selesai dokter jaga dalam satuan menit
-
             if (($diffDateStart <= $quantumInMinutes) && ($diffDateFinish <= $quantumInMinutes)) {
                 //dokter yang akan dipilih apabila memenuhi kondisi seperti ini. (jika waktu mulai kurang dari nilai quantum dan waktu selesai kurang dari kuantum)
                 if (($diffDateStart == 0)) {
@@ -277,7 +272,7 @@ class JadwalCheckupController extends AppBaseController
             } else {
                 $isDoctorPicked = false;
             }
-            return [
+            $returnValue = [
                 'picked' => $isDoctorPicked,
                 'dokter' => $item->dokter,
                 "diff_time_start" => $diffDateStart,
@@ -286,8 +281,9 @@ class JadwalCheckupController extends AppBaseController
                 'start' => $item->jam_mulai,
                 'end' => $item->jam_selesai
             ];
+            
+            return $returnValue;
             //Mengembalikan nilai value dan di simpan ke variabel array $doctorDates
-
         });
         $pickedDoctor = $doctorDates->filter(function ($item) {
             //Melakukan filter dokter yang dipilih saja.

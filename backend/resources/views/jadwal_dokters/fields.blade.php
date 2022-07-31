@@ -19,3 +19,17 @@
     {!! Form::label('jam_selesai', 'Jam Selesai:') !!}
     {!! Form::text('jam_selesai', null, ['class' => 'form-control']) !!}
 </div>
+@push('page_scripts')
+<script>
+    $(document).ready(function(){
+        var jamMulai = document.getElementById("jam_mulai");
+        var jamSelesai = document.getElementById('jam_selesai');
+        var pickerMulai = new Picker(jamMulai, {
+            format: 'HH:mm',
+        });
+        var pickerSelesai = new Picker(jamSelesai, {
+            format: 'HH:mm',
+        });
+    })
+</script>
+@endpush
