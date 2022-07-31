@@ -155,14 +155,13 @@ class _RegisterPageState extends State<RegisterPage> {
                     margin: EdgeInsets.only(top: 34),
                     child: CustommedButton(
                       title: "Buat akun baru",
-                      onPress: () {
-                        register().then((token) {
-                          if (token != null) {
-                            saveToken(token).then((_) {
-                              Navigator.pushNamed(context, "/home");
-                            });
-                          }
-                        });
+                      onPress: () async {
+                        var token = await register();
+                        if (token != null) {
+                          await saveToken(token).then((_) {
+                            Navigator.pushNamed(context, "/home");
+                          });
+                        }
                       },
                     ),
                   ),

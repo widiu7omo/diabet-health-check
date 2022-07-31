@@ -105,14 +105,13 @@ class _LoginPageState extends State<LoginPage> {
                     margin: EdgeInsets.only(top: 28),
                     child: CustommedButton(
                       title: "Masuk",
-                      onPress: () {
-                        loggedIn().then((token) {
-                          if (token != null) {
-                            saveToken(token).then((_) {
-                              Navigator.pushNamed(context, "/home");
-                            });
-                          }
-                        });
+                      onPress: () async {
+                        var token = await loggedIn();
+                        if (token != null) {
+                          await saveToken(token).then((_) {
+                            Navigator.pushNamed(context, "/home");
+                          });
+                        }
                       },
                     ),
                   ),
