@@ -76,13 +76,13 @@ class UserDataTable extends DataTable
             'name',
             'email',
             'email_kerabat',
-            'phone',
             [
                 'data' => 'role',
                 'title' => 'Role',
                 'orderable' => true, 'searchable' => true,
 
             ],
+            'phone',
             'token_fcm'
         ];
     }
