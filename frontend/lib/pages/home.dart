@@ -144,10 +144,7 @@ class _HomePageState extends State<HomePage> {
               ? Container(
                   child: Container(
                       child: Text(
-                    pemeriksaanTerkini != null &&
-                            pemeriksaanTerkini?.hasilDiagnosa == "Diabetes"
-                        ? "Beresiko Diabetes"
-                        : "Tidak Beresiko",
+                    pemeriksaanTerkini?.hasilDiagnosa ?? "Tidak beresiko",
                     style: poppinstext.copyWith(
                         fontSize: 14,
                         fontWeight: semiBold,
