@@ -99,7 +99,6 @@ class _MyAppState extends State<MyApp> {
       sound: true,
     );
     String? tokenFCM = await FirebaseMessaging.instance.getToken();
-    print(tokenFCM);
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification?.android;
