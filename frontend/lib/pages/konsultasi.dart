@@ -76,13 +76,8 @@ class _KonsultasiPageState extends State<KonsultasiPage> {
                         dokters.length,
                         (index) => WaItem(
                               name: dokters[index].name ?? "Unknown",
+                              phone: dokters[index].phone ?? "Unknown",
                             )),
-                    // WaItem(
-                    //   name: "Dr. Andrian Rudi",
-                    // ),
-                    // WaItem(
-                    //   name: "Dr. Dian Sulastri",
-                    // ),
                   ],
                 ),
               );
