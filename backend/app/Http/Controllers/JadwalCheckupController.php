@@ -87,10 +87,12 @@ class JadwalCheckupController extends AppBaseController
             $input['dokter_id'] = auth()->user()->id;
         }
         $selectedDate = Carbon::createFromFormat('Y-m-d H:i:s', $input['tgl_checkup'])->translatedFormat('Y-m-d');
+        $selectedDateDay = Carbon::createFromFormat('Y-m-d H:i:s', $input['tgl_checkup'])->translatedFormat('l, Y-m-d');
         $selectedDateFull = Carbon::createFromFormat('Y-m-d H:i:s', $input['tgl_checkup'])->translatedFormat('l, Y-m-d H:i');
-        $userAkanDijadwalkan = $this->jadwalCheckupRepository->makeModel()->where("pasien_id")->whereDate('tgl_checkup', '=', $selectedDate)->get();
+        $userAkanDijadwalkan = $this->jadwalCheckupRepository->makeModel()->where("pasien_id",$input['pasien_id'])->whereDate('tgl_checkup', '=', $selectedDate)->get();
         if (count($userAkanDijadwalkan) > 0) {
-            Flash::error('Jadwal Checkup gagal dibuat, Pasien sudah didaftarkan di hari '.$selectedDateFull);
+            $pasien = User::find($input['pasien_id']);
+            Flash::error('Jadwal Checkup gagal dibuat, Pasien '.$pasien->name.' sudah didaftarkan di hari '.$selectedDateDay);
             return redirect(route('jadwalCheckups.index'));
         }
         $jadwalCheckup = $this->jadwalCheckupRepository->create($input);
@@ -102,7 +104,11 @@ class JadwalCheckupController extends AppBaseController
 
         return redirect(route('jadwalCheckups.index'));
     }
-
+    public function getPemeriksaanByUser(Request $request){
+        $user = User::find($request->user_id);
+        $pemeriksaans = $user->pemeriksaan_pasiens;
+        return Response::json(['success' => true, 'data'=>$pemeriksaans]);
+    }
     /**
      * Display the specified JadwalCheckup.
      *

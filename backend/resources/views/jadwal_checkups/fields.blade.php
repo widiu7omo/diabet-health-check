@@ -54,6 +54,41 @@
 </div>
 @push('page_scripts')
     <script type="text/javascript">
+        var csrf = $("[name='_token']").val();
+        $(document).ready(function(){
+            var inputCheckup = $("[name='checkup']");
+            var selectPasien = $("[name='pasien_id']");
+            var selectPemeriksaan = $("[name='pemeriksaan_id']");
+            var selectedPasienName = $("[name='pasien_id'] option:selected").text();
+            inputCheckup.val("Checkup pasien "+selectedPasienName);
+            selectPasien.on("change",function(){
+                selectedPasienName = $(this).children("option:selected").text();
+                inputCheckup.val("Checkup pasien "+selectedPasienName);
+                $.ajax({
+                    method:"POST",
+                    dataType:"json",
+                    data:{
+                        "_token": csrf,
+                        user_id:selectPasien.val(),
+                    },
+                    url:'{{route('jadwalCheckups.pemeriksaans')}}',
+                    success(response){
+                        var optionPemeriksaan = response.data.map(function(item){
+                            return "<option value='"+item.id+"'>"+item.pemeriksaan+"</option>";
+                        })
+                        if(response.data.length > 0){
+                            selectPemeriksaan.empty().append(optionPemeriksaan.join(""))
+                        }else{
+                            selectPemeriksaan.empty().append("<option>Belum ada pemeriksaan untuk pasien ini</option>")
+                        }
+                    },error(e){
+                        console.log(e);
+                    }
+                })
+            })
+        })
+    </script>
+    <script type="text/javascript">
         $(document).ready(function () {
             var csrf = $("[name='_token']").val();
 
