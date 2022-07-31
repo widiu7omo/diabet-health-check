@@ -3,6 +3,7 @@ import 'package:diabetesapps/services/device_info.dart';
 import 'package:diabetesapps/shared/theme.dart';
 import 'package:diabetesapps/widgets/custombutton.dart';
 import 'package:diabetesapps/widgets/inputcustom.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -23,6 +24,9 @@ class _RegisterPageState extends State<RegisterPage> {
 
   Future<void> saveToken(String token) async {
     final prefs = await SharedPreferences.getInstance();
+    String? tokenFCM = await FirebaseMessaging.instance.getToken();
+    await Provider.of<RestHttpService>(context, listen: false)
+        .postTokenFCM(body: {"tokenFCM": tokenFCM});
     tokenApi.value = token;
     prefs.setString("token", token);
   }
