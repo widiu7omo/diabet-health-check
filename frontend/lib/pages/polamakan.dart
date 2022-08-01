@@ -109,7 +109,7 @@ class _PolaMakanPageState extends State<PolaMakanPage> {
                               crossAxisCount: 2,
                               shrinkWrap: true,
                               physics: NeverScrollableScrollPhysics(),
-                              childAspectRatio: 1,
+                              childAspectRatio: 0.95,
                               crossAxisSpacing: 10,
                               mainAxisSpacing: 10,
                               children: [

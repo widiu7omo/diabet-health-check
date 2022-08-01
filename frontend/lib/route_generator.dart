@@ -1,6 +1,8 @@
 import 'package:diabetesapps/models/jadwal_checkup.dart';
 import 'package:diabetesapps/models/pemeriksaan.dart';
+import 'package:diabetesapps/pages/panduanaplikasi.dart';
 import 'package:diabetesapps/pages/register.dart';
+import 'package:diabetesapps/pages/tentangaplikasi.dart';
 import 'package:flutter/material.dart';
 
 import 'models/pola_makan.dart';
@@ -58,6 +60,10 @@ class RouteGenerator {
             builder: (context) => DetailJadwal(arg: args as JadwalCheckup));
       case "/konsultasi":
         return MaterialPageRoute(builder: (context) => KonsultasiPage());
+      case "/tentang-aplikasi":
+        return MaterialPageRoute(builder: (context) => TentangAplikasi());
+      case "/panduan-aplikasi":
+        return MaterialPageRoute(builder: (context) => PanduanAplikasi());
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

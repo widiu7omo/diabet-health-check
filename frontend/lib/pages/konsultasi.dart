@@ -57,7 +57,7 @@ class _KonsultasiPageState extends State<KonsultasiPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Konsulatsi Dokter",
+                      "Konsultasi Dokter",
                       style: poppinstext.copyWith(
                           fontSize: 18, fontWeight: semiBold),
                     ),

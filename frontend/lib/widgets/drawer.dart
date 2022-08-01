@@ -69,12 +69,12 @@ class DrawerNavigator extends StatelessWidget {
           DrawerItem(
             img: "assets/ichelp.png",
             title: "Panduan Aplikasi",
-            onPress: () {},
+            onPress: () => Navigator.of(context).pushNamed("/panduan-aplikasi"),
           ),
           DrawerItem(
             img: "assets/icinfo.png",
             title: "Tentang Kami",
-            onPress: () {},
+            onPress: () => Navigator.of(context).pushNamed("/tentang-aplikasi"),
           ),
           DrawerItem(
             img: "assets/icinfo.png",
