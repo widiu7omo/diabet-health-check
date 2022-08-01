@@ -4,11 +4,11 @@
         <title>Pengingat Jadwal Checkup</title>
     </head>
     <body>
-        <h1>Pengingat Jadwal Checkup untuk Saudara Santos</h1>
-        <p>Salam. Kami dari Diabetes Health Check ingin menginformasikan kepada saudara</p>
-        <p>Bahwa Saudara Santos akan melakukan jadwal checkup pada hari Senin, 18 Juli 2022</p>
+        <h1>Pengingat Jadwal Checkup untuk Saudara Anda</h1>
+        <p>Salam. Kami dari Diabetes Health Care ingin menginformasikan kepada saudara</p>
+        <p>Bahwa Saudara Anda akan melakukan jadwal checkup pada hari Senin, 1 Agustus 2022, pukul 08:00</p>
         <br>
-        <p>Dimohon anda mengingatkan kepada Saudara Santos untuk melakukan checkup</p>
+        <p>Dimohon anda mengingatkan kepada Saudara Anda untuk melakukan checkup</p>
 
         <p>Terimakasih atas perhatiannya</p>
     </body>
