@@ -30,7 +30,7 @@ class Gmail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Pengingat Jadwal Checkup Saudara Santos')
+        return $this->subject('Pengingat Jadwal Checkup Saudara Anda')
             ->view('emails.gmail')
             ->from(env("MAIL_FROM_ADDRESS",'foo@bar.com'));
     }
