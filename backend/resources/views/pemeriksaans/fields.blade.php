@@ -43,3 +43,18 @@
     {!! Form::label('hasil_diagnosa', 'Hasil Diagnosa:') !!}
     {!! Form::text('hasil_diagnosa', null, ['class' => 'form-control']) !!}
 </div>
+
+@push('page_scripts')
+<script>
+    $(document).ready(function(){
+        var inputPemeriksaan = $("[name='pemeriksaan']");
+        var selectPasien = $("[name='pasien_id']");
+        var selectedPasienName = $("[name='pasien_id'] option:selected").text();
+            inputPemeriksaan.val("Pemeriksaan pasien "+selectedPasienName);
+            selectPasien.on("change",function(){
+                selectedPasienName = $(this).children("option:selected").text();
+                inputPemeriksaan.val("Pemeriksaan pasien "+selectedPasienName);
+            })
+    })
+</script>
+@endpush
