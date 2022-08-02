@@ -104,12 +104,12 @@ class _PolaMakanPageState extends State<PolaMakanPage> {
                           )
                         : Container(
                             margin:
-                                EdgeInsets.only(top: 40, left: 55, right: 55),
+                                EdgeInsets.only(top: 40, left: 32, right: 32),
                             child: GridView.count(
                               crossAxisCount: 2,
                               shrinkWrap: true,
                               physics: NeverScrollableScrollPhysics(),
-                              childAspectRatio: 0.95,
+                              childAspectRatio: 1.15,
                               crossAxisSpacing: 10,
                               mainAxisSpacing: 10,
                               children: [

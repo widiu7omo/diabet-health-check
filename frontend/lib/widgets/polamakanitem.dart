@@ -34,7 +34,7 @@ class PolaMakanItem extends StatelessWidget {
               ]),
               child: Container(
                 height: 48.h,
-                width: 71,
+                width: 71.w,
                 decoration: BoxDecoration(
                     image: DecorationImage(image: AssetImage(img))),
               ),
