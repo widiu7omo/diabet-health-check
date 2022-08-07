@@ -36,6 +36,14 @@ class _$RestHttpService extends RestHttpService {
   }
 
   @override
+  Future<Response<dynamic>> forgetPassword({Map<String, dynamic>? body}) {
+    final $url = 'api/forgetPassword';
+    final $body = body;
+    final $request = Request('POST', $url, client.baseUrl, body: $body);
+    return client.send<dynamic, dynamic>($request);
+  }
+
+  @override
   Future<Response<dynamic>> updateProfile({Map<String, dynamic>? body}) {
     final $url = 'api/user';
     final $body = body;

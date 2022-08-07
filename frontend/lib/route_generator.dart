@@ -1,5 +1,6 @@
 import 'package:diabetesapps/models/jadwal_checkup.dart';
 import 'package:diabetesapps/models/pemeriksaan.dart';
+import 'package:diabetesapps/pages/lupapassword.dart';
 import 'package:diabetesapps/pages/panduanaplikasi.dart';
 import 'package:diabetesapps/pages/register.dart';
 import 'package:diabetesapps/pages/tentangaplikasi.dart';
@@ -64,6 +65,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (context) => TentangAplikasi());
       case "/panduan-aplikasi":
         return MaterialPageRoute(builder: (context) => PanduanAplikasi());
+      case "/lupa-password":
+        return MaterialPageRoute(builder: (context) => LupaPassword());
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

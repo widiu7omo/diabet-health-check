@@ -122,6 +122,32 @@ class _LoginPageState extends State<LoginPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
+                        "Lupa Password?",
+                        style: poppinstext.copyWith(
+                            fontSize: 14,
+                            fontWeight: medium,
+                            color: Colors.black),
+                      ),
+                      GestureDetector(
+                        onTap: () =>
+                            Navigator.of(context).pushNamed("/lupa-password"),
+                        child: Text(
+                          " Klik disini",
+                          style: poppinstext.copyWith(
+                              fontSize: 14,
+                              fontWeight: semiBold,
+                              color: Colors.black),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
                         "Belum punya akun?",
                         style: poppinstext.copyWith(
                             fontSize: 14,
