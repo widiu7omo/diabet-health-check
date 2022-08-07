@@ -111,7 +111,7 @@ class _PolaObatPageState extends State<PolaObatPage> {
             } else {
               return Container(
                 child: Center(
-                  child: CircularProgressIndicator(),
+                  child: CircularProgressIndicator(color: primaryColor,),
                 ),
               );
             }

@@ -104,7 +104,7 @@ class _JadwalCheckupPageState extends State<JadwalCheckupPage> {
             } else {
               return Container(
                 child: Center(
-                  child: CircularProgressIndicator(),
+                  child: CircularProgressIndicator(color: primaryColor,),
                 ),
               );
             }

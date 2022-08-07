@@ -6,7 +6,6 @@ import 'package:diabetesapps/widgets/drawer.dart';
 import 'package:diabetesapps/widgets/header.dart';
 import 'package:diabetesapps/widgets/waitem.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../main.dart';
 import '../models/base_response.dart';
@@ -84,7 +83,7 @@ class _KonsultasiPageState extends State<KonsultasiPage> {
             } else {
               return Container(
                 child: Center(
-                  child: CircularProgressIndicator(),
+                  child: CircularProgressIndicator(color: primaryColor,),
                 ),
               );
             }

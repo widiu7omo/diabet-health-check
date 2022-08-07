@@ -78,7 +78,7 @@ class _HasilPemeriksaanPageState extends State<HasilPemeriksaanPage> {
               );
             } else {
               return Container(
-                  child: Center(child: CircularProgressIndicator()));
+                  child: Center(child: CircularProgressIndicator(color: primaryColor,)));
             }
           });
     }

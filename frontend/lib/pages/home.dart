@@ -222,6 +222,15 @@ class _HomePageState extends State<HomePage> {
               title: "Konsultasi Dokter",
             ),
           ),
+          GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, "/report");
+            },
+            child: MonitorItem(
+              img: "assets/report.png",
+              title: "Report",
+            ),
+          ),
         ],
       ),
     );

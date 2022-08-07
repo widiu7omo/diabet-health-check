@@ -7,12 +7,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 class DrawerNavigator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return AnimatedContainer(
       padding: EdgeInsets.only(left: 18, right: 28, top: 50),
       color: primaryColor,
       width: double.infinity,
       height: double.infinity,
       margin: EdgeInsets.only(left: 60),
+      duration: Duration(milliseconds: 500),
       child: Column(
         children: [
           Row(

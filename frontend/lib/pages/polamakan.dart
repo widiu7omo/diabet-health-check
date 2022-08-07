@@ -134,7 +134,7 @@ class _PolaMakanPageState extends State<PolaMakanPage> {
             } else {
               return Container(
                 child: Center(
-                  child: CircularProgressIndicator(),
+                  child: CircularProgressIndicator(color: primaryColor,),
                 ),
               );
             }
