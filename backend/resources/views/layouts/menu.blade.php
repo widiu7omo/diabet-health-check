@@ -26,7 +26,12 @@
         <p><i class="fa fa-capsules mr-2"></i>Pola Obat</p>
     </a>
 </li>
-
+<li class="nav-item">
+    <a href="{{ route('reports.index') }}"
+       class="nav-link {{ Request::is('reports*') ? 'active' : '' }}">
+        <p><i class="fa fa-book mr-2"></i>Report</p>
+    </a>
+</li>
 @hasrole("Admin")
 <li class="dropdown-divider" style="border-top-color:#696969;"></li>
 <li class="nav-item">

@@ -42,6 +42,7 @@ Route::group(['middleware' => 'auth:web'], function () {
     Route::resource('jadwalCheckups', App\Http\Controllers\JadwalCheckupController::class);
     Route::resource('polaObats', App\Http\Controllers\PolaObatController::class);
     Route::resource('polaMakans', App\Http\Controllers\PolaMakanController::class);
+    Route::resource('reports', App\Http\Controllers\ReportController::class);
 });
 
 

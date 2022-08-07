@@ -4,10 +4,12 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\UpdateUserAPIRequest;
+use App\Notifications\NotificationForgetPasswordSent;
 use App\Repositories\UserRepository;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Validation\ValidationException;
 
 class AuthAPIController extends AppBaseController
@@ -89,5 +91,24 @@ class AuthAPIController extends AppBaseController
         } else {
             return $this->sendError("You dont have permission to change password");
         }
+    }
+
+    public function forgetPassword(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+        ]);
+        $user = $this->userRepository->makeModel()->where('email', $request->email)->first();
+        if (!$user) {
+            return $this->sendError("Email not found");
+        }
+        $status = Password::sendResetLink(
+            $request->only('email')
+        );
+        $user->notify(new NotificationForgetPasswordSent($user));
+
+        return $status === Password::RESET_LINK_SENT
+            ? $this->sendSuccess("Email sent")
+            : $this->sendError("Email failed to send");
     }
 }

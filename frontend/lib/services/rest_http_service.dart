@@ -12,7 +12,7 @@ abstract class RestHttpService extends ChopperService {
   // A helper method that helps instantiating the service. You can omit this method and use the generated class directly instead.
   static RestHttpService create({required String bearerToken}) {
     final client = ChopperClient(
-        baseUrl: "http://dhc.nowday.tech/",
+        baseUrl: "http://206.189.197.90/",
         // baseUrl: "http://localhost:8000/",
         interceptors: [
           HeaderInterceptor(bearerToken: bearerToken),
@@ -33,6 +33,9 @@ abstract class RestHttpService extends ChopperService {
   Future<Response> login({
     @Body() Map<String, dynamic>? body,
   });
+
+  @Post(path: "forgetPassword")
+  Future<Response> forgetPassword({@Body() Map<String, dynamic>? body});
 
   @Post(path: "user")
   Future<Response> updateProfile({@Body() Map<String, dynamic>? body});

@@ -17,6 +17,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/login', [App\Http\Controllers\API\AuthAPIController::class, 'login']);
 Route::post('/register', [App\Http\Controllers\API\AuthAPIController::class, 'register']);
+Route::group(['middleware' => 'guest'], function () {
+    Route::post("/forgetPassword", [App\Http\Controllers\API\AuthAPIController::class, "forgetPassword"]);
+});
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('/post_token_FCM', [App\Http\Controllers\API\AuthAPIController::class, 'postTokenFCM']);
     Route::get('/user', [App\Http\Controllers\API\AuthAPIController::class, 'user']);
