@@ -50,11 +50,15 @@ class PemeriksaanController extends AppBaseController
         $selectedPasiens = [];
         $dokters = $this->userRepository->makeModel()->role('Dokter')->get()->pluck('name', 'id');
         $selectedDokters = [];
+        $pemeriksaans = ["Beresiko Diabetes"=>"Beresiko Diabetes","Tidak Beresiko Diabetes"=>"Tidak Beresiko Diabetes"];
+        $selectedPemeriksaan = [];
         return view('pemeriksaans.create')
             ->with('pasiens', $pasiens)
             ->with('selectedPasiens', $selectedPasiens)
             ->with('dokters', $dokters)
-            ->with('selectedDokters', $selectedDokters);
+            ->with('selectedDokters', $selectedDokters)
+            ->with("pemeriksaans",$pemeriksaans)
+            ->with("selectedPemeriksaan",$selectedPemeriksaan);
     }
 
     /**
@@ -112,7 +116,8 @@ class PemeriksaanController extends AppBaseController
         $selectedPasiens = $pemeriksaan->pasien_id;
         $dokters = $this->userRepository->makeModel()->role('Dokter')->get()->pluck('name', 'id');
         $selectedDokters = $pemeriksaan->dokter_id;
-
+        $pemeriksaans = ["Beresiko Diabetes"=>"Beresiko Diabetes","Tidak Beresiko Diabetes"=>"Tidak Beresiko Diabetes"];
+        $selectedPemeriksaan = $pemeriksaan->diagnosa;
         if (empty($pemeriksaan)) {
             Flash::error('Pemeriksaan not found');
 
@@ -122,7 +127,9 @@ class PemeriksaanController extends AppBaseController
             ->with('pasiens', $pasiens)
             ->with('selectedPasiens', $selectedPasiens)
             ->with('dokters', $dokters)
-            ->with('selectedDokters', $selectedDokters);
+            ->with('selectedDokters', $selectedDokters)
+            ->with("pemeriksaans",$pemeriksaans)
+            ->with("selectedPemeriksaan",$selectedPemeriksaan);
     }
 
     /**

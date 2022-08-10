@@ -12,24 +12,26 @@
 <!-- Pasiens Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('pasien_id', 'Nama Pasiens:') !!}
-    {!! Form::select('pasien_id', $pasiens,$selectedPasiens, ['class' => 'select2 form-control','id'=>"pasien_id",'required'=>'true']) !!}
+    {!! Form::select('pasien_id', $pasiens,$selectedPasiens, ['class' => 'select2
+    form-control','id'=>"pasien_id",'required'=>'true']) !!}
 </div>
 
 @role('Admin')
 <!-- Pasiens Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('dokter_id', 'Nama Dokter Pemeriksa:') !!}
-    {!! Form::select('dokter_id', $dokters,$selectedDokters, ['class' => 'select2 form-control','id'=>"dokter_id",'required'=>'true']) !!}
+    {!! Form::select('dokter_id', $dokters,$selectedDokters, ['class' => 'select2
+    form-control','id'=>"dokter_id",'required'=>'true']) !!}
 </div>
 @endrole
 @push('page_scripts')
-    <script type="text/javascript">
-        $('#tgl_periksa').datetimepicker({
+<script type="text/javascript">
+    $('#tgl_periksa').datetimepicker({
             format: 'YYYY-MM-DD HH:mm:ss',
             useCurrent: true,
             sideBySide: true
         })
-    </script>
+</script>
 @endpush
 
 <!-- Detail Pembahasan Field -->
@@ -41,7 +43,7 @@
 <!-- Hasil Diagnosa Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('hasil_diagnosa', 'Hasil Diagnosa:') !!}
-    {!! Form::text('hasil_diagnosa', null, ['class' => 'form-control']) !!}
+    {!! Form::select('hasil_diagnosa', $pemeriksaans, $selectedPemeriksaan, ['class' => 'form-control']) !!}
 </div>
 
 @push('page_scripts')
